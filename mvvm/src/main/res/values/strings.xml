@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">common</string>
+
+    <string name="prompt_empty">Oh~, it empty!</string>
+    <string name="prompt_error">Sorry, you have or more error!</string>
+    <string name="prompt_loading">Loading..</string>
+</resources>
