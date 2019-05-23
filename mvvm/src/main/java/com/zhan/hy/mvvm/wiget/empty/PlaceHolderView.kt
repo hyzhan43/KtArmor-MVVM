@@ -1,4 +1,4 @@
-package com.zhan.hy.mvvm.wiget
+package com.zhan.hy.mvvm.wiget.empty
 
 import android.support.annotation.StringRes
 
@@ -26,6 +26,12 @@ interface PlaceHolderView {
      * @param strRes 错误信息
      */
     fun triggerError(@StringRes strRes: Int)
+
+    /**
+     * 加载错误，并显示错误信息
+     * @param strRes 错误信息
+     */
+    fun triggerError(str: String)
 
     /**
      * 显示正在加载的状态

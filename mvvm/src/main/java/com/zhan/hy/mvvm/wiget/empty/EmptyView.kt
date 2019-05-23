@@ -1,14 +1,14 @@
-package com.zhan.hy.mvvm.wiget
+package com.zhan.hy.mvvm.wiget.empty
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
+import android.support.annotation.StringRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.zhan.hy.mvvm.R
+import com.zhan.hy.mvvm.ext.Toasts.toast
 import kotlinx.android.synthetic.main.layout_empty.view.*
 
 
@@ -25,15 +25,28 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private val defaultDrawable = R.drawable.ic_empty_view
     private val defaultColor = Color.GRAY
 
-    private var emptyDrawable: Int = 0
-    private var errorDrawable: Int = 0
+    var emptyDrawable: Int = 0
+    var errorDrawable: Int = 0
 
-    private var loadingColor = 0
+    var loadingColor = 0
+        set(color) {
+            mPbLoading.indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
+        }
 
-    private var emptyText: Int = 0
-    private var errorText: Int = 0
-    private var loadingText: Int = 0
+    var emptyText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_empty)
+        }
 
+    var errorText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_error)
+        }
+
+    var loadingText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_loading)
+        }
 
     private val mBindViews by lazy { ArrayList<View>() }
 
@@ -48,24 +61,18 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
             loadingColor = getColor(R.styleable.EmptyView_loadingColor, defaultColor)
 
-            emptyText = getResourceId(R.styleable.EmptyView_emptyText, R.string.prompt_empty)
-            errorText = getResourceId(R.styleable.EmptyView_errorText, R.string.prompt_error)
-            loadingText = getResourceId(R.styleable.EmptyView_loadingText, R.string.prompt_loading)
+            emptyText = getString(R.styleable.EmptyView_emptyText)
+            errorText = getString(R.styleable.EmptyView_errorText)
+            loadingText = getString(R.styleable.EmptyView_loadingText)
 
             recycle()
         }
 
-        // 设置默认颜色
-        setProgressColor(loadingColor)
     }
 
     fun add(view: View): EmptyView {
         mBindViews.add(view)
         return this
-    }
-
-    fun setProgressColor(@ColorInt color: Int) {
-        mPbLoading.indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
     }
 
     private fun changeBindViewState(visible: Int) {
@@ -82,7 +89,7 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     override fun triggerEmpty() {
         mPbLoading.visibility = View.GONE
         mIvImage.setImageResource(emptyDrawable)
-        mTvTips.setText(emptyText)
+        mTvTips.text = emptyText
 
         this.visibility = View.VISIBLE
         changeBindViewState(View.GONE)
@@ -92,15 +99,22 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
         mPbLoading.visibility = View.GONE
         mIvImage.setImageResource(errorDrawable)
-        mTvTips.setText(errorText)
+        mTvTips.text = errorText
 
         this.visibility = View.VISIBLE
         changeBindViewState(View.GONE)
     }
 
 
-    override fun triggerError(strRes: Int) {
-        // TODO toast显示
+    override fun triggerError(@StringRes strRes: Int) {
+        toast(strRes)
+
+        this.visibility = View.VISIBLE
+        changeBindViewState(View.GONE)
+    }
+
+    override fun triggerError(str: String) {
+        toast(str)
 
         this.visibility = View.VISIBLE
         changeBindViewState(View.GONE)
@@ -109,7 +123,7 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     override fun triggerLoading() {
         mIvImage.visibility = View.GONE
         mPbLoading.visibility = View.VISIBLE
-        mTvTips.setText(loadingText)
+        mTvTips.text = loadingText
 
         this.visibility = View.VISIBLE
         changeBindViewState(View.GONE)

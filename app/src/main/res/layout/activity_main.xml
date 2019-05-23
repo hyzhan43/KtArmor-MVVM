@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
-    <com.zhan.hy.mvvm.wiget.EmptyView
-        android:id="@+id/mEmptyView"
+        android:id="@+id/btnEmpty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:loadingColor="#CECE"
-        app:emptyDrawable="@mipmap/ic_launcher"/>
+        android:layout_height="wrap_content"
+        android:text="@string/empty" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login" />
+
+</LinearLayout>
