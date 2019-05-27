@@ -22,10 +22,6 @@ class MainActivity : BaseActivity() {
             startActivity<LoginActivity>()
         }
 
-        mLoading.setOnClickListener {
-            loading.stop()
-        }
-
         loading.setOnClickListener {
             loading.start()
         }

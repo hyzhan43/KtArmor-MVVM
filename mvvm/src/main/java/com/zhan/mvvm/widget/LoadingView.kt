@@ -56,6 +56,11 @@ class LoadingView
 
     // loading view 默认size
     private var defaultSize = 200
+        set(value) {
+            field = value
+            innerRectF = initInnerRectF()
+            outerRectF = initOuterRectF()
+        }
 
     //圆弧的宽度
     var arcWidth = 15f

@@ -19,13 +19,13 @@
         android:adjustViewBounds="true"
         android:src="@drawable/ic_empty_view" />
 
-    <ProgressBar
-        android:id="@+id/mPbLoading"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
+    <com.zhan.mvvm.widget.LoadingView
+        android:id="@+id/loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="@dimen/dp_10"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/mTvTips"
