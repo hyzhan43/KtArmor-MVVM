@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingView">
+        <!--loading动画执行一次所需的时间-->
+        <attr name="duration" format="integer"/>
+        <!--外层圆弧的颜色-->
+        <attr name="outer_color" format="color"/>
+        <!--内层圆弧的颜色-->
+        <attr name="inner_color" format="color"/>
+        <!--圆弧旋转的起始角度-->
+        <attr name="start_angle" format="float"/>
+        <!--圆弧宽度-->
+        <attr name="arc_width" format="dimension"/>
+        <!--内外弧间隔-->
+        <attr name="interval_width" format="dimension"/>
+    </declare-styleable>
+</resources>

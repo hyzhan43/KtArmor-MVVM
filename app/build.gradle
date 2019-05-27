@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.zhan.hy.ktarmor"
+        applicationId "com.zhan.ktarmor"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -24,4 +24,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':mvvm')
+}
+repositories {
+    mavenCentral()
 }
