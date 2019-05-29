@@ -1,17 +1,20 @@
 package com.zhan.mvvm.mvvm
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.zhan.mvvm.common.SharedData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * @author  hyzhan
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class BaseViewModel<T : BaseRepository>(application: Application) :
-        AndroidViewModel(application) {
+abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
 
     val sharedData by lazy { MutableLiveData<SharedData>() }
 
@@ -19,9 +22,7 @@ abstract class BaseViewModel<T : BaseRepository>(application: Application) :
 
     abstract fun bindRepository(): T
 
-    override fun onCleared() {
-        super.onCleared()
-
-        // TODO clear repository
+    fun launchUI(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch(Dispatchers.Main) {
+        block()
     }
 }

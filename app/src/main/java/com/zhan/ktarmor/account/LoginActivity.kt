@@ -1,6 +1,8 @@
 package com.zhan.ktarmor.account
 
+import androidx.lifecycle.Observer
 import com.zhan.ktarmor.R
+import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.str
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -17,8 +19,15 @@ class LoginActivity : LifecycleActivity<AccountViewModel>() {
     override fun getViewModel(): Class<AccountViewModel> = AccountViewModel::class.java
 
     override fun initView() {
+
         mBtnLogin.setOnClickListener {
             viewModel.login(mEtAccount.str(), mEtPassword.str())
         }
+    }
+
+    override fun dataObserver() {
+        viewModel.loginData.observe(this, Observer {
+            toast(it?.errorMsg ?: "错误")
+        })
     }
 }

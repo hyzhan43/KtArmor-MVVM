@@ -1,8 +1,8 @@
 package com.zhan.mvvm.mvvm
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.common.SharedData
 import com.zhan.mvvm.common.SharedType
@@ -18,6 +18,13 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : BaseActivity() {
     protected val viewModel by lazy { ViewModelProviders.of(this).get(getViewModel()) }
 
     abstract fun getViewModel(): Class<VM>
+
+    override fun initData() {
+        super.initData()
+
+        viewModel.sharedData.observe(this, observer)
+        dataObserver()
+    }
 
     open fun dataObserver() {}
 

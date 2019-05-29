@@ -1,9 +1,9 @@
 package com.zhan.mvvm.ext
 
 import android.content.Context
-import android.support.annotation.StringRes
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.StringRes
 
 /**
  * 基础的占位布局接口定义

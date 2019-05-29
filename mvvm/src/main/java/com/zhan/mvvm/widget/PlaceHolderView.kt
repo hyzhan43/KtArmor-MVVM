@@ -1,6 +1,7 @@
 package com.zhan.mvvm.widget
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
+
 
 /**
  * @author  hyzhan

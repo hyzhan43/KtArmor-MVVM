@@ -23,6 +23,6 @@ fun Context.log(message: String) {
 
 fun String.showLog() {
     Log.d(this.javaClass.name, "<------------------------------")
-    Log.d(this.javaClass.name, "${this.javaClass.name}:  $this")
+    Log.d(this.javaClass.name, "[${this.javaClass.name}]:  $this")
     Log.d(this.javaClass.name, "------------------------------->")
 }

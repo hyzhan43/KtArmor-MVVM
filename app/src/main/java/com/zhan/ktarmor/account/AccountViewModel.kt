@@ -1,9 +1,11 @@
 package com.zhan.ktarmor.account
 
-import android.app.Application
 import android.text.TextUtils
+import androidx.lifecycle.MutableLiveData
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
+import com.zhan.ktarmor.account.data.response.LoginRsp
+import com.zhan.ktarmor.common.data.BaseResponse
 import com.zhan.mvvm.common.SharedData
 import com.zhan.mvvm.mvvm.BaseViewModel
 
@@ -12,7 +14,9 @@ import com.zhan.mvvm.mvvm.BaseViewModel
  * @date    2019/5/23
  * @desc    TODO
  */
-class AccountViewModel(application: Application) : BaseViewModel<AccountRepository>(application) {
+class AccountViewModel : BaseViewModel<AccountRepository>() {
+
+    val loginData = MutableLiveData<BaseResponse<LoginRsp>>()
 
     override fun bindRepository(): AccountRepository = AccountRepository()
 
@@ -20,8 +24,8 @@ class AccountViewModel(application: Application) : BaseViewModel<AccountReposito
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
             sharedData.value = SharedData(strRes = R.string.account_or_password_empty)
-        }else{
-            repository.login(account, password)
+        } else {
+            launchUI { loginData.value = repository.login(account, password) }
         }
     }
 }

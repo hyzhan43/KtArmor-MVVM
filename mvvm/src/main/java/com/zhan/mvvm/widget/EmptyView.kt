@@ -2,10 +2,10 @@ package com.zhan.mvvm.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.support.annotation.StringRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.annotation.StringRes
 import com.zhan.mvvm.R
 import com.zhan.mvvm.ext.Toasts.toast
 import kotlinx.android.synthetic.main.layout_empty.view.*
