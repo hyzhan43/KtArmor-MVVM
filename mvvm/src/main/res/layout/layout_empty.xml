@@ -21,8 +21,8 @@
 
     <com.zhan.mvvm.widget.LoadingView
         android:id="@+id/loading"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
         android:layout_marginTop="@dimen/dp_10"
         android:visibility="gone"
         tools:visibility="visible"/>

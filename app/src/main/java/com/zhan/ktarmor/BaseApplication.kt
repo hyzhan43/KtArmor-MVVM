@@ -15,14 +15,6 @@ class BaseApplication: Application(){
         super.onCreate()
 
         // 初始化KtArmor
-        KtArmor.build {
-            context = applicationContext
-            baseUrl = API.BASE_URL
-
-//             选择配置
-//            readTime = 20L
-//            writeTime = 30L
-//            connectTime = 5L
-        }
+        KtArmor.init(this, API.BASE_URL)
     }
 }
