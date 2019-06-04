@@ -19,10 +19,15 @@
         android:layout_height="wrap_content"
         android:text="@string/login" />
 
+    <Button
+        android:id="@+id/btnLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stop"/>
+
     <com.zhan.mvvm.widget.LoadingView
         android:id="@+id/loading"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimary" />
-
 </LinearLayout>

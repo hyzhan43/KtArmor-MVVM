@@ -25,5 +25,9 @@ class MainActivity : BaseActivity() {
         loading.setOnClickListener {
             loading.start()
         }
+
+        btnLoading.setOnClickListener {
+            loading.stop()
+        }
     }
 }

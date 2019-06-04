@@ -192,8 +192,8 @@ class LoadingView
     }
 
     fun stop() {
-        clearAnimation()
-        valueAnimator.cancel()
+        if (valueAnimator.isRunning) {
+            valueAnimator.cancel()
+        }
     }
-
 }
