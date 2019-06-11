@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
 
 /**
  * @author  hyzhan
@@ -16,6 +17,17 @@ inline fun <reified T : Activity> Context.startActivity() {
     this.startActivity(intent)
 }
 
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
 
 fun Context.log(message: String) {
     Log.d(this.javaClass.name, message)

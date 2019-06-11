@@ -5,5 +5,5 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="account_or_password_empty">账号或密码为空</string>
-    <string name="stop">停止</string>
+    <string name="showLoading">showLoading</string>
 </resources>

@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import com.zhan.mvvm.R
 import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.gone
+import com.zhan.mvvm.ext.visible
 import kotlinx.android.synthetic.main.layout_empty.view.*
 
 
@@ -18,7 +20,9 @@ import kotlinx.android.synthetic.main.layout_empty.view.*
  * @date    2019/5/20
  * @desc    TODO
  */
-class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0)
+class EmptyView @JvmOverloads constructor(context: Context,
+                                          attrs: AttributeSet? = null,
+                                          defStyle: Int = 0)
     : LinearLayout(context, attrs, defStyle), PlaceHolderView {
 
     private val defaultDrawable = R.drawable.ic_empty_view
@@ -88,22 +92,24 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
 
     override fun triggerEmpty() {
-        loading.visibility = View.GONE
+        loading.gone()
         loading.stop()
+        mIvImage.visible()
         mIvImage.setImageResource(emptyDrawable)
         mTvTips.text = emptyText
 
-        this.visibility = View.VISIBLE
+        this.visible()
         changeBindViewState(View.GONE)
     }
 
     override fun triggerNetError() {
-        loading.visibility = View.GONE
+        loading.gone()
         loading.stop()
+        mIvImage.visible()
         mIvImage.setImageResource(errorDrawable)
         mTvTips.text = errorText
 
-        this.visibility = View.VISIBLE
+        this.visible()
         changeBindViewState(View.GONE)
     }
 
@@ -111,29 +117,29 @@ class EmptyView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     override fun triggerError(@StringRes strRes: Int) {
         toast(strRes)
 
-        this.visibility = View.VISIBLE
+        this.visible()
         changeBindViewState(View.GONE)
     }
 
     override fun triggerError(str: String) {
         toast(str)
 
-        this.visibility = View.VISIBLE
+        this.visible()
         changeBindViewState(View.GONE)
     }
 
     override fun triggerLoading() {
-        mIvImage.visibility = View.GONE
-        loading.visibility = View.VISIBLE
+        mIvImage.gone()
+        loading.visible()
         loading.start()
         mTvTips.text = loadingText
 
-        this.visibility = View.VISIBLE
+        this.visible()
         changeBindViewState(View.GONE)
     }
 
     override fun triggerOk() {
-        this.visibility = View.GONE
+        this.gone()
         changeBindViewState(View.VISIBLE)
     }
 

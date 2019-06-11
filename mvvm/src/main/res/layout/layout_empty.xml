@@ -11,19 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
-        android:maxWidth="@dimen/dp_100"
-        android:maxHeight="@dimen/dp_100"
-        android:minWidth="@dimen/dp_48"
-        android:minHeight="@dimen/dp_48"
+        android:maxWidth="@dimen/len_100"
+        android:maxHeight="@dimen/len_100"
+        android:minWidth="@dimen/len_48"
+        android:minHeight="@dimen/len_48"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_empty_view" />
 
     <com.zhan.mvvm.widget.LoadingView
         android:id="@+id/loading"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="@dimen/len_80"
+        android:layout_height="@dimen/len_80"
+        android:layout_marginTop="@dimen/len_10"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -31,10 +31,9 @@
         android:id="@+id/mTvTips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16"
+        android:layout_marginTop="@dimen/len_16"
+        android:layout_marginBottom="@dimen/len_16"
         android:text="@string/prompt_empty"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-
 
 </LinearLayout>

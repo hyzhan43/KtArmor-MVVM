@@ -1,9 +1,12 @@
 package com.zhan.ktarmor
 
+import android.app.Dialog
+import androidx.fragment.app.DialogFragment
 import com.zhan.ktarmor.account.LoginActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,12 +25,9 @@ class MainActivity : BaseActivity() {
             startActivity<LoginActivity>()
         }
 
-        loading.setOnClickListener {
-            loading.start()
-        }
-
+        val mLoading = LoadingDialog.create(supportFragmentManager)
         btnLoading.setOnClickListener {
-            loading.stop()
+            mLoading.start()
         }
     }
 }

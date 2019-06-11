@@ -17,7 +17,6 @@ class EmptyActivity : BaseActivity() {
 
         mEmptyView.emptyText = "我是空"
         mEmptyView.errorText = "我是 Error"
-        mEmptyView.errorDrawable = R.drawable.ic_launcher_background
 
         btnLoading.setOnClickListener {
             mEmptyView.triggerLoading()
