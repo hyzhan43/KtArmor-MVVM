@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/mTopLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_1"
+        android:background="@color/grey_400"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/len_10">
+
+        <ImageView
+            android:id="@+id/mIvLeft"
+            android:layout_width="@dimen/len_20"
+            android:layout_height="@dimen/len_20"
+            android:contentDescription="@string/app_name"
+            tool:src="@drawable/ic_man" />
+
+        <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/len_10"
+            android:layout_marginEnd="@dimen/len_10"
+            android:maxLines="1"
+            android:textColor="@color/grey_700"
+            android:textSize="@dimen/font_14"
+            tool:text="@string/sex" />
+
+        <TextView
+            android:id="@+id/mTvContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/len_10"
+            android:layout_marginEnd="@dimen/len_10"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/grey_700"
+            android:textSize="@dimen/font_14"
+            tool:text="@string/man" />
+
+        <ImageView
+            android:id="@+id/mIvRight"
+            android:layout_width="@dimen/len_20"
+            android:layout_height="@dimen/len_20"
+            android:contentDescription="@string/app_name"
+            tool:src="@drawable/ic_right" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/mBottomLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_1"
+        android:background="@color/grey_400" />
+</LinearLayout>

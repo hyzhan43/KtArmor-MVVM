@@ -3,8 +3,12 @@ package com.zhan.mvvm.ext
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 
 /**
  * @author  hyzhan
@@ -27,6 +31,15 @@ fun View.invisible() {
 
 fun View.gone() {
     this.visibility = View.GONE
+}
+
+// R.color.xxx  -> @ColorInt
+fun Context.getColorRef(@ColorRes res: Int): Int {
+    return ContextCompat.getColor(this, res)
+}
+
+fun Context.getDrawableRef(@DrawableRes res: Int): Drawable? {
+    return ContextCompat.getDrawable(this, res)
 }
 
 fun Context.log(message: String) {

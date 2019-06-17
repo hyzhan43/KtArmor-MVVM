@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.R
@@ -40,8 +39,8 @@ class LoadingDialog private constructor() : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        loading.start()
-        tvTips.text = message
+        mLoading.start()
+        mTvTips.text = message
     }
 
     fun start() {
@@ -50,6 +49,6 @@ class LoadingDialog private constructor() : DialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        loading.stop()
+        mLoading.stop()
     }
 }

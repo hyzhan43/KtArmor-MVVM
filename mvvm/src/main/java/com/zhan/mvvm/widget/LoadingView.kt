@@ -84,17 +84,19 @@ class LoadingView
         //取出自定义的属性并赋值
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, defStyle, 0)
 
-        duration = typeArray.getInt(R.styleable.LoadingView_duration, duration)
+        with(typeArray){
+            duration = getInt(R.styleable.LoadingView_duration, duration)
 
-        outerColor = typeArray.getColor(R.styleable.LoadingView_outer_color, Color.BLACK)
-        innerColor = typeArray.getColor(R.styleable.LoadingView_inner_color, Color.BLACK)
+            outerColor = getColor(R.styleable.LoadingView_outer_color, Color.BLACK)
+            innerColor = getColor(R.styleable.LoadingView_inner_color, Color.BLACK)
 
-        startAngle = typeArray.getFloat(R.styleable.LoadingView_start_angle, startAngle)
+            startAngle = getFloat(R.styleable.LoadingView_start_angle, startAngle)
 
-        arcWidth = typeArray.getDimension(R.styleable.LoadingView_arc_width, arcWidth)
-        intervalWidth = typeArray.getDimension(R.styleable.LoadingView_interval_width, intervalWidth)
+            arcWidth = getDimension(R.styleable.LoadingView_arc_width, arcWidth)
+            intervalWidth = getDimension(R.styleable.LoadingView_interval_width, intervalWidth)
 
-        typeArray.recycle()
+            recycle()
+        }
 
         outerPaint = initPaint(outerColor)
         innerPaint = initPaint(innerColor)

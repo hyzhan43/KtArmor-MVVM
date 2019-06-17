@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SuperBar">
+        <attr name="showTopLine" format="boolean"/>
+        <attr name="showBottomLine" format="boolean"/>
+        <attr name="showLeftIcon" format="boolean"/>
+        <attr name="showRightIcon" format="boolean"/>
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftText" format="string" />
+        <attr name="leftTextSize" format="dimension" />
+        <attr name="leftTextColor" format="color"/>
+        <attr name="rightText" format="string" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightIcon" format="reference" />
+    </declare-styleable>
+</resources>

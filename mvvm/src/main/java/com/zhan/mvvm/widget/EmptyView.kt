@@ -25,7 +25,7 @@ class EmptyView @JvmOverloads constructor(context: Context,
                                           defStyle: Int = 0)
     : LinearLayout(context, attrs, defStyle), PlaceHolderView {
 
-    private val defaultDrawable = R.drawable.ic_empty_view
+    private val defaultDrawable = R.drawable.ic_frown
     private val defaultColor = Color.GRAY
 
     var emptyDrawable: Int = 0
@@ -34,8 +34,8 @@ class EmptyView @JvmOverloads constructor(context: Context,
     var loadingColor = 0
         set(color) {
             field = color
-            loading.innerColor = color
-            loading.outerColor = color
+            mLoading.innerColor = color
+            mLoading.outerColor = color
         }
 
     var emptyText: String? = null
@@ -92,8 +92,8 @@ class EmptyView @JvmOverloads constructor(context: Context,
 
 
     override fun triggerEmpty() {
-        loading.gone()
-        loading.stop()
+        mLoading.gone()
+        mLoading.stop()
         mIvImage.visible()
         mIvImage.setImageResource(emptyDrawable)
         mTvTips.text = emptyText
@@ -103,8 +103,8 @@ class EmptyView @JvmOverloads constructor(context: Context,
     }
 
     override fun triggerNetError() {
-        loading.gone()
-        loading.stop()
+        mLoading.gone()
+        mLoading.stop()
         mIvImage.visible()
         mIvImage.setImageResource(errorDrawable)
         mTvTips.text = errorText
@@ -130,8 +130,8 @@ class EmptyView @JvmOverloads constructor(context: Context,
 
     override fun triggerLoading() {
         mIvImage.gone()
-        loading.visible()
-        loading.start()
+        mLoading.visible()
+        mLoading.start()
         mTvTips.text = loadingText
 
         this.visible()

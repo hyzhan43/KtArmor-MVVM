@@ -1,9 +1,8 @@
 package com.zhan.ktarmor
 
-import android.app.Dialog
-import androidx.fragment.app.DialogFragment
 import com.zhan.ktarmor.account.LoginActivity
 import com.zhan.ktarmor.empty.EmptyActivity
+import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.widget.LoadingDialog
@@ -28,6 +27,10 @@ class MainActivity : BaseActivity() {
         val mLoading = LoadingDialog.create(supportFragmentManager)
         btnLoading.setOnClickListener {
             mLoading.start()
+        }
+
+        btnItemView.setOnClickListener {
+            startActivity<SuperBarActivity>()
         }
     }
 }

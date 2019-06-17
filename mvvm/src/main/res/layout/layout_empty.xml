@@ -17,10 +17,10 @@
         android:minHeight="@dimen/len_48"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_empty_view" />
+        android:src="@drawable/ic_frown" />
 
     <com.zhan.mvvm.widget.LoadingView
-        android:id="@+id/loading"
+        android:id="@+id/mLoading"
         android:layout_width="@dimen/len_80"
         android:layout_height="@dimen/len_80"
         android:layout_marginTop="@dimen/len_10"
