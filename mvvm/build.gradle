@@ -42,6 +42,9 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
 
+    // BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+
     // retrofit
     api 'com.squareup.retrofit2:retrofit:2.5.0'
     api 'com.squareup.retrofit2:converter-gson:2.5.0'

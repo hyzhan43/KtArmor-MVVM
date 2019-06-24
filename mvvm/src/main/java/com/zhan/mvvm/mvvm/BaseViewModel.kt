@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhan.mvvm.common.SharedData
+import com.zhan.mvvm.utils.Clzz
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -18,9 +19,8 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
 
     val sharedData by lazy { MutableLiveData<SharedData>() }
 
-    val repository by lazy { bindRepository() }
-
-    abstract fun bindRepository(): T
+    // 通过反射注入 repository
+    val repository: T by lazy { Clzz.getClass<T>(this).newInstance() }
 
     fun launchUI(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch(Dispatchers.Main) {
         block()

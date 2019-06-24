@@ -7,6 +7,7 @@ import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.common.SharedData
 import com.zhan.mvvm.common.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.utils.Clzz
 
 /**
  * @author  hyzhan
@@ -15,13 +16,12 @@ import com.zhan.mvvm.ext.Toasts.toast
  */
 abstract class LifecycleActivity<VM : BaseViewModel<*>> : BaseActivity() {
 
-    protected val viewModel by lazy { ViewModelProviders.of(this).get(getViewModel()) }
-
-    abstract fun getViewModel(): Class<VM>
+    lateinit var viewModel: VM
 
     override fun initData() {
         super.initData()
 
+        viewModel = ViewModelProviders.of(this).get(Clzz.getClass(this))
         viewModel.sharedData.observe(this, observer)
         dataObserver()
     }

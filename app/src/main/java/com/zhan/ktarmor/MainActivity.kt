@@ -2,6 +2,7 @@ package com.zhan.ktarmor
 
 import com.zhan.ktarmor.account.LoginActivity
 import com.zhan.ktarmor.empty.EmptyActivity
+import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.ext.startActivity
@@ -31,6 +32,10 @@ class MainActivity : BaseActivity() {
 
         btnItemView.setOnClickListener {
             startActivity<SuperBarActivity>()
+        }
+
+        btnArticle.setOnClickListener {
+            startActivity<ArticleActivity>()
         }
     }
 }

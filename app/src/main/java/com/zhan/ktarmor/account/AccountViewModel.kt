@@ -18,8 +18,6 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
     val loginData = MutableLiveData<BaseResponse<LoginRsp>>()
 
-    override fun bindRepository(): AccountRepository = AccountRepository()
-
     fun login(account: String, password: String) {
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {

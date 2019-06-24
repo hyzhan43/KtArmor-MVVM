@@ -27,6 +27,7 @@
         <activity android:name=".empty.EmptyActivity" />
         <activity android:name=".account.LoginActivity" />
         <activity android:name=".superbar.SuperBarActivity"/>
+        <activity android:name=".list.ArticleActivity"/>
     </application>
 
 </manifest>

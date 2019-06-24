@@ -29,4 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/showItemView"/>
+
+    <Button
+        android:id="@+id/btnArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/article"/>
 </LinearLayout>

@@ -16,8 +16,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
-    override fun getViewModel(): Class<AccountViewModel> = AccountViewModel::class.java
-
     override fun initView() {
 
         mBtnLogin.setOnClickListener {
