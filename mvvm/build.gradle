@@ -3,9 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.novoda.bintray-release'
+
+
 android {
     compileSdkVersion 28
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
@@ -21,7 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -53,4 +54,14 @@ dependencies {
     // okhttp
     api 'com.squareup.okhttp3:okhttp:3.12.1'
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+}
+
+//添加
+publish {
+    userOrg = 'hyzhan'
+    groupId = 'com.hyzhan'
+    artifactId = 'KtArmor'
+    publishVersion = '1.0.0'
+    desc = 'Android Scoffold'
+    website = 'https://github.com/hyzhan43/KtArmor'
 }
