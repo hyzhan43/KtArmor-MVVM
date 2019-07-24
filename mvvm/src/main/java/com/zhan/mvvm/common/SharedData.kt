@@ -7,4 +7,4 @@ package com.zhan.mvvm.common
  */
 data class SharedData(val msg: String = "",
                       val strRes: Int = 0,
-                      val type: SharedType = SharedType.TIPS)
+                      val type: SharedType = SharedType.ERROR)

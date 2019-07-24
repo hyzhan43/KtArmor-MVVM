@@ -11,6 +11,6 @@ import com.zhan.mvvm.mvvm.BaseRepository
 abstract class ApiRepository : BaseRepository() {
 
     protected val apiService by lazy {
-        RetrofitFactory.newInstance.create(ApiService::class.java)
+        RetrofitFactory.instance.create(ApiService::class.java)
     }
 }

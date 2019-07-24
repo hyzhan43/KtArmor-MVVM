@@ -25,7 +25,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>() {
 
     override fun dataObserver() {
         viewModel.loginData.observe(this, Observer {
-            toast(it?.errorMsg ?: "错误")
+            toast("登录成功")
         })
     }
 }

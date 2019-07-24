@@ -7,6 +7,7 @@ import com.zhan.ktarmor.account.data.AccountRepository
 import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.ktarmor.common.data.BaseResponse
 import com.zhan.mvvm.common.SharedData
+import com.zhan.mvvm.common.SharedType
 import com.zhan.mvvm.mvvm.BaseViewModel
 
 /**
@@ -16,14 +17,21 @@ import com.zhan.mvvm.mvvm.BaseViewModel
  */
 class AccountViewModel : BaseViewModel<AccountRepository>() {
 
-    val loginData = MutableLiveData<BaseResponse<LoginRsp>>()
+    val loginData = MutableLiveData<LoginRsp>()
 
     fun login(account: String, password: String) {
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-            sharedData.value = SharedData(strRes = R.string.account_or_password_empty)
+            sharedData.value = SharedData(strRes = R.string.account_or_password_empty, type = SharedType.TIPS)
         } else {
-            launchUI { loginData.value = repository.login(account, password) }
+            launchUI({
+                val response = repository.login(account, password)
+                if (response.isSuccess()) {
+                    loginData.value = response.data
+                } else {
+                    sharedData.value = SharedData(response.errorMsg)
+                }
+            })
         }
     }
 }

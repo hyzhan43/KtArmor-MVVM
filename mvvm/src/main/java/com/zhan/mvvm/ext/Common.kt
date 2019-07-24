@@ -51,3 +51,12 @@ fun String.showLog() {
     Log.d(this.javaClass.name, "[${this.javaClass.name}]:  $this")
     Log.d(this.javaClass.name, "------------------------------->")
 }
+
+inline fun tryCatch(tryBlock: () -> Unit, catchBlock: (Throwable) -> Unit = {}) {
+    try {
+        tryBlock()
+    } catch (t: Throwable) {
+        t.toString().showLog()
+        catchBlock(t)
+    }
+}
