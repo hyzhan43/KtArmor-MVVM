@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.dcendents.android-maven'
 
-apply plugin: 'com.novoda.bintray-release'
+group='com.github.hyzhan43'
 
 
 android {
@@ -51,17 +52,7 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
     api 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
-    // okhttp
+    // okHttp
     api 'com.squareup.okhttp3:okhttp:3.12.1'
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
-}
-
-//添加
-publish {
-    userOrg = 'hyzhan'
-    groupId = 'com.hyzhan'
-    artifactId = 'KtArmor'
-    publishVersion = '1.0.0'
-    desc = 'Android Scoffold'
-    website = 'https://github.com/hyzhan43/KtArmor'
 }
