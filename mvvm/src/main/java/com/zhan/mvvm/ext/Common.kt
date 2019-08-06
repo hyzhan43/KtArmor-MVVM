@@ -15,24 +15,6 @@ import androidx.core.content.ContextCompat
  * @date    2019/5/22
  * @desc    TODO
  */
-
-inline fun <reified T : Activity> Context.startActivity() {
-    val intent = Intent(this, T::class.java)
-    this.startActivity(intent)
-}
-
-fun View.visible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.invisible() {
-    this.visibility = View.INVISIBLE
-}
-
-fun View.gone() {
-    this.visibility = View.GONE
-}
-
 // R.color.xxx  -> @ColorInt
 fun Context.getColorRef(@ColorRes res: Int): Int {
     return ContextCompat.getColor(this, res)
