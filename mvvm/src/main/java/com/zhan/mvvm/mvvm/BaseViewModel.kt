@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.common.SharedData
+import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.ext.tryCatch
 import com.zhan.mvvm.utils.Clzz
@@ -31,6 +32,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
                 block()
             }, {
                 it.toString().showLog()
+                showToast(Setting.UNKNOWN_ERROR)
                 error?.invoke(it)
             })
         }
