@@ -13,9 +13,7 @@
 架构模式: `MVVM`+ `Androidx` + `Kotlin` + `LiveData` + `ViewModel`  
 网络请求: `Coroutines` + `Retrofit` + `Okhttp`
 
-# MVP框架引入
-
-# MVVM框架引入  
+# MVVM框架引入
 
 ## 注意！
 由于采用了`Androidx`, 所以如果不是Androidx的话, 引入会有`兼容性`问题(会报错!). 
@@ -65,5 +63,11 @@ implementation 'com.hyzhan:KtArmor:1.0.1'
  }
  ```
  这样你就创建好了一个拥有`Kotlin` + `MVVM` + `Retrofit` + `Okhttp` + `Coroutine`项目了。然后就可以愉快编写自己的业务代码了(●'◡'●)
+
+# 示例项目
+
+## [Kotlin 版 玩Android](https://github.com/hyzhan43/PlayAndroid/tree/KtArmor-MVVM)
+
+
 
 # 未完待续~
