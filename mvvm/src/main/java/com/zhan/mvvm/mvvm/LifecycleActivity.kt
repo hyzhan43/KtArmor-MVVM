@@ -1,6 +1,5 @@
 package com.zhan.mvvm.mvvm
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.R
@@ -9,6 +8,7 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.log
+import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.utils.Clzz
 
 /**
@@ -30,7 +30,10 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
 
     open fun dataObserver() {}
 
-    override fun showNetworkError(msg: String) = toast(R.string.network_error)
+    override fun showError(msg: String) {
+        toast(R.string.unkown_error)
+        msg.showLog()
+    }
 
     override fun showToast(msg: String) = toast(msg)
 
@@ -45,7 +48,7 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
         Observer<SharedData> { sharedData ->
             sharedData?.run {
                 when (type) {
-                    SharedType.ERROR -> showNetworkError(msg)
+                    SharedType.ERROR -> showError(msg)
                     SharedType.LOADING -> showLoading()
                     SharedType.TIPS -> showToast(strRes)
                     SharedType.EMPTY -> showEmptyView()

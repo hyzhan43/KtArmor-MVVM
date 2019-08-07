@@ -52,7 +52,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
         sharedData.value = SharedData(msg)
     }
 
-    override fun showNetworkError(msg: String) {
+    override fun showError(msg: String) {
         sharedData.value = SharedData(msg, type = SharedType.ERROR)
     }
 

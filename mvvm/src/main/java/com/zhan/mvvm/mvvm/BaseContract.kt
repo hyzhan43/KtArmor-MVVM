@@ -9,7 +9,7 @@ import androidx.annotation.StringRes
  */
 interface BaseContract {
 
-    fun showNetworkError(msg: String)
+    fun showError(msg: String)
 
     fun showToast(msg: String)
 
