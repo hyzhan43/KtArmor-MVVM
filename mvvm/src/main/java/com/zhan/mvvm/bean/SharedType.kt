@@ -1,4 +1,4 @@
-package com.zhan.mvvm.common
+package com.zhan.mvvm.bean
 
 /**
  * @author  hyzhan
@@ -6,7 +6,6 @@ package com.zhan.mvvm.common
  * @desc    TODO
  */
 enum class SharedType{
-    SUCCESS,
     ERROR,
     LOADING,
     TIPS,

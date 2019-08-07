@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
 import com.zhan.ktarmor.account.data.response.LoginRsp
-import com.zhan.ktarmor.common.data.BaseResponse
-import com.zhan.mvvm.common.SharedData
-import com.zhan.mvvm.common.SharedType
+import com.zhan.mvvm.bean.SharedData
+import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.mvvm.BaseViewModel
 
 /**

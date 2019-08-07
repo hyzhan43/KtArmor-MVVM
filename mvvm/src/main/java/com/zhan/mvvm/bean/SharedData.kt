@@ -1,4 +1,4 @@
-package com.zhan.mvvm.common
+package com.zhan.mvvm.bean
 
 /**
  * @author  hyzhan
@@ -7,4 +7,4 @@ package com.zhan.mvvm.common
  */
 data class SharedData(val msg: String = "",
                       val strRes: Int = 0,
-                      val type: SharedType = SharedType.ERROR)
+                      val type: SharedType = SharedType.TIPS)

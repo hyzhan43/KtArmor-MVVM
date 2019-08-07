@@ -3,10 +3,9 @@ package com.zhan.mvvm.mvvm
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.base.BaseFragment
-import com.zhan.mvvm.common.SharedData
-import com.zhan.mvvm.common.SharedType
+import com.zhan.mvvm.bean.SharedData
+import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.utils.Clzz
 

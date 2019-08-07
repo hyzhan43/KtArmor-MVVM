@@ -1,6 +1,7 @@
 package com.zhan.mvvm.ext
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.Toast
@@ -25,53 +26,54 @@ object Toasts {
         mToast?.apply { setText(message) }?.show()
     }
 
+    /**
+     *  如果 mToast 没有初始化, 就创建一个 Toast, 并赋值
+     *  否则就直接显示
+     */
+    private fun <T : Context> showToast(context: T, message: String, duration: Int) {
+        mToast?.let {
+            it.duration = duration
+            it.setText(message)
+            it.show()
+        } ?: Toast.makeText(context, message, duration).apply {
+            mToast = this
+            show()
+        }
+    }
 
     /**
-     *  防止重复 toast 显示
+     *  防止重复 showToast 显示
      *  如果 mToast不为空 就显示, 否则就创建新的 mToast
      */
-    fun Context.toast(message: String) {
-        mToast?.run {
-            duration = Toast.LENGTH_SHORT
-            setText(message)
-            show()
-        } ?: Toast.makeText(this, message, Toast.LENGTH_SHORT).apply {
-            mToast = this
-            show()
-        }
+    fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        showToast(this, message, duration)
     }
 
-    fun Context.toast(@StringRes message: Int) {
-        toast(message.toString())
+    fun Context.toast(@StringRes message: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast(getString(message), duration)
     }
 
-    fun Fragment.toast(message: String) {
-        mToast?.run {
-            duration = Toast.LENGTH_SHORT
-            setText(message)
-            show()
-        } ?: Toast.makeText(context, message, Toast.LENGTH_SHORT).apply {
-            mToast = this
-            show()
-        }
+    fun Activity.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        showToast(this, message, duration)
     }
 
-    fun Fragment.toast(@StringRes strRes: Int) {
-        toast(getString(strRes))
+    fun Activity.toast(@StringRes message: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast(getString(message), duration)
     }
 
-    fun View.toast(message: String) {
-        mToast?.run {
-            duration = Toast.LENGTH_SHORT
-            setText(message)
-            show()
-        } ?: Toast.makeText(context, message, Toast.LENGTH_SHORT).apply {
-            mToast = this
-            show()
-        }
+    fun Fragment.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        context?.let { showToast(it, message, duration) }
     }
 
-    fun View.toast(@StringRes strRes: Int) {
-        toast(context.getString(strRes))
+    fun Fragment.toast(@StringRes strRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast(getString(strRes), duration)
+    }
+
+    fun View.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        context?.let { showToast(it, message, duration) }
+    }
+
+    fun View.toast(@StringRes strRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+        toast(context.getString(strRes), duration)
     }
 }
