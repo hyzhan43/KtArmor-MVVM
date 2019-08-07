@@ -7,7 +7,6 @@ import com.zhan.mvvm.base.BaseFragment
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.log
 import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.utils.Clzz
 
@@ -48,9 +47,10 @@ abstract class LifecycleFragment<VM : BaseViewModel<*>> : BaseFragment(), BaseCo
         Observer<SharedData> { sharedData ->
             sharedData?.run {
                 when (type) {
+                    SharedType.TOAST -> showToast(msg)
                     SharedType.ERROR -> showError(msg)
                     SharedType.LOADING -> showLoading()
-                    SharedType.TIPS -> showToast(strRes)
+                    SharedType.RESOURCE -> showToast(strRes)
                     SharedType.EMPTY -> showEmptyView()
                 }
             }

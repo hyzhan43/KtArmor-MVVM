@@ -21,7 +21,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
     fun login(account: String, password: String) {
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-            sharedData.value = SharedData(strRes = R.string.account_or_password_empty, type = SharedType.TIPS)
+            sharedData.value = SharedData(strRes = R.string.account_or_password_empty, type = SharedType.RESOURCE)
         } else {
             launchUI({
                 val response = repository.login(account, password)

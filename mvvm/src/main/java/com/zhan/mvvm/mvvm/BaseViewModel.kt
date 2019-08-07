@@ -49,7 +49,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
     }
 
     override fun showToast(msg: String) {
-        sharedData.value = SharedData(msg)
+        sharedData.value = SharedData(msg, type = SharedType.TOAST)
     }
 
     override fun showError(msg: String) {
@@ -57,7 +57,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
     }
 
     override fun showToast(@StringRes strRes: Int) {
-        sharedData.value = SharedData(strRes = strRes, type = SharedType.TIPS)
+        sharedData.value = SharedData(strRes = strRes, type = SharedType.RESOURCE)
     }
 
     override fun showEmptyView() {

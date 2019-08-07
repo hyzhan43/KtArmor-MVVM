@@ -1,5 +1,6 @@
 package com.zhan.mvvm.mvvm
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.R
@@ -7,7 +8,6 @@ import com.zhan.mvvm.base.ToolbarActivity
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.log
 import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.utils.Clzz
 
@@ -37,7 +37,7 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
 
     override fun showToast(msg: String) = toast(msg)
 
-    override fun showToast(strRes: Int) = toast(strRes)
+    override fun showToast(@StringRes strRes: Int) = toast(strRes)
 
     override fun showEmptyView() {}
 
@@ -48,9 +48,10 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
         Observer<SharedData> { sharedData ->
             sharedData?.run {
                 when (type) {
+                    SharedType.TOAST -> showToast(msg)
                     SharedType.ERROR -> showError(msg)
                     SharedType.LOADING -> showLoading()
-                    SharedType.TIPS -> showToast(strRes)
+                    SharedType.RESOURCE -> showToast(strRes)
                     SharedType.EMPTY -> showEmptyView()
                 }
             }
