@@ -12,7 +12,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         initView()
         initData()
-        setListener()
+        initListener()
     }
 
     abstract fun getLayoutId(): Int
@@ -21,5 +21,5 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun initData() {}
 
-    open fun setListener() {}
+    open fun initListener() {}
 }

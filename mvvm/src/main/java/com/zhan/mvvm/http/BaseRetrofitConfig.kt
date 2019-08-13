@@ -1,6 +1,7 @@
 package com.zhan.mvvm.http
 
 import com.zhan.mvvm.config.Setting
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -22,5 +23,7 @@ abstract class BaseRetrofitConfig : RetrofitConfig {
 
     override fun initRetrofit(): Retrofit = BaseRetrofit.create()
 
-    override fun initOkHttpClient(): OkHttpClient = BaseOkHttpClient.create()
+    override fun initOkHttpClient(vararg interceptors: Interceptor): OkHttpClient {
+        return BaseOkHttpClient.create(*interceptors)
+    }
 }
