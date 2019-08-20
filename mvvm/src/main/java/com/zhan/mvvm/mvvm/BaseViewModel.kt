@@ -40,11 +40,13 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
         }
     }
 
-    fun <R> KResponse<R>.execute(success: (R) -> Unit, error: ((String) -> Unit)? = null) {
+    fun <R> KResponse<R>.execute(success: (R?) -> Unit, error: ((String) -> Unit)? = null) {
         if (this.isSuccess()) {
-            this.getKData()?.let { success(it) }
+            success(this.getKData())
         } else {
-            this.getKMessage()?.let { error?.invoke(it) ?: showToast(it) }
+            (this.getKMessage() ?: Setting.MESSAGE_EMPTY).let {
+                error?.invoke(it) ?: showToast(it)
+            }
         }
     }
 
