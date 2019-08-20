@@ -9,7 +9,7 @@ interface KResponse<T> {
 
     fun isSuccess(): Boolean
 
-    fun getKMessage(): String
+    fun getKMessage(): String?
 
-    fun getKData(): T
+    fun getKData(): T?
 }

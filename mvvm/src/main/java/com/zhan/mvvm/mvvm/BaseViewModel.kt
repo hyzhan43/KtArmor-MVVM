@@ -42,9 +42,9 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
 
     fun <R> KResponse<R>.execute(success: (R) -> Unit, error: ((String) -> Unit)? = null) {
         if (this.isSuccess()) {
-            success(this.getKData())
+            this.getKData()?.let { success(it) }
         } else {
-            error?.invoke(this.getKMessage()) ?: showToast(this.getKMessage())
+            this.getKMessage()?.let { error?.invoke(it) ?: showToast(it) }
         }
     }
 

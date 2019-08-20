@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.zhan.mvvm.constant.Const
 
 /**
  * @author  hyzhan
@@ -29,9 +30,9 @@ fun Context.log(message: String) {
 }
 
 fun String.showLog() {
-    Log.d(this.javaClass.name, "<------------------------------")
-    Log.d(this.javaClass.name, "[${this.javaClass.name}]:  $this")
-    Log.d(this.javaClass.name, "------------------------------->")
+    Log.d(Const.KT_ARMOR, "<------------------------------")
+    Log.d(Const.KT_ARMOR, "[log]:  $this")
+    Log.d(Const.KT_ARMOR, "------------------------------->")
 }
 
 inline fun tryCatch(tryBlock: () -> Unit, catchBlock: (Throwable) -> Unit = {}) {
