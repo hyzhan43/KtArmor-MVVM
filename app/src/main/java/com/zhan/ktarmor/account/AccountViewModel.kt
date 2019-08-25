@@ -8,6 +8,7 @@ import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.mvvm.BaseViewModel
+import kotlinx.coroutines.delay
 
 /**
  * @author  hyzhan
@@ -24,12 +25,10 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
             sharedData.value = SharedData(strRes = R.string.account_or_password_empty, type = SharedType.RESOURCE)
         } else {
             launchUI({
-                val response = repository.login(account, password)
-                if (response.isSuccess()) {
-                    loginData.value = response.data
-                } else {
-                    sharedData.value = SharedData(response.errorMsg)
-                }
+                showLoading()
+                repository.login(account, password).execute({ loginRsp ->
+                    loginRsp?.let { loginData.value = it }
+                })
             })
         }
     }

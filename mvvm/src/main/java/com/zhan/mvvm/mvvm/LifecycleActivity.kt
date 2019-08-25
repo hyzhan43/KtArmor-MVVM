@@ -10,6 +10,7 @@ import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.utils.Clzz
+import com.zhan.mvvm.widget.LoadingDialog
 
 /**
  * @author  hyzhan
@@ -17,6 +18,8 @@ import com.zhan.mvvm.utils.Clzz
  * @desc    TODO
  */
 abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), BaseContract {
+
+    val loadingView by lazy { LoadingDialog.create(supportFragmentManager) }
 
     lateinit var viewModel: VM
 
@@ -33,15 +36,28 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
     override fun showError(msg: String) {
         toast(R.string.unkown_error)
         msg.showLog()
+        hideLoading()
     }
 
-    override fun showToast(msg: String) = toast(msg)
+    override fun showToast(msg: String) {
+        toast(msg)
+        hideLoading()
+    }
 
-    override fun showToast(@StringRes strRes: Int) = toast(strRes)
+    override fun showToast(@StringRes strRes: Int){
+        toast(strRes)
+        hideLoading()
+    }
 
     override fun showEmptyView() {}
 
-    override fun showLoading() {}
+    override fun showLoading() {
+        loadingView.show()
+    }
+
+    override fun hideLoading() {
+        loadingView.hide()
+    }
 
     // 分发状态
     private val observer by lazy {
@@ -50,7 +66,8 @@ abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), Bas
                 when (type) {
                     SharedType.TOAST -> showToast(msg)
                     SharedType.ERROR -> showError(msg)
-                    SharedType.LOADING -> showLoading()
+                    SharedType.SHOW_LOADING -> showLoading()
+                    SharedType.HIDE_LOADING -> hideLoading()
                     SharedType.RESOURCE -> showToast(strRes)
                     SharedType.EMPTY -> showEmptyView()
                 }

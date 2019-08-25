@@ -18,4 +18,6 @@ interface BaseContract {
     fun showEmptyView()
 
     fun showLoading()
+
+    fun hideLoading()
 }

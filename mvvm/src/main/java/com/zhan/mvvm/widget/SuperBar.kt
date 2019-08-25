@@ -8,7 +8,7 @@ import com.zhan.mvvm.R
 import com.zhan.mvvm.ext.getColorRef
 import com.zhan.mvvm.ext.gone
 import com.zhan.mvvm.ext.visible
-import kotlinx.android.synthetic.main.superbar_view.view.*
+import kotlinx.android.synthetic.main.k_superbar_view.view.*
 
 /**
  * author：  HyZhan
@@ -43,7 +43,7 @@ class SuperBar
     var showRightIcon: Boolean
 
     init {
-        View.inflate(context, R.layout.superbar_view, this)
+        View.inflate(context, R.layout.k_superbar_view, this)
 
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.SuperBar, defStyle, 0)
         with(typeArray) {

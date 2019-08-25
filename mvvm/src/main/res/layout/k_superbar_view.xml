@@ -24,7 +24,7 @@
             android:layout_width="@dimen/len_20"
             android:layout_height="@dimen/len_20"
             android:contentDescription="@string/app_name"
-            tool:src="@drawable/ic_man" />
+            tool:src="@drawable/ic_smile" />
 
         <TextView
             android:id="@+id/mTvTitle"

@@ -67,6 +67,10 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
     }
 
     override fun showLoading() {
-        sharedData.value = SharedData(type = SharedType.LOADING)
+        sharedData.value = SharedData(type = SharedType.SHOW_LOADING)
+    }
+
+    override fun hideLoading() {
+        sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
     }
 }

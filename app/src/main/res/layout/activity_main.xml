@@ -25,6 +25,12 @@
         android:text="@string/showLoading"/>
 
     <Button
+        android:id="@+id/btnHide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hideLoading"/>
+
+    <Button
         android:id="@+id/btnItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,55 +1,151 @@
 package com.zhan.mvvm.widget
 
+import android.content.Context
+import android.graphics.Color
+import android.util.AttributeSet
+import android.view.View
+import android.widget.LinearLayout
 import androidx.annotation.StringRes
+import com.zhan.mvvm.R
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.gone
+import com.zhan.mvvm.ext.visible
+import kotlinx.android.synthetic.main.k_layout_empty.view.*
 
 
 /**
  * @author  hyzhan
  * @date    2019/5/20
- * @desc    基础的占位布局接口定义
+ * @desc    TODO
  */
-interface PlaceHolderView {
+class PlaceHolderView @JvmOverloads constructor(context: Context,
+                                                attrs: AttributeSet? = null,
+                                                defStyle: Int = 0)
+    : LinearLayout(context, attrs, defStyle), PlaceHolder {
 
-    /**
-     * 没有数据
-     * 显示空布局，隐藏当前数据布局
-     */
-    fun triggerEmpty()
+    private val defaultDrawable = R.drawable.ic_frown
+    private val defaultColor = Color.GRAY
 
-    /**
-     * 网络错误
-     * 显示一个网络错误的图标
-     */
-    fun triggerNetError()
+    var emptyDrawable: Int = 0
+    var errorDrawable: Int = 0
 
-    /**
-     * 加载错误，并显示错误信息
-     * @param strRes 错误信息
-     */
-    fun triggerError(@StringRes strRes: Int)
+    var loadingColor = 0
+        set(color) {
+            field = color
+            mLoading.innerColor = color
+            mLoading.outerColor = color
+        }
 
-    /**
-     * 加载错误，并显示错误信息
-     * @param strRes 错误信息
-     */
-    fun triggerError(str: String)
+    var emptyText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_empty)
+        }
 
-    /**
-     * 显示正在加载的状态
-     */
-    fun triggerLoading()
+    var errorText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_error)
+        }
 
-    /**
-     * 数据加载成功，
-     * 调用该方法时应该隐藏当前占位布局
-     */
-    fun triggerOk()
+    var loadingText: String? = null
+        set(value) {
+            field = value ?: context.getString(R.string.prompt_loading)
+        }
 
-    /**
-     * 该方法如果传入的isOk为True则为成功状态，
-     * 此时隐藏布局，反之显示空数据布局
-     *
-     * @param isOk 是否加载成功数据
-     */
-    fun triggerOkOrEmpty(isOk: Boolean)
+    private val mBindViews by lazy { ArrayList<View>() }
+
+    init {
+        View.inflate(context, R.layout.k_layout_empty, this)
+
+        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.PlaceHolderView, defStyle, 0)
+
+        with(typeArray) {
+            emptyDrawable = getResourceId(R.styleable.PlaceHolderView_emptyDrawable, defaultDrawable)
+            errorDrawable = getResourceId(R.styleable.PlaceHolderView_errorDrawable, defaultDrawable)
+
+            loadingColor = getColor(R.styleable.PlaceHolderView_loadingColor, defaultColor)
+
+            emptyText = getString(R.styleable.PlaceHolderView_emptyText)
+            errorText = getString(R.styleable.PlaceHolderView_errorText)
+            loadingText = getString(R.styleable.PlaceHolderView_loadingText)
+
+            recycle()
+        }
+
+    }
+
+    fun add(view: View): PlaceHolderView {
+        mBindViews.add(view)
+        return this
+    }
+
+    private fun changeBindViewState(visible: Int) {
+        val views = mBindViews
+
+        views.isNotEmpty().let {
+            views.forEach { view ->
+                view.visibility = visible
+            }
+        }
+    }
+
+
+    override fun triggerEmpty() {
+        mLoading.gone()
+        mLoading.stop()
+        mIvImage.visible()
+        mIvImage.setImageResource(emptyDrawable)
+        mTvTips.text = emptyText
+
+        this.visible()
+        changeBindViewState(View.GONE)
+    }
+
+    override fun triggerNetError() {
+        mLoading.gone()
+        mLoading.stop()
+        mIvImage.visible()
+        mIvImage.setImageResource(errorDrawable)
+        mTvTips.text = errorText
+
+        this.visible()
+        changeBindViewState(View.GONE)
+    }
+
+
+    override fun triggerError(@StringRes strRes: Int) {
+        toast(strRes)
+
+        this.visible()
+        changeBindViewState(View.GONE)
+    }
+
+    override fun triggerError(str: String) {
+        toast(str)
+
+        this.visible()
+        changeBindViewState(View.GONE)
+    }
+
+    override fun triggerLoading() {
+        mIvImage.gone()
+        mLoading.visible()
+        mLoading.start()
+        mTvTips.text = loadingText
+
+        this.visible()
+        changeBindViewState(View.GONE)
+    }
+
+    override fun triggerOk() {
+        this.gone()
+        changeBindViewState(View.VISIBLE)
+    }
+
+    override fun triggerOkOrEmpty(isOk: Boolean) {
+        if (isOk) {
+            triggerOk()
+        } else {
+            triggerEmpty()
+        }
+    }
 }

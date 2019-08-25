@@ -8,7 +8,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.R
-import kotlinx.android.synthetic.main.layout_loading.*
+import kotlinx.android.synthetic.main.k_layout_loading.*
 
 
 class LoadingDialog private constructor() : DialogFragment() {
@@ -34,7 +34,8 @@ class LoadingDialog private constructor() : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return inflater.inflate(R.layout.layout_loading, container, false)
+        dialog.setCanceledOnTouchOutside(false)
+        return inflater.inflate(R.layout.k_layout_loading, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,12 +44,16 @@ class LoadingDialog private constructor() : DialogFragment() {
         mTvTips.text = message
     }
 
-    fun start() {
+    fun show() {
         this.show(manager, dialogTag)
     }
 
+    fun hide(){
+        this.dismiss()
+    }
+
     override fun onDestroyView() {
-        super.onDestroyView()
         mLoading.stop()
+        super.onDestroyView()
     }
 }

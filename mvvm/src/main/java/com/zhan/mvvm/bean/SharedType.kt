@@ -7,7 +7,8 @@ package com.zhan.mvvm.bean
  */
 enum class SharedType{
     ERROR,
-    LOADING,
+    SHOW_LOADING,
+    HIDE_LOADING,
     RESOURCE,
     TOAST,
     EMPTY,

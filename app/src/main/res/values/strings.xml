@@ -5,10 +5,12 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="account_or_password_empty">账号或密码为空</string>
-    <string name="showLoading">showLoading</string>
+    <string name="showLoading">显示loading</string>
+
     <string name="showItemView">showItemView</string>
 
     <string name="sex">性别</string>
     <string name="man">男</string>
     <string name="article">Article</string>
+    <string name="hideLoading">隐藏loading</string>
 </resources>

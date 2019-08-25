@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="EmptyView">
+    <declare-styleable name="PlaceHolderView">
         <attr name="emptyText" format="string|reference"/>
         <attr name="errorText" format="string|reference"/>
         <attr name="loadingText" format="string|reference"/>

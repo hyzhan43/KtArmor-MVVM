@@ -27,7 +27,11 @@ class MainActivity : BaseActivity() {
 
         val mLoading = LoadingDialog.create(supportFragmentManager)
         btnLoading.setOnClickListener {
-            mLoading.start()
+            mLoading.show()
+        }
+
+        btnHide.setOnClickListener {
+            mLoading.hide()
         }
 
         btnItemView.setOnClickListener {
