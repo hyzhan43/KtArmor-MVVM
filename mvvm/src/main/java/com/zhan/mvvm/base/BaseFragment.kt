@@ -15,16 +15,19 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initBefore()
         initView()
         initListener()
         initData()
     }
+
+    abstract fun getLayoutId(): Int
+
+    open fun initBefore() {}
 
     open fun initView() {}
 
     open fun initListener() {}
 
     open fun initData() {}
-
-    abstract fun getLayoutId(): Int
 }

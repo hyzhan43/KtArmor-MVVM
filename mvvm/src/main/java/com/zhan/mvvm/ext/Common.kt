@@ -1,11 +1,8 @@
 package com.zhan.mvvm.ext
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.util.Log
-import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -39,7 +36,7 @@ inline fun tryCatch(tryBlock: () -> Unit, catchBlock: (Throwable) -> Unit = {}) 
     try {
         tryBlock()
     } catch (t: Throwable) {
-        t.toString().showLog()
+        t.printStackTrace()
         catchBlock(t)
     }
 }

@@ -8,14 +8,28 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(getLayoutId())
+        // 在界面未初始化之前调用的初始化窗口
+        initWidows()
 
-        initView()
-        initData()
-        initListener()
+        if (initArgs(intent.extras)) {
+            setContentView(getLayoutId())
+
+            initBefore()
+            initView()
+            initListener()
+            initData()
+        } else {
+            finish()
+        }
     }
 
+    open fun initWidows() {}
+
+    open fun initArgs(extras: Bundle?): Boolean = true
+
     abstract fun getLayoutId(): Int
+
+    open fun initBefore() {}
 
     open fun initView() {}
 
