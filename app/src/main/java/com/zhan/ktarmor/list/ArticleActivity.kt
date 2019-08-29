@@ -7,16 +7,20 @@ import com.zhan.mvvm.base.ListActivity
  * create：  2019/6/24
  * desc：    TODO
  */
-class ArticleActivity : ListActivity<ArticleViewModel, String, ArticleAdapter>() {
+class ArticleActivity : ListActivity<ArticleViewModel, String>() {
 
     override fun bindAdapter() = ArticleAdapter()
+
+    override fun initData() {
+        super.initData()
+        onRefreshData()
+    }
 
     override fun onRefreshData() {
         val test = arrayListOf<String>()
         for (i in 1..10) {
             test.add("张三 = $i")
         }
-        total = 13
         addData(test)
     }
 
@@ -24,4 +28,6 @@ class ArticleActivity : ListActivity<ArticleViewModel, String, ArticleAdapter>()
         val test = arrayListOf("张三2", "李四2", "王五2")
         addData(test)
     }
+
+
 }

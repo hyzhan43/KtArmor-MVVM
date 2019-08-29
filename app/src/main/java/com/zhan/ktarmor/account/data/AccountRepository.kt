@@ -1,5 +1,6 @@
 package com.zhan.ktarmor.account.data
 
+import com.zhan.ktarmor.account.data.response.EmptyRsp
 import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.ktarmor.common.api.ApiRepository
 import com.zhan.ktarmor.common.data.BaseResponse
@@ -16,6 +17,10 @@ class AccountRepository : ApiRepository() {
         // TODO local DB
 
         // network
-        return apiService.login(account, password).await()
+        return launchIO { apiService.login(account, password).await() }
+    }
+
+    suspend fun collect(id: Int):BaseResponse<EmptyRsp> {
+        return launchIO { apiService.collectAsync(id).await() }
     }
 }

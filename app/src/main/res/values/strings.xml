@@ -13,4 +13,5 @@
     <string name="man">男</string>
     <string name="article">Article</string>
     <string name="hideLoading">隐藏loading</string>
+    <string name="collect">收藏</string>
 </resources>

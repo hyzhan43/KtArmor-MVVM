@@ -10,7 +10,7 @@ import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.ext.tryCatch
-import com.zhan.mvvm.utils.Clzz
+import com.zhan.mvvm.utils.Clazz
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
     val sharedData by lazy { MutableLiveData<SharedData>() }
 
     // 通过反射注入 repository
-    val repository: T by lazy { Clzz.getClass<T>(this).newInstance() }
+    val repository: T by lazy { Clazz.getClass<T>(this).newInstance() }
 
     fun launchUI(block: suspend CoroutineScope.() -> Unit, error: ((Throwable) -> Unit)? = null): Job {
         return viewModelScope.launch(Dispatchers.Main) {

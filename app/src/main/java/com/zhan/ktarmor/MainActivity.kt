@@ -41,5 +41,9 @@ class MainActivity : BaseActivity() {
         btnArticle.setOnClickListener {
             startActivity<ArticleActivity>()
         }
+
+        btnCollect.setOnClickListener {
+
+        }
     }
 }

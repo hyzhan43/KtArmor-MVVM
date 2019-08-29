@@ -21,11 +21,21 @@ class LoginActivity : LifecycleActivity<AccountViewModel>() {
         mBtnLogin.setOnClickListener {
             viewModel.login(mEtAccount.str(), mEtPassword.str())
         }
+
+        mBtnCollect.setOnClickListener {
+            viewModel.collect()
+        }
     }
 
     override fun dataObserver() {
         viewModel.loginData.observe(this, Observer {
             toast("登录成功")
+            hideLoading()
+        })
+
+        viewModel.collectData.observe(this, Observer {
+            toast("收藏成功")
+            hideLoading()
         })
     }
 }

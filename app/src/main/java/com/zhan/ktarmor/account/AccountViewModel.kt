@@ -4,6 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
+import com.zhan.ktarmor.account.data.response.EmptyRsp
 import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
@@ -18,6 +19,7 @@ import kotlinx.coroutines.delay
 class AccountViewModel : BaseViewModel<AccountRepository>() {
 
     val loginData = MutableLiveData<LoginRsp>()
+    val collectData = MutableLiveData<EmptyRsp>()
 
     fun login(account: String, password: String) {
 
@@ -26,10 +28,18 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         } else {
             launchUI({
                 showLoading()
-                repository.login(account, password).execute({ loginRsp ->
-                    loginRsp?.let { loginData.value = it }
+                repository.login(account, password).execute({
+                    loginData.value = it
                 })
             })
         }
+    }
+
+    fun collect(){
+        launchUI({
+            repository.collect(9014).execute({
+                collectData.value = it
+            })
+        })
     }
 }

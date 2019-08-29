@@ -7,7 +7,7 @@ import java.lang.reflect.ParameterizedType
  * create：  2019/6/24
  * desc：    TODO
  */
-object Clzz {
+object Clazz {
 
     @Suppress("UNCHECKED_CAST")
     fun <T> getClass(t: Any): Class<T> {

@@ -8,7 +8,7 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.showLog
-import com.zhan.mvvm.utils.Clzz
+import com.zhan.mvvm.utils.Clazz
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**
@@ -25,7 +25,7 @@ abstract class LifecycleFragment<VM : BaseViewModel<*>> : BaseFragment(), BaseCo
     override fun initData() {
         super.initData()
 
-        viewModel = ViewModelProviders.of(this).get(Clzz.getClass(this))
+        viewModel = ViewModelProviders.of(this).get(Clazz.getClass(this))
         viewModel.sharedData.observe(this, observer)
         dataObserver()
     }
