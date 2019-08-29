@@ -10,7 +10,11 @@ import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.R
 import kotlinx.android.synthetic.main.k_layout_loading.*
 
-
+/**
+ *  @author: hyzhan
+ *  @date:   2019/5/23
+ *  @desc:   TODO
+ */
 class LoadingDialog private constructor() : DialogFragment() {
 
     private lateinit var message: String
@@ -49,7 +53,9 @@ class LoadingDialog private constructor() : DialogFragment() {
     }
 
     fun hide(){
-        this.dismiss()
+        this.fragmentManager?.findFragmentByTag(dialogTag)?.let {
+            this.dismiss()
+        }
     }
 
     override fun onDestroyView() {

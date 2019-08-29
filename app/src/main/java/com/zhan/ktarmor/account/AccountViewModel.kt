@@ -37,6 +37,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
     fun collect(){
         launchUI({
+            showLoading()
             repository.collect(9014).execute({
                 collectData.value = it
             })
