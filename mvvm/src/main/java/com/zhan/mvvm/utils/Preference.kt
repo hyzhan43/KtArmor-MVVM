@@ -1,4 +1,4 @@
-package com.zhan.mvvm.common
+package com.zhan.mvvm.utils
 
 /**
  * @author  hyzhan

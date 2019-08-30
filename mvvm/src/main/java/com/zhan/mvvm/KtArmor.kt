@@ -1,7 +1,7 @@
 package com.zhan.mvvm
 
 import android.content.Context
-import com.zhan.mvvm.common.Preference
+import com.zhan.mvvm.utils.Preference
 import com.zhan.mvvm.ext.Toasts
 import com.zhan.mvvm.http.RetrofitConfig
 

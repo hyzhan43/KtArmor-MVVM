@@ -1,4 +1,4 @@
-package com.zhan.mvvm.common
+package com.zhan.mvvm.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
