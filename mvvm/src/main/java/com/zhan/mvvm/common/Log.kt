@@ -1,4 +1,4 @@
-package com.zhan.mvvm.utils
+package com.zhan.mvvm.common
 
 import android.util.Log
 import com.zhan.mvvm.constant.Const

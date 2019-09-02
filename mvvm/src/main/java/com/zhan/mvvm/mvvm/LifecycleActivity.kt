@@ -9,7 +9,7 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.showLog
-import com.zhan.mvvm.utils.Clazz
+import com.zhan.mvvm.common.Clazz
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**

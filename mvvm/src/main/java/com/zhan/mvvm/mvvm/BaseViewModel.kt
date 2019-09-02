@@ -8,9 +8,8 @@ import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
-import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.ext.tryCatch
-import com.zhan.mvvm.utils.Clazz
+import com.zhan.mvvm.common.Clazz
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -33,9 +32,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
             tryCatch({
                 block()
             }, {
-                it.toString().showLog()
-                showToast(Setting.UNKNOWN_ERROR)
-                error?.invoke(it)
+                error?.invoke(it) ?: showToast(Setting.UNKNOWN_ERROR)
             })
         }
     }

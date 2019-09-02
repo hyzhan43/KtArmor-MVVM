@@ -1,4 +1,4 @@
-package com.zhan.mvvm.utils
+package com.zhan.mvvm.common
 
 import java.lang.reflect.ParameterizedType
 

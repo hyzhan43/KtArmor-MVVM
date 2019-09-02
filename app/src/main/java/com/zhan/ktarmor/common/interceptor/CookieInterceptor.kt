@@ -1,7 +1,7 @@
 package com.zhan.ktarmor.common.interceptor
 
 import com.zhan.ktarmor.common.api.API
-import com.zhan.mvvm.utils.Preference
+import com.zhan.mvvm.common.Preference
 import okhttp3.Interceptor
 
 /**
