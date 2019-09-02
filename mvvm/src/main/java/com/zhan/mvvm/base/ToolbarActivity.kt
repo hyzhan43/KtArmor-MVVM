@@ -9,7 +9,7 @@ import com.zhan.mvvm.R
  * create：  2019/8/6
  * desc：    需要为 Toolbar 控件设置id 为 toolbar
  */
-abstract class ToolbarActivity : ScopeActivity() {
+abstract class ToolbarActivity : BaseActivity() {
 
     var toolbarTitle: String = ""
         set(value) {

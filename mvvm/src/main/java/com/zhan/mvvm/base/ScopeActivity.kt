@@ -8,25 +8,21 @@ import kotlinx.coroutines.*
  *  @date:   2019-09-02
  *  @desc:   TODO
  */
-abstract class ScopeActivity : BaseActivity(){
+interface ScopeActivity {
 
-    val mainScope by lazy { MainScope() }
-    val ioScope by lazy { IOScope() }
+    var mainScope: CoroutineScope
+    var ioScope: CoroutineScope
 
-    fun launchIO(block: () -> Unit) {
-        ioScope.launch {
-            block()
-        }
+    fun createScope() {
+        mainScope = MainScope()
+        ioScope = IOScope()
     }
 
-    fun launchUI(block: () -> Unit) {
-        MainScope().launch {
-            block()
-        }
-    }
+    fun launchIO(block: () -> Unit) = ioScope.launch { block() }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    fun launchUI(block: () -> Unit) = mainScope.launch { block() }
+
+    fun cancelScope() {
         mainScope.cancel()
         ioScope.cancel()
     }
