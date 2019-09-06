@@ -10,13 +10,11 @@ import kotlinx.coroutines.*
  */
 interface ScopeActivity {
 
-    var mainScope: CoroutineScope
-    var ioScope: CoroutineScope
+    val mainScope: CoroutineScope
+        get() = MainScope()
 
-    fun createScope() {
-        mainScope = MainScope()
-        ioScope = IOScope()
-    }
+    val ioScope: CoroutineScope
+        get() = IOScope()
 
     fun launchIO(block: () -> Unit) = ioScope.launch { block() }
 

@@ -14,8 +14,6 @@ abstract class BaseActivity : AppCompatActivity(), ScopeActivity {
         if (initArgs(intent.extras)) {
             setContentView(getLayoutId())
 
-            createScope()
-
             initBefore()
             initView()
             initListener()
