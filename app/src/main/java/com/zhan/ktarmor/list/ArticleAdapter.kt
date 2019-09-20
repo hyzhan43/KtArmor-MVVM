@@ -10,7 +10,7 @@ import com.zhan.ktarmor.R
  * desc：    TODO
  */
 class ArticleAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.article_item, null){
-    override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper?.setText(R.id.tvTitle, item ?: "1")
+    override fun convert(helper: BaseViewHolder, item: String?) {
+        helper.setText(R.id.tvTitle, item ?: "1")
     }
 }

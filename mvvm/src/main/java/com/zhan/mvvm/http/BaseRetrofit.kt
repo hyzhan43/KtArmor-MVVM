@@ -1,6 +1,5 @@
 package com.zhan.mvvm.http
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.zhan.mvvm.KtArmor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +15,6 @@ object BaseRetrofit {
         return Retrofit.Builder()
                 .baseUrl(KtArmor.retrofit.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(KtArmor.retrofit.initOkHttpClient())
                 .build()
     }

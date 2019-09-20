@@ -16,9 +16,9 @@ import retrofit2.http.Query
 interface ApiService {
 
     @POST(API.LOGIN)
-    fun login(@Query("username") username: String,
-              @Query("password") password: String): Deferred<BaseResponse<LoginRsp>>
+    suspend fun login(@Query("username") username: String,
+              @Query("password") password: String): BaseResponse<LoginRsp>
 
     @POST(API.COLLECT)
-    fun collectAsync(@Path("id") id: Int): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun collectAsync(@Path("id") id: Int): BaseResponse<EmptyRsp>
 }

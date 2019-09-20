@@ -2,9 +2,8 @@ package com.zhan.ktarmor
 
 import android.app.Application
 import com.zhan.ktarmor.common.MyRetrofitConfig
-import com.zhan.ktarmor.common.api.API
 import com.zhan.mvvm.KtArmor
-import com.zhan.mvvm.http.RetrofitConfig
+
 
 /**
  * @author  hyzhan

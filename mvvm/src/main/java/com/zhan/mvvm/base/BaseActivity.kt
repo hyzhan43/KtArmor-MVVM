@@ -2,8 +2,12 @@ package com.zhan.mvvm.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 
-abstract class BaseActivity : AppCompatActivity(), ScopeActivity {
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,9 @@ abstract class BaseActivity : AppCompatActivity(), ScopeActivity {
 
     override fun onDestroy() {
         super.onDestroy()
-        cancelScope()
+        // 取消协程
+        if (isActive){
+            cancel()
+        }
     }
 }

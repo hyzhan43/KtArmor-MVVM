@@ -1,10 +1,5 @@
 package com.zhan.mvvm.common
 
-/**
- * @author  hyzhan
- * @date    2019/5/28
- * @desc    TODO
- */
 import android.content.Context
 import android.content.SharedPreferences
 import java.lang.IllegalArgumentException

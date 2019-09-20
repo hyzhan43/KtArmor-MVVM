@@ -17,10 +17,10 @@ class AccountRepository : ApiRepository() {
         // TODO local DB
 
         // network
-        return launchIO { apiService.login(account, password).await() }
+        return launchIO { apiService.login(account, password) }
     }
 
     suspend fun collect(id: Int):BaseResponse<EmptyRsp> {
-        return launchIO { apiService.collectAsync(id).await() }
+        return launchIO { apiService.collectAsync(id) }
     }
 }
