@@ -5,6 +5,9 @@ import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.mvvm.base.BaseActivity
+import com.zhan.mvvm.ext.logd
+import com.zhan.mvvm.ext.px2dp
+import com.zhan.mvvm.ext.sp2px
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*

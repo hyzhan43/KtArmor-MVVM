@@ -8,6 +8,8 @@ import com.zhan.ktarmor.account.data.response.EmptyRsp
 import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
+import com.zhan.mvvm.ext.logd
+import com.zhan.mvvm.ext.px2dp
 import com.zhan.mvvm.mvvm.BaseViewModel
 import kotlinx.coroutines.delay
 
