@@ -2,12 +2,12 @@ package com.zhan.mvvm.mvvm
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.showLog
 import com.zhan.mvvm.R
 import com.zhan.mvvm.base.BaseFragment
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.showLog
 import com.zhan.mvvm.common.Clazz
 import com.zhan.mvvm.widget.LoadingDialog
 

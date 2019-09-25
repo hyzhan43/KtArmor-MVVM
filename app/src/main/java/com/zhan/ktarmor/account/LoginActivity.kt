@@ -2,8 +2,8 @@ package com.zhan.ktarmor.account
 
 import androidx.lifecycle.Observer
 import com.zhan.ktarmor.R
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.str
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.str
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_login.*
 

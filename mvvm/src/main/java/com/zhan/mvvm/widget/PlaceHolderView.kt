@@ -6,10 +6,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.gone
+import com.zhan.ktwing.ext.visible
 import com.zhan.mvvm.R
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.gone
-import com.zhan.mvvm.ext.visible
 import kotlinx.android.synthetic.main.k_layout_empty.view.*
 
 

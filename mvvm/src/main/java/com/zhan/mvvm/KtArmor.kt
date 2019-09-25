@@ -1,8 +1,7 @@
 package com.zhan.mvvm
 
 import android.content.Context
-import com.zhan.mvvm.common.Preference
-import com.zhan.mvvm.ext.Toasts
+import com.zhan.ktwing.KtWing
 import com.zhan.mvvm.http.RetrofitConfig
 
 object KtArmor {
@@ -13,9 +12,6 @@ object KtArmor {
 
         this.retrofit = retrofit
 
-        // 初始化 SharePreference
-        Preference.init(context)
-        // 初始化 Toast
-        Toasts.init(context)
+        KtWing.init(context)
     }
 }

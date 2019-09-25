@@ -4,11 +4,11 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zhan.ktwing.ext.tryCatch
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
-import com.zhan.mvvm.ext.tryCatch
 import com.zhan.mvvm.common.Clazz
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

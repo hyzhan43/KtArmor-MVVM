@@ -54,4 +54,6 @@ dependencies {
     // okHttp
     api 'com.squareup.okhttp3:okhttp:3.12.1'
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+
+    api 'com.github.hyzhan43:KtWing:1.0.2'
 }
