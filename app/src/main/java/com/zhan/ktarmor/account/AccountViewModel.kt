@@ -24,17 +24,24 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
             sharedData.value = SharedData(strRes = R.string.account_or_password_empty, type = SharedType.RESOURCE)
-        } else {
-            launchUI({
-                showLoading()
-                repository.login(account, password).execute({
-                    loginData.value = it
-                })
-            })
+            return
+        }
+
+
+
+        quickLaunch<LoginRsp> {
+
+            onStart { showLoading() }
+
+            request { repository.login(account, password) }
+
+            onSuccess {
+                loginData.value = it
+            }
         }
     }
 
-    fun collect(){
+    fun collect() {
         launchUI({
             showLoading()
             repository.collect(9014).execute({

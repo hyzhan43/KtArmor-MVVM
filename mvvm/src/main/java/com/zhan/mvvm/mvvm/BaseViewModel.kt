@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zhan.ktwing.ext.showLog
 import com.zhan.ktwing.ext.tryCatch
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
@@ -32,19 +33,27 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
             tryCatch({
                 block()
             }, {
-                error?.invoke(it) ?: showToast(Setting.UNKNOWN_ERROR)
+                error?.invoke(it) ?: showException(it.toString())
             })
         }
     }
 
-    fun <R> KResponse<R>.execute(success: (R?) -> Unit, error: ((String) -> Unit)? = null) {
+    fun <R> quickLaunch(block: Execute<R>.() -> Unit) {
+        Execute<R>().apply(block)
+    }
+
+    fun <R> KResponse<R>.execute(success: ((R?) -> Unit)?, error: ((String) -> Unit)? = null) {
         if (this.isSuccess()) {
-            success(this.getKData())
-        } else {
-            (this.getKMessage() ?: Setting.MESSAGE_EMPTY).let {
-                error?.invoke(it) ?: showToast(it)
-            }
+            success?.invoke(this.getKData())
+            return
         }
+
+        (this.getKMessage() ?: Setting.MESSAGE_EMPTY).let { error?.invoke(it) ?: showToast(it) }
+    }
+
+    private fun showException(exception: String) {
+        exception.showLog()
+        showError(Setting.UNKNOWN_ERROR)
     }
 
     override fun showToast(msg: String) {
@@ -69,5 +78,37 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
 
     override fun hideLoading() {
         sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
+    }
+
+
+    inner class Execute<R> {
+
+        private var startBlock: (() -> Unit)? = null
+        private var successBlock: ((R?) -> Unit)? = null
+        private var failBlock: ((String?) -> Unit)? = null
+        private var exceptionBlock: ((Throwable?) -> Unit)? = null
+
+        fun onStart(block: () -> Unit) {
+            this.startBlock = block
+        }
+
+        fun request(block: suspend CoroutineScope.() -> KResponse<R>?) {
+
+            startBlock?.invoke()
+
+            launchUI({ block()?.execute(successBlock, failBlock) }, exceptionBlock)
+        }
+
+        fun onSuccess(block: (R?) -> Unit) {
+            this.successBlock = block
+        }
+
+        fun onFail(block: (String?) -> Unit) {
+            this.failBlock = block
+        }
+
+        fun onException(block: (Throwable?) -> Unit) {
+            this.exceptionBlock = block
+        }
     }
 }
