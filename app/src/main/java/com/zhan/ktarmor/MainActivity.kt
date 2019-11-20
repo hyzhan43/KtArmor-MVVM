@@ -1,16 +1,17 @@
 package com.zhan.ktarmor
 
+import androidx.appcompat.app.AppCompatActivity
 import com.zhan.ktarmor.account.LoginActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.base.BaseActivity
+import com.zhan.mvvm.delegate.IActivity
 import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity(), IActivity {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
