@@ -3,6 +3,7 @@ package com.zhan.mvvm.delegate
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.zhan.mvvm.common.Clazz
 
 /**
  *  @author: HyJame
@@ -14,9 +15,16 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     private val cache by lazy { HashMap<String, ActivityDelegate>() }
 
     private lateinit var activityDelegate: ActivityDelegate
+    private lateinit var mvmActivityDelegate: ActivityDelegate
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
+
+        if (activity is IMvmActivity) {
+            mvmActivityDelegate = MvmActivityDelegateImpl(activity)
+            mvmActivityDelegate.onCreate(savedInstanceState)
+        }
+
+        //forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
     }
 
     override fun onActivityStarted(activity: Activity?) {

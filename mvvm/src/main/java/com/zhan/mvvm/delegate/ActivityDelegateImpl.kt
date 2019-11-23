@@ -8,23 +8,23 @@ import android.os.Bundle
  *  @date:   2019-11-20
  *  @desc:   TODO
  */
-class ActivityDelegateImpl(private val iActivity: IActivity) : ActivityDelegate {
+open class ActivityDelegateImpl(private val iActivity: IActivity) : ActivityDelegate {
 
-    private val mActivity = iActivity as Activity
+    private val activity = iActivity as Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 在界面未初始化之前调用的初始化窗口
         iActivity.initWidows()
 
-        if (iActivity.initArgs(mActivity.intent.extras)) {
-            mActivity.setContentView(iActivity.getLayoutId())
+        if (iActivity.initArgs(activity.intent.extras)) {
+            activity.setContentView(iActivity.getLayoutId())
 
             iActivity.initBefore()
             iActivity.initView()
             iActivity.initListener()
             iActivity.initData()
         } else {
-            mActivity.finish()
+            activity.finish()
         }
     }
 

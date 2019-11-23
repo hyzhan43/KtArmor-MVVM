@@ -27,17 +27,13 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
             return
         }
 
-
-
         quickLaunch<LoginRsp> {
 
             onStart { showLoading() }
 
             request { repository.login(account, password) }
 
-            onSuccess {
-                loginData.value = it
-            }
+            onSuccess { loginData.value = it }
         }
     }
 
