@@ -2,6 +2,7 @@ package com.zhan.ktarmor
 
 import androidx.appcompat.app.AppCompatActivity
 import com.zhan.ktarmor.account.LoginActivity
+import com.zhan.ktarmor.account.RegisterActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity(), IActivity {
 
         btnLogin.setOnClickListener {
             startActivity<LoginActivity>()
+        }
+
+        btnRegister.setOnClickListener {
+            startActivity<RegisterActivity>()
         }
 
         val mLoading = LoadingDialog.create(supportFragmentManager)

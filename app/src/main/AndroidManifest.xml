@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".account.RegisterActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,10 +23,10 @@
         </activity>
 
         <activity android:name=".empty.EmptyActivity" />
-<!--        <activity android:name=".account.LoginActivity" />-->
+        <activity android:name=".account.LoginActivity" />
         <activity android:name=".superbar.SuperBarActivity"/>
         <activity android:name=".list.ArticleActivity"/>
-<!--        <activity android:name=".RegisterActivity"/>-->
+        <activity android:name=".account.RegisterActivity"/>
     </application>
 
 </manifest>

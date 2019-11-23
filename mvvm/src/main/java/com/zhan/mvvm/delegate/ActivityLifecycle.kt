@@ -3,7 +3,6 @@ package com.zhan.mvvm.delegate
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.zhan.mvvm.common.Clazz
 
 /**
  *  @author: HyJame
@@ -12,19 +11,12 @@ import com.zhan.mvvm.common.Clazz
  */
 object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
-    private val cache by lazy { HashMap<String, ActivityDelegate>() }
+    private val cacheActivityDelegate by lazy { HashMap<String, ActivityDelegate>() }
 
     private lateinit var activityDelegate: ActivityDelegate
-    private lateinit var mvmActivityDelegate: ActivityDelegate
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-
-        if (activity is IMvmActivity) {
-            mvmActivityDelegate = MvmActivityDelegateImpl(activity)
-            mvmActivityDelegate.onCreate(savedInstanceState)
-        }
-
-        //forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
+        forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
     }
 
     override fun onActivityStarted(activity: Activity?) {
@@ -46,7 +38,7 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     override fun onActivityDestroyed(activity: Activity?) {
         forwardDelegateFunction(activity) {
             activityDelegate.onDestroy()
-            cache.clear()
+            cacheActivityDelegate.clear()
         }
     }
 
@@ -60,8 +52,17 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
         val key = activity.javaClass.name
 
-        activityDelegate = cache[key] ?: ActivityDelegateImpl(activity).also { cache[key] = it }
+        activityDelegate = cacheActivityDelegate[key] ?: newInstantDelegate(activity)
+                .also { cacheActivityDelegate[key] = it }
 
         block()
+    }
+
+    private fun newInstantDelegate(activity: IActivity): ActivityDelegate {
+        if (activity is IMvmActivity) {
+            return MvmActivityDelegateImpl(activity)
+        }
+
+        return ActivityDelegateImpl(activity)
     }
 }
