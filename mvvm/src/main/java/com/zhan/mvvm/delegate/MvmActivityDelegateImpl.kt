@@ -12,7 +12,6 @@ import com.zhan.mvvm.R
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
-import com.zhan.mvvm.mvvm.BaseContract
 import com.zhan.mvvm.mvvm.BaseViewModel
 import java.lang.reflect.Field
 
@@ -22,7 +21,7 @@ import java.lang.reflect.Field
  *  @desc:   TODO
  */
 class MvmActivityDelegateImpl(private val iMvmActivity: IMvmActivity)
-    : ActivityDelegateImpl(iMvmActivity), BaseContract {
+    : ActivityDelegateImpl(iMvmActivity), MvmActivityDelegate {
 
     private val activity = iMvmActivity as Activity
 

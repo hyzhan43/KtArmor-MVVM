@@ -11,6 +11,7 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.delegate.MvmActivityDelegate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class BaseViewModel<T : BaseRepository> : ViewModel(), BaseContract {
+abstract class BaseViewModel<T : BaseRepository> : ViewModel(), MvmActivityDelegate {
 
     val sharedData by lazy { MutableLiveData<SharedData>() }
 

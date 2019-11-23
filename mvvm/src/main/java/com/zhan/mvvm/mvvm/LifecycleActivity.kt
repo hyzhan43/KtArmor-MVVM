@@ -10,6 +10,7 @@ import com.zhan.mvvm.base.ToolbarActivity
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.delegate.MvmActivityDelegate
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**
@@ -17,7 +18,7 @@ import com.zhan.mvvm.widget.LoadingDialog
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), BaseContract {
+abstract class LifecycleActivity<VM : BaseViewModel<*>> : ToolbarActivity(), MvmActivityDelegate {
 
     val loadingView by lazy { LoadingDialog.create(supportFragmentManager) }
 

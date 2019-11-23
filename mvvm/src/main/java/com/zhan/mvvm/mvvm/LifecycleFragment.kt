@@ -9,6 +9,7 @@ import com.zhan.mvvm.base.BaseFragment
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.delegate.MvmActivityDelegate
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**
@@ -16,7 +17,7 @@ import com.zhan.mvvm.widget.LoadingDialog
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class LifecycleFragment<VM : BaseViewModel<*>> : BaseFragment(), BaseContract {
+abstract class LifecycleFragment<VM : BaseViewModel<*>> : BaseFragment(), MvmActivityDelegate {
 
     val loadingView by lazy { LoadingDialog.create(childFragmentManager) }
 
