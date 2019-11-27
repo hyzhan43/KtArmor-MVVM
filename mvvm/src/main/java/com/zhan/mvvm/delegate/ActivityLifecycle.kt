@@ -3,6 +3,9 @@ package com.zhan.mvvm.delegate
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import com.zhan.mvvm.base.IActivity
+import com.zhan.mvvm.mvvm.IMvmActivity
 
 /**
  *  @author: HyJame
@@ -17,6 +20,14 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
+
+        registerFragmentCallback(activity)
+    }
+
+    private fun registerFragmentCallback(activity: Activity?) {
+        if (activity is FragmentActivity) {
+            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycle, true)
+        }
     }
 
     override fun onActivityStarted(activity: Activity?) {

@@ -2,6 +2,7 @@ package com.zhan.mvvm.delegate
 
 import android.app.Activity
 import android.os.Bundle
+import com.zhan.mvvm.base.IActivity
 
 /**
  *  @author: HyJame

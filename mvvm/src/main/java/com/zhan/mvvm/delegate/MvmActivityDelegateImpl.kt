@@ -13,6 +13,7 @@ import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.mvvm.BaseViewModel
+import com.zhan.mvvm.mvvm.IMvmActivity
 import java.lang.reflect.Field
 
 /**

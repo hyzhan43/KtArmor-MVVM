@@ -2,7 +2,6 @@ package com.zhan.mvvm.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.zhan.mvvm.delegate.IActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel

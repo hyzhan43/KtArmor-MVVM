@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
-abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
+abstract class BaseFragment : Fragment(), IFragment, CoroutineScope by MainScope() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutId(), container, false)
@@ -22,14 +22,4 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         initListener()
         initData()
     }
-
-    abstract fun getLayoutId(): Int
-
-    open fun initBefore() {}
-
-    open fun initView() {}
-
-    open fun initListener() {}
-
-    open fun initData() {}
 }

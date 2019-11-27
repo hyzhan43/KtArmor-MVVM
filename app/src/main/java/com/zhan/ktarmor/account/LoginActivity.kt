@@ -6,8 +6,7 @@ import com.zhan.ktarmor.R
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.str
 import com.zhan.mvvm.annotation.BindViewModel
-import com.zhan.mvvm.delegate.IMvmActivity
-import com.zhan.mvvm.mvvm.LifecycleActivity
+import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**

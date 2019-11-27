@@ -1,4 +1,4 @@
-package com.zhan.mvvm.delegate
+package com.zhan.mvvm.base
 
 import android.os.Bundle
 

@@ -7,7 +7,7 @@ import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.delegate.IActivity
+import com.zhan.mvvm.base.IActivity
 import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 

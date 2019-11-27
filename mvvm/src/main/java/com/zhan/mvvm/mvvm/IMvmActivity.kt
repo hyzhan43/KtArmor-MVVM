@@ -1,11 +1,11 @@
-package com.zhan.mvvm.delegate
+package com.zhan.mvvm.mvvm
 
 import android.app.Activity
 import androidx.annotation.StringRes
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.showLog
 import com.zhan.mvvm.R
-import com.zhan.mvvm.mvvm.BaseViewModel
+import com.zhan.mvvm.base.IActivity
 
 /**
  *  @author: HyJame
