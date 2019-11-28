@@ -27,10 +27,13 @@ interface FragmentDelegate {
 
     fun onStopped()
 
+    fun onSaveInstanceState(outState: Bundle)
+
     fun onViewDestroyed()
 
     fun onDestroyed()
 
     fun onDetached()
 
+    fun isAdd(): Boolean
 }

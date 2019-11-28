@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.base.IFragment
+import java.lang.reflect.Field
 
 /**
  *  author: HyJame
@@ -21,7 +22,16 @@ class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
+        val clazz = fragment.javaClass.superclass
 
+        try {
+            val field = clazz.getDeclaredField("mContentLayoutId")
+            field.isAccessible = true
+            field.set(fragment, iFragment.getLayoutId())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw RuntimeException("fragment init layout error")
+        }
     }
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
@@ -31,6 +41,8 @@ class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
         iFragment.initListener()
         iFragment.initData()
     }
+
+    override fun isAdd(): Boolean = fragment.isAdded
 
     override fun onActivityCreate(savedInstanceState: Bundle?) {
     }
@@ -45,6 +57,9 @@ class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
     }
 
     override fun onStopped() {
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
     }
 
     override fun onViewDestroyed() {

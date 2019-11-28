@@ -15,4 +15,5 @@
     <string name="hideLoading">隐藏loading</string>
     <string name="collect">收藏</string>
     <string name="register">注册</string>
+    <string name="fragment">测试 Fragment</string>
 </resources>

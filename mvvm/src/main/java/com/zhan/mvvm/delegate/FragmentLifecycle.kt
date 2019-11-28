@@ -50,27 +50,43 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
         forwardDelegateFunction(fm, f) { fragmentDelegate.onStopped() }
     }
 
+    override fun onFragmentSaveInstanceState(fm: FragmentManager, f: Fragment, outState: Bundle) {
+        forwardDelegateFunction(fm, f) { fragmentDelegate.onSaveInstanceState(outState) }
+    }
+
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
         forwardDelegateFunction(fm, f) { fragmentDelegate.onViewDestroyed() }
     }
 
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-        forwardDelegateFunction(fm, f) { fragmentDelegate.onDestroyed() }
+        forwardDelegateFunction(fm, f) {
+            fragmentDelegate.onDestroyed()
+
+        }
     }
 
     override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-        forwardDelegateFunction(fm, f) { fragmentDelegate.onDetached() }
+        forwardDelegateFunction(fm, f) {
+            fragmentDelegate.onDetached()
+            cacheDelegate.clear()
+        }
     }
 
     private fun forwardDelegateFunction(fm: FragmentManager, f: Fragment, block: () -> Unit) {
 
         if (f !is IFragment) return
 
-        val key = f.javaClass.name
+        if (!this::fragmentDelegate.isInitialized || !fragmentDelegate.isAdd()) {
 
-        fragmentDelegate = cacheDelegate[key] ?: FragmentDelegateImpl(fm, f)
-                .also { cacheDelegate[key] = it }
+            val key = f.javaClass.name
+
+            fragmentDelegate = cacheDelegate[key] ?: newInstance(fm, f, key)
+        }
 
         block()
+    }
+
+    private fun newInstance(fm: FragmentManager, f: Fragment, key: String): FragmentDelegate {
+        return FragmentDelegateImpl(fm, f).also { cacheDelegate[key] = it }
     }
 }

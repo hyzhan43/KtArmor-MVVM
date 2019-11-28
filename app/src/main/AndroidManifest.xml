@@ -27,6 +27,7 @@
         <activity android:name=".superbar.SuperBarActivity"/>
         <activity android:name=".list.ArticleActivity"/>
         <activity android:name=".account.RegisterActivity"/>
+        <activity android:name=".fragment.TestActivity"/>
     </application>
 
 </manifest>

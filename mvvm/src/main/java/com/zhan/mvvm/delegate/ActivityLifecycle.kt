@@ -25,9 +25,10 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     private fun registerFragmentCallback(activity: Activity?) {
-        if (activity is FragmentActivity) {
-            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycle, true)
-        }
+
+        if (activity !is FragmentActivity) return
+
+        activity.supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycle, true)
     }
 
     override fun onActivityStarted(activity: Activity?) {
