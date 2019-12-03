@@ -20,5 +20,6 @@ object Setting {
     const val UNKNOWN_ERROR = "未知异常"
 
     const val MESSAGE_EMPTY = "message is null"
+
     const val DATA_EMPTY = "data is null"
 }

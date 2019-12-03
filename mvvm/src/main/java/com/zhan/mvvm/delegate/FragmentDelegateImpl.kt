@@ -29,7 +29,7 @@ open class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
             field.set(fragment, iFragment.getLayoutId())
         } catch (e: Exception) {
             e.printStackTrace()
-            throw RuntimeException("fragment init layout error")
+            throw RuntimeException("fragment initSharedData layout error")
         }
     }
 
