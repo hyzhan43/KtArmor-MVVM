@@ -9,8 +9,6 @@ import com.zhan.mvvm.base.BaseFragment
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.common.Clazz
-import com.zhan.mvvm.delegate.IMvmActivity
-import com.zhan.mvvm.delegate.IMvmFragment
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**

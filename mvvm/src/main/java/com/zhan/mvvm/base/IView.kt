@@ -1,23 +1,19 @@
 package com.zhan.mvvm.base
 
-import androidx.annotation.StringRes
-
 /**
  *  author: HyJame
  *  date:   2019-12-03
  *  desc:   TODO
  */
-interface IView{
+interface IView {
 
-    fun showError(msg: String) {}
+    fun getLayoutId(): Int
 
-    fun showToast(msg: String) {}
+    fun initBefore() {}
 
-    fun showToast(@StringRes strRes: Int) {}
+    fun initView() {}
 
-    fun showEmptyView() {}
+    fun initListener() {}
 
-    fun showLoading() {}
-
-    fun hideLoading() {}
+    fun initData() {}
 }

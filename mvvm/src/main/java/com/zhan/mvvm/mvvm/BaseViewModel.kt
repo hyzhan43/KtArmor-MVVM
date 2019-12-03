@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhan.ktwing.ext.showLog
 import com.zhan.ktwing.ext.tryCatch
-import com.zhan.mvvm.base.IView
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.common.Clazz
-import com.zhan.mvvm.delegate.IMvmActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +21,7 @@ import kotlinx.coroutines.launch
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IView {
+abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
 
     val sharedData by lazy { MutableLiveData<SharedData>() }
 

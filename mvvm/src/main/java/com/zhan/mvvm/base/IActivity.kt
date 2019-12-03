@@ -7,19 +7,9 @@ import android.os.Bundle
  *  @date:   2019-11-20
  *  @desc:   TODO
  */
-interface IActivity {
+interface IActivity: IView{
 
     fun initWidows() {}
 
     fun initArgs(extras: Bundle?): Boolean = true
-
-    fun getLayoutId(): Int
-
-    fun initBefore() {}
-
-    fun initView() {}
-
-    fun initData() {}
-
-    fun initListener() {}
 }

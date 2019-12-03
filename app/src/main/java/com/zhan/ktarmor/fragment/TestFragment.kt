@@ -2,8 +2,7 @@ package com.zhan.ktarmor.fragment
 
 import androidx.fragment.app.Fragment
 import com.zhan.ktarmor.R
-import com.zhan.mvvm.base.IFragment
-import com.zhan.mvvm.delegate.IMvmFragment
+import com.zhan.mvvm.mvvm.IMvmFragment
 
 /**
  *  author: HyJame

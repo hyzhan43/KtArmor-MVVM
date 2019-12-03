@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.base.IFragment
+import com.zhan.mvvm.mvvm.IMvmFragment
 
 /**
  *  @author: HyJame
@@ -59,10 +60,7 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
     }
 
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-        forwardDelegateFunction(fm, f) {
-            fragmentDelegate.onDestroyed()
-
-        }
+        forwardDelegateFunction(fm, f) { fragmentDelegate.onDestroyed() }
     }
 
     override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
@@ -80,17 +78,17 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
 
             val key = f.javaClass.name
 
-            fragmentDelegate = cacheDelegate[key] ?: newInstance(fm, f, key)
+            fragmentDelegate = cacheDelegate[key] ?: newDelegate(fm, f, key)
         }
 
         block()
     }
 
-    private fun newInstance(fm: FragmentManager, f: Fragment, key: String): FragmentDelegate {
-        return getDelegate(fm, f).also { cacheDelegate[key] = it }
+    private fun newDelegate(fm: FragmentManager, f: Fragment, key: String): FragmentDelegate {
+        return realNewDelegate(fm, f).also { cacheDelegate[key] = it }
     }
 
-    private fun getDelegate(fm: FragmentManager, f: Fragment): FragmentDelegate{
+    private fun realNewDelegate(fm: FragmentManager, f: Fragment): FragmentDelegate{
 
         if (f is IMvmFragment){
             return MvmFragmentDelegateImpl(fm, f)

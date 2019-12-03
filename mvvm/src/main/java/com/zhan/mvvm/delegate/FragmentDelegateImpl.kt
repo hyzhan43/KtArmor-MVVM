@@ -13,7 +13,7 @@ import com.zhan.mvvm.base.IFragment
  *  desc:   TODO
  */
 open class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
-                           private val fragment: Fragment) : FragmentDelegate {
+                                private val fragment: Fragment) : FragmentDelegate {
 
     private val iFragment = fragment as IFragment
 

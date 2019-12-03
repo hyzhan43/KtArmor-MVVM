@@ -12,6 +12,7 @@ import com.zhan.mvvm.R
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
+import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhan.mvvm.utils.ViewModelFactory
 
 /**

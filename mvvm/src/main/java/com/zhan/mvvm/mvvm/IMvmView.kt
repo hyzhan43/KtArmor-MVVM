@@ -1,16 +1,13 @@
-package com.zhan.mvvm.delegate
+package com.zhan.mvvm.mvvm
 
 import androidx.annotation.StringRes
-import com.zhan.mvvm.base.IActivity
 
 /**
- * author：  HyZhan
- * create：  2019/8/7
- * desc：    TODO
+ *  author: HyJame
+ *  date:   2019-12-03
+ *  desc:   TODO
  */
-interface IMvmActivity : IActivity {
-
-    fun dataObserver() {}
+interface IMvmView{
 
     fun showError(msg: String) {}
 
