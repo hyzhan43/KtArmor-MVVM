@@ -87,6 +87,16 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
     }
 
     private fun newInstance(fm: FragmentManager, f: Fragment, key: String): FragmentDelegate {
-        return FragmentDelegateImpl(fm, f).also { cacheDelegate[key] = it }
+        return getDelegate(fm, f).also { cacheDelegate[key] = it }
     }
+
+    private fun getDelegate(fm: FragmentManager, f: Fragment): FragmentDelegate{
+
+        if (f is IMvmFragment){
+            return MvmFragmentDelegateImpl(fm, f)
+        }
+
+        return FragmentDelegateImpl(fm, f)
+    }
+
 }

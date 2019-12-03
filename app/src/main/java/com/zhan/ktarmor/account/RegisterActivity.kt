@@ -2,7 +2,7 @@ package com.zhan.ktarmor.account
 
 import androidx.appcompat.app.AppCompatActivity
 import com.zhan.ktarmor.R
-import com.zhan.mvvm.mvvm.IMvmActivity
+import com.zhan.mvvm.delegate.IMvmActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 /**

@@ -9,9 +9,9 @@ import com.zhan.mvvm.base.IActivity
  *  @date:   2019-11-20
  *  @desc:   TODO
  */
-open class ActivityDelegateImpl(private val iActivity: IActivity) : ActivityDelegate {
+open class ActivityDelegateImpl(private val activity: Activity) : ActivityDelegate {
 
-    private val activity = iActivity as Activity
+    private val iActivity = activity as IActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 在界面未初始化之前调用的初始化窗口

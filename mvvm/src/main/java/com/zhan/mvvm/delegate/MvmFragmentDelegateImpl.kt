@@ -1,30 +1,30 @@
 package com.zhan.mvvm.delegate
 
-import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.StringRes
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.showLog
 import com.zhan.mvvm.R
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
-import com.zhan.mvvm.mvvm.BaseViewModel
-import com.zhan.mvvm.mvvm.IMvmActivity
-import java.lang.reflect.Field
+import com.zhan.mvvm.utils.ViewModelFactory
 
 /**
- *  @author: HyJame
- *  @date:   2019-11-21
- *  @desc:   TODO
+ *  author: HyJame
+ *  date:   2019-12-03
+ *  desc:   TODO
  */
-class MvmActivityDelegateImpl(private val iMvmActivity: IMvmActivity)
-    : ActivityDelegateImpl(iMvmActivity), MvmActivityDelegate {
+class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment)
+    : FragmentDelegateImpl(fm, fragment), IMvmFragment {
 
-    private val activity = iMvmActivity as Activity
+    override fun getLayoutId(): Int = 0
+
+    private val iMvmFragment = fragment as IMvmFragment
 
     // 分发状态
     private val observer by lazy {
@@ -42,48 +42,35 @@ class MvmActivityDelegateImpl(private val iMvmActivity: IMvmActivity)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         initViewModel()
-        super.onCreate(savedInstanceState)
-        iMvmActivity.dataObserver()
+        super.onViewCreated(v, savedInstanceState)
+        iMvmFragment.dataObserver()
     }
 
     private fun initViewModel() {
-        activity.javaClass.fields
+        fragment.javaClass.fields
                 .filter { it.isAnnotationPresent(BindViewModel::class.java) }
                 .getOrNull(0)
                 ?.apply {
                     isAccessible = true
-                    set(activity, getViewModel(this))
+                    set(fragment, ViewModelFactory.getFragmentViewModel(fragment, this, observer))
                 }
     }
 
-    private fun getViewModel(field: Field): BaseViewModel<*> {
-        val viewModel: BaseViewModel<*> = ViewModelProviders.of(activity as FragmentActivity)
-                .get(getFiledClazz(field))
-
-        // 订阅通用 observer
-        viewModel.sharedData.observe(activity, observer)
-
-        return viewModel
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> getFiledClazz(field: Field) = field.genericType as Class<T>
-
     override fun showError(msg: String) {
-        activity.toast(R.string.unkown_error)
+        fragment.toast(R.string.unkown_error)
         msg.showLog()
         hideLoading()
     }
 
     override fun showToast(msg: String) {
-        activity.toast(msg)
+        fragment.toast(msg)
         hideLoading()
     }
 
     override fun showToast(@StringRes strRes: Int) {
-        activity.toast(strRes)
+        fragment.toast(strRes)
         hideLoading()
     }
 

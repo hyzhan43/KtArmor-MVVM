@@ -6,14 +6,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.base.IFragment
-import java.lang.reflect.Field
 
 /**
  *  author: HyJame
  *  date:   2019-11-27
  *  desc:   TODO
  */
-class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
+open class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
                            private val fragment: Fragment) : FragmentDelegate {
 
     private val iFragment = fragment as IFragment

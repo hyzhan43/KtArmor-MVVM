@@ -6,7 +6,7 @@ import com.zhan.ktarmor.R
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.str
 import com.zhan.mvvm.annotation.BindViewModel
-import com.zhan.mvvm.mvvm.IMvmActivity
+import com.zhan.mvvm.delegate.IMvmActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * @date    2019/5/22
  * @desc    TODO
  */
-class LoginActivity :AppCompatActivity(), IMvmActivity {
+class LoginActivity : AppCompatActivity(), IMvmActivity {
 
     @BindViewModel
     lateinit var viewModel: AccountViewModel
@@ -31,6 +31,7 @@ class LoginActivity :AppCompatActivity(), IMvmActivity {
             viewModel.collect()
         }
     }
+
 
     override fun dataObserver() {
         viewModel.loginData.observe(this, Observer {

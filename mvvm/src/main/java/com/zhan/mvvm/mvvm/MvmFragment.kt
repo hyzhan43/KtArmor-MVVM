@@ -9,7 +9,8 @@ import com.zhan.mvvm.base.BaseFragment
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.common.Clazz
-import com.zhan.mvvm.delegate.MvmActivityDelegate
+import com.zhan.mvvm.delegate.IMvmActivity
+import com.zhan.mvvm.delegate.IMvmFragment
 import com.zhan.mvvm.widget.LoadingDialog
 
 /**
@@ -17,21 +18,20 @@ import com.zhan.mvvm.widget.LoadingDialog
  * @date    2019/5/22
  * @desc    TODO
  */
-abstract class LifecycleFragment<VM : BaseViewModel<*>> : BaseFragment(), MvmActivityDelegate {
+abstract class MvmFragment<VM : BaseViewModel<*>> : BaseFragment(), IMvmFragment {
 
     val loadingView by lazy { LoadingDialog.create(childFragmentManager) }
 
     lateinit var viewModel: VM
 
     override fun initData() {
-        super.initData()
 
         viewModel = ViewModelProviders.of(this).get(Clazz.getClass(this))
         viewModel.sharedData.observe(this, observer)
         dataObserver()
     }
 
-    open fun dataObserver() {}
+    override fun dataObserver() {}
 
     override fun showError(msg: String) {
         toast(R.string.unkown_error)

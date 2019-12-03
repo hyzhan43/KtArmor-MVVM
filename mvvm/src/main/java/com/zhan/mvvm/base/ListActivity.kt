@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zhan.mvvm.R
 import com.zhan.mvvm.mvvm.BaseViewModel
-import com.zhan.mvvm.mvvm.LifecycleActivity
+import com.zhan.mvvm.mvvm.MvmActivity
 import kotlinx.android.synthetic.main.k_activity_list.*
 
 /**
@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.k_activity_list.*
  * create：  2019/6/24
  * desc：    TODO
  */
-abstract class ListActivity<VM : BaseViewModel<*>, T> : LifecycleActivity<VM>() {
+abstract class ListActivity<VM : BaseViewModel<*>, T> : MvmActivity<VM>() {
 
     // 当前页
     var page = 0

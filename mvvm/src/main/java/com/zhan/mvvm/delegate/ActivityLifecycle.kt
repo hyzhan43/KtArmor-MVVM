@@ -5,7 +5,6 @@ import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.zhan.mvvm.base.IActivity
-import com.zhan.mvvm.mvvm.IMvmActivity
 
 /**
  *  @author: HyJame
@@ -64,15 +63,15 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
         val key = activity.javaClass.name
 
-        activityDelegate = cacheActivityDelegate[key] ?: newInstantDelegate(activity)
+        activityDelegate = cacheActivityDelegate[key] ?: newInstant(activity)
                 .also { cacheActivityDelegate[key] = it }
 
         block()
     }
 
-    private fun newInstantDelegate(activity: IActivity): ActivityDelegate {
+    private fun newInstant(activity: Activity): ActivityDelegate {
         if (activity is IMvmActivity) {
-            return MvmActivityDelegateImpl(activity)
+            return MvmActivityImpl(activity)
         }
 
         return ActivityDelegateImpl(activity)
