@@ -6,7 +6,7 @@ import android.os.Bundle
 /**
  *  @author: HyJame
  *  @date:   2019-11-20
- *  @desc:   TODO
+ *  @desc:   activity 代理接口
  */
 interface ActivityDelegate {
 
