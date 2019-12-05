@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/mIvImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:maxWidth="@dimen/len_100"
+        android:maxHeight="@dimen/len_100"
+        android:minWidth="@dimen/len_48"
+        android:minHeight="@dimen/len_48"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_frown" />
+
+    <com.zhan.mvvm.widget.LoadingView
+        android:id="@+id/mLoading"
+        android:layout_width="@dimen/len_80"
+        android:layout_height="@dimen/len_80"
+        android:layout_marginTop="@dimen/len_10"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/mTvTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/len_16"
+        android:layout_marginBottom="@dimen/len_16"
+        android:text="@string/prompt_empty"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/len_20"
+    android:paddingTop="@dimen/len_10"
+    android:paddingEnd="@dimen/len_20"
+    android:paddingBottom="@dimen/len_10">
+
+    <com.zhan.mvvm.widget.LoadingView
+        android:id="@+id/mLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/mTvTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/len_4"
+        android:text="@string/prompt_loading" />
+</LinearLayout>

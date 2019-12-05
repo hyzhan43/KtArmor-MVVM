@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlaceHolderView">
+        <attr name="emptyText" format="string|reference"/>
+        <attr name="errorText" format="string|reference"/>
+        <attr name="loadingText" format="string|reference"/>
+        <attr name="loadingColor" format="color|reference"/>
+        <attr name="emptyDrawable" format="reference"/>
+        <attr name="errorDrawable" format="reference"/>
+    </declare-styleable>
+</resources>

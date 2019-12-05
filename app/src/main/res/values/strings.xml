@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">KtArmor</string>
+    <string name="empty">跳转到EmptyView</string>
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="account_or_password_empty">账号或密码为空</string>
+    <string name="showLoading">显示loading</string>
+
+    <string name="showItemView">showItemView</string>
+
+    <string name="sex">性别</string>
+    <string name="man">男</string>
+    <string name="article">Article</string>
+    <string name="hideLoading">隐藏loading</string>
+    <string name="collect">收藏</string>
+    <string name="register">注册</string>
+    <string name="fragment">测试 Fragment</string>
 </resources>

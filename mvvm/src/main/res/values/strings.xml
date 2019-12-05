@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">common</string>
+
+    <string name="prompt_empty">Oh~, it empty!</string>
+    <string name="prompt_error">Sorry, you have or more error!</string>
+    <string name="prompt_loading">Loading..</string>
+    <string name="setting">设置</string>
+    <string name="network_error">网络异常</string>
+    <string name="unkown_error">未知异常</string>
+    <string name="man">男</string>
+    <string name="sex">性别</string>
+</resources>
