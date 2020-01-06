@@ -5,6 +5,6 @@ package com.zhan.mvvm.base
  *  date:   2019-11-27
  *  desc:   TODO
  */
-interface IFragment: IView{
+interface IFragment : IView {
 
 }

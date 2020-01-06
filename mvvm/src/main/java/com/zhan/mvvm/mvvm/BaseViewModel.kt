@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 /**
  * @author  hyzhan
  * @date    2019/5/22
- * @desc    TODO
+ * @desc    ViewModel 基类, 封装了基本 请求方法, repository创建等
  */
 abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
 
@@ -40,15 +40,6 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
 
     fun <R> quickLaunch(block: Execute<R>.() -> Unit) {
         Execute<R>().apply(block)
-    }
-
-    fun <R> KResponse<R>.execute(success: ((R?) -> Unit)?, error: ((String) -> Unit)? = null) {
-        if (this.isSuccess()) {
-            success?.invoke(this.getKData())
-            return
-        }
-
-        (this.getKMessage() ?: Setting.MESSAGE_EMPTY).let { error?.invoke(it) ?: showToast(it) }
     }
 
     private fun showException(exception: String) {
