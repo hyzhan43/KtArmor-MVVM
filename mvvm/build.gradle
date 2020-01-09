@@ -50,8 +50,7 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.6.0'
     api 'com.squareup.retrofit2:converter-gson:2.6.0'
 
-    // okHttp
-    api 'com.squareup.okhttp3:okhttp:3.12.1'
+    // okHttp log
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     // KtWing

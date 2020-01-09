@@ -17,7 +17,7 @@ interface ApiService {
 
     @POST(API.LOGIN)
     suspend fun login(@Query("username") username: String,
-              @Query("password") password: String): BaseResponse<LoginRsp>
+                      @Query("password") password: String): BaseResponse<LoginRsp>
 
     @POST(API.COLLECT)
     suspend fun collectAsync(@Path("id") id: Int): BaseResponse<EmptyRsp>
