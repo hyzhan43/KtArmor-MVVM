@@ -17,7 +17,7 @@ import java.lang.reflect.Field
  *  @date:   2019-11-21
  *  @desc:   TODO
  */
-class MvmActivityImpl(private val activity: Activity)
+class MvmActivityDelegateImpl(private val activity: Activity)
     : ActivityDelegateImpl(activity), IMvmActivity {
 
     override fun getLayoutId(): Int = 0
@@ -41,22 +41,6 @@ class MvmActivityImpl(private val activity: Activity)
     }
 
     private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.getActivityViewModel(this, activity, field)
-    }
-
-    override fun showError(msg: String) {
-        activity.toast(R.string.unkown_error)
-        msg.showLog()
-        hideLoading()
-    }
-
-    override fun showToast(msg: String) {
-        activity.toast(msg)
-        hideLoading()
-    }
-
-    override fun showToast(@StringRes strRes: Int) {
-        activity.toast(strRes)
-        hideLoading()
+        return ViewModelFactory.getActivityViewModel(iMvmActivity, activity, field)
     }
 }
