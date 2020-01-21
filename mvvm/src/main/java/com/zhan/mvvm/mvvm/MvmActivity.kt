@@ -17,6 +17,7 @@ import com.zhan.mvvm.widget.LoadingDialog
  * @date    2019/5/22
  * @desc    TODO
  */
+@Deprecated("不再需要继承 MvmActivity类, 直接继承 IMvmActivity接口即可")
 abstract class MvmActivity<VM : BaseViewModel<*>> : ToolbarActivity(), IMvmActivity {
 
     val loadingView by lazy { LoadingDialog.create(supportFragmentManager) }

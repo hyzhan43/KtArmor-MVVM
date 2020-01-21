@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/len_52">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mEtAccount"
+            android:id="@+id/mTieAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/account"
@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/len_52">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mEtPassword"
+            android:id="@+id/mTiePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"

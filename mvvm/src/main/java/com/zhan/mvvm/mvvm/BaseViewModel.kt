@@ -42,6 +42,10 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
         Execute<R>().apply(block)
     }
 
+    /**
+     *  setValue 方式更新 LiveData (主线程)
+     */
+
     private fun showException(exception: String) {
         exception.showLog()
         showError(Setting.UNKNOWN_ERROR)
@@ -69,6 +73,38 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
 
     override fun hideLoading() {
         sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
+    }
+
+    /**
+     *  postValue 方式更新 LiveData (非主线程)
+     */
+    private fun postShowException(exception: String) {
+        exception.showLog()
+        postShowError(Setting.UNKNOWN_ERROR)
+    }
+
+    override fun postShowError(msg: String) {
+        sharedData.postValue(SharedData(msg, type = SharedType.ERROR))
+    }
+
+    override fun postShowToast(@StringRes strRes: Int) {
+        sharedData.postValue(SharedData(strRes = strRes, type = SharedType.RESOURCE))
+    }
+
+    override fun postShowToast(msg: String) {
+        sharedData.postValue(SharedData(msg, type = SharedType.TOAST))
+    }
+
+    override fun postShowEmptyView() {
+        sharedData.postValue(SharedData(type = SharedType.EMPTY))
+    }
+
+    override fun postShowLoading() {
+        sharedData.postValue(SharedData(type = SharedType.SHOW_LOADING))
+    }
+
+    override fun postHideLoading() {
+        sharedData.postValue(SharedData(type = SharedType.HIDE_LOADING))
     }
 
 

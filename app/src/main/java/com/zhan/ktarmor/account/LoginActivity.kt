@@ -19,12 +19,16 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
     @BindViewModel
     lateinit var viewModel: AccountViewModel
 
+    val mIdlingResource by lazy { LoginIdlingResource() }
+
     override fun getLayoutId(): Int = R.layout.activity_login
 
     override fun initView() {
 
         mBtnLogin.setOnClickListener {
-            viewModel.login(mEtAccount.str(), mEtPassword.str())
+            //耗时操作开始，设置空闲状态为false，阻塞测试线程
+            mIdlingResource.setIdleState(false)
+            viewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
         mBtnCollect.setOnClickListener {
@@ -33,10 +37,29 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
     }
 
 
+    override fun postShowToast(msg: String) {
+        super.postShowToast(msg)
+        mIdlingResource.setIdleState(true)
+    }
+
+    override fun showToast(msg: String) {
+        super.showToast(msg)
+        toast(msg)
+        mIdlingResource.setIdleState(true)
+    }
+
+    override fun showToast(strRes: Int) {
+        super.showToast(strRes)
+
+    }
+
+
+
     override fun dataObserver() {
         viewModel.loginData.observe(this, Observer {
             toast("登录成功")
             hideLoading()
+            mIdlingResource.setIdleState(true)
         })
 
         viewModel.collectData.observe(this, Observer {
