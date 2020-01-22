@@ -2,15 +2,16 @@ package com.zhan.mvvm.delegate
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.zhan.ktwing.ext.Toasts.toast
-import com.zhan.ktwing.ext.showLog
-import com.zhan.mvvm.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.mvvm.IMvmFragment
+import com.zhan.mvvm.common.SharedDataFactory
 import com.zhan.mvvm.common.ViewModelFactory
+import com.zhan.mvvm.mvvm.BaseViewModel
 import java.lang.reflect.Field
 
 /**
@@ -21,43 +22,24 @@ import java.lang.reflect.Field
 class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment)
     : FragmentDelegateImpl(fm, fragment), IMvmFragment {
 
-    override fun getLayoutId(): Int = 0
-
     private val iMvmFragment = fragment as IMvmFragment
 
+    private val observer: Observer<SharedData> by lazy { SharedDataFactory.initSharedData(iMvmFragment) }
+
+    private var viewModel: BaseViewModel<*>? = null
+
+    override fun getLayoutId(): Int = 0
+
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
-        initViewModel()
+        viewModel = ViewModelFactory.injectViewModelByFragment(fragment)
         super.onViewCreated(v, savedInstanceState)
+
+        observerSharedData()
         iMvmFragment.dataObserver()
     }
 
-    private fun initViewModel() {
-        fragment.javaClass.fields
-                .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-                .getOrNull(0)
-                ?.apply {
-                    isAccessible = true
-                    set(fragment, getViewModel(this))
-                }
-    }
-
-    private fun getViewModel(field: Field) {
-        ViewModelFactory.getFragmentViewModel(this, fragment, field)
-    }
-
-    override fun showError(msg: String) {
-        fragment.toast(R.string.unkown_error)
-        msg.showLog()
-        hideLoading()
-    }
-
-    override fun showToast(msg: String) {
-        fragment.toast(msg)
-        hideLoading()
-    }
-
-    override fun showToast(@StringRes strRes: Int) {
-        fragment.toast(strRes)
-        hideLoading()
+    private fun observerSharedData() {
+        // 订阅通用 observer
+        viewModel?.sharedData?.observe(fragment, observer)
     }
 }

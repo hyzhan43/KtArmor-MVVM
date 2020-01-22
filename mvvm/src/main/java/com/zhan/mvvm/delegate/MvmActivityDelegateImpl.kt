@@ -2,14 +2,15 @@ package com.zhan.mvvm.delegate
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModel
-import com.zhan.ktwing.ext.Toasts.toast
-import com.zhan.ktwing.ext.showLog
-import com.zhan.mvvm.R
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.mvvm.IMvmActivity
+import com.zhan.mvvm.common.SharedDataFactory
 import com.zhan.mvvm.common.ViewModelFactory
+import com.zhan.mvvm.mvvm.BaseViewModel
 import java.lang.reflect.Field
 
 /**
@@ -20,27 +21,27 @@ import java.lang.reflect.Field
 class MvmActivityDelegateImpl(private val activity: Activity)
     : ActivityDelegateImpl(activity), IMvmActivity {
 
-    override fun getLayoutId(): Int = 0
-
     private val iMvmActivity = activity as IMvmActivity
 
+    private val observer: Observer<SharedData> by lazy { SharedDataFactory.initSharedData(iMvmActivity) }
+
+    private val fragmentActivity by lazy { activity as FragmentActivity }
+
+    private var viewModel: BaseViewModel<*>? = null
+
+    override fun getLayoutId(): Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        initViewModel()
+        viewModel = ViewModelFactory.injectViewModelByFragmentActivity(fragmentActivity)
         super.onCreate(savedInstanceState)
+
+        observerSharedData()
+
         iMvmActivity.dataObserver()
     }
 
-    private fun initViewModel() {
-        activity.javaClass.fields
-                .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-                .getOrNull(0)
-                ?.apply {
-                    isAccessible = true
-                    set(activity, getViewModel(this))
-                }
-    }
-
-    private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.getActivityViewModel(iMvmActivity, activity, field)
+    private fun observerSharedData() {
+        // 订阅通用 observer
+        viewModel?.sharedData?.observe(fragmentActivity, observer)
     }
 }
