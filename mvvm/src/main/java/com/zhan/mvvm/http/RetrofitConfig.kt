@@ -11,12 +11,6 @@ import retrofit2.Retrofit
  */
 interface RetrofitConfig {
 
-    val baseUrl: String
-
-    val readTimeOut: Long
-    val writeTimeOut: Long
-    val connectTimeOut: Long
-
     fun initRetrofit(): Retrofit
 
     fun initOkHttpClient(vararg interceptors: Interceptor): OkHttpClient

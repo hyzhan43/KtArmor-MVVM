@@ -3,16 +3,19 @@ package com.zhan.mvvm
 import android.app.Application
 import com.zhan.ktwing.KtWing
 import com.zhan.mvvm.delegate.ActivityLifecycle
-import com.zhan.mvvm.http.RetrofitConfig
+import com.zhan.mvvm.http.BaseRetrofitConfig
+import com.zhan.mvvm.http.DefaultRetrofitConfig
 
 object KtArmor {
 
-    lateinit var retrofit: RetrofitConfig
+    var retrofitConfig: BaseRetrofitConfig = DefaultRetrofitConfig()
 
-    fun init(application: Application, retrofit: RetrofitConfig) {
-        this.retrofit = retrofit
+    internal fun init(application: Application){
         KtWing.init(application)
-
         application.registerActivityLifecycleCallbacks(ActivityLifecycle)
+    }
+
+    fun initRetrofitConfig(retrofitConfig: BaseRetrofitConfig) {
+        this.retrofitConfig = retrofitConfig
     }
 }

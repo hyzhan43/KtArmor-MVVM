@@ -1,6 +1,6 @@
 package com.zhan.mvvm.http
 
-import com.zhan.mvvm.KtArmor
+import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.http.intercept.LoggingIntercept
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,9 +23,9 @@ object BaseOkHttpClient {
         }
 
         builder.addInterceptor(LoggingIntercept.init())
-                .readTimeout(KtArmor.retrofit.readTimeOut, TimeUnit.SECONDS)
-                .writeTimeout(KtArmor.retrofit.writeTimeOut, TimeUnit.SECONDS)
-                .connectTimeout(KtArmor.retrofit.connectTimeOut, TimeUnit.SECONDS)
+                .readTimeout(Setting.READ_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(Setting.WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .connectTimeout(Setting.CONNECT_TIME_OUT, TimeUnit.SECONDS)
 
         return builder.build()
     }

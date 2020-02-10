@@ -7,7 +7,6 @@ package com.zhan.ktarmor.common.api
  */
 object API{
 
-
     const val BASE_URL = "https://www.wanandroid.com"
 
     const val LOGIN = "/user/login"

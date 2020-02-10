@@ -5,7 +5,6 @@ import com.zhan.ktarmor.account.LoginActivity
 import com.zhan.ktarmor.account.RegisterActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.fragment.TestActivity
-import com.zhan.ktarmor.list.ArticleActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.IActivity
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), IActivity {
         }
 
         btnArticle.setOnClickListener {
-            startActivity<ArticleActivity>()
+            //startActivity<ArticleActivity>()
         }
 
         btnCollect.setOnClickListener {
