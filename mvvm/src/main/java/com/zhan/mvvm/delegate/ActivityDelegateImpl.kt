@@ -7,7 +7,7 @@ import com.zhan.mvvm.base.IActivity
 /**
  *  @author: HyJame
  *  @date:   2019-11-20
- *  @desc:   TODO
+ *  @desc:   activity 代理实现类
  */
 open class ActivityDelegateImpl(private val activity: Activity) : ActivityDelegate {
 

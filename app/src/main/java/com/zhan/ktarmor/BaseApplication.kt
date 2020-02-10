@@ -11,7 +11,7 @@ import com.zhan.mvvm.KtArmor
  * @date    2019/5/28
  * @desc    TODO
  */
-class BaseApplication: Application(){
+class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

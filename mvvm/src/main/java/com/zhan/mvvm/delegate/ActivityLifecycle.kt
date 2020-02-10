@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.zhan.mvvm.base.IActivity
+import com.zhan.mvvm.common.ActivityManager
 import com.zhan.mvvm.mvvm.IMvmActivity
 
 /**
@@ -19,6 +20,8 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     private lateinit var activityDelegate: ActivityDelegate
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        activity?.let { ActivityManager.add(it) }
+
         forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
 
         registerFragmentCallback(activity)
@@ -48,6 +51,8 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
+        activity?.let { ActivityManager.remove(it) }
+
         forwardDelegateFunction(activity) {
             activityDelegate.onDestroy()
             cacheActivityDelegate.clear()
