@@ -7,6 +7,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
 
+@Deprecated("直接实现 IActivity 接口即可")
 abstract class BaseActivity : AppCompatActivity(), IActivity, CoroutineScope by MainScope() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
-    override fun initView() {
+    override fun initListener() {
 
         mBtnLogin.setOnClickListener {
             viewModel.login(mEtAccount.str(), mEtPassword.str())

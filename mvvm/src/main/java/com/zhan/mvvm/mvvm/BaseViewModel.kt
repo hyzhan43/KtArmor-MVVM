@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @date    2019/5/22
  * @desc    ViewModel 基类, 封装了基本 请求方法, repository创建等
  */
-abstract class BaseViewModel<T : BaseRepository> : ViewModel(), IMvmView {
+abstract class BaseViewModel<T> : ViewModel(), IMvmView {
 
     val sharedData by lazy { MutableLiveData<SharedData>() }
 

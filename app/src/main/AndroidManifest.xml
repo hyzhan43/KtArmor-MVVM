@@ -25,7 +25,7 @@
         <activity android:name=".empty.EmptyActivity" />
         <activity android:name=".account.LoginActivity" />
         <activity android:name=".superbar.SuperBarActivity"/>
-        <activity android:name=".list.ArticleActivity"/>
+<!--        <activity android:name=".list.ArticleActivity"/>-->
         <activity android:name=".account.RegisterActivity"/>
         <activity android:name=".fragment.TestActivity"/>
     </application>

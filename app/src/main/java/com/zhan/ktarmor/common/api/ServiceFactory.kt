@@ -8,9 +8,7 @@ import com.zhan.mvvm.mvvm.BaseRepository
  * @date    2019/5/28
  * @desc    TODO
  */
-abstract class ApiRepository : BaseRepository() {
+object ServiceFactory {
 
-    protected val apiService by lazy {
-        RetrofitFactory.instance.create(ApiService::class.java)
-    }
+    val apiService by lazy { RetrofitFactory.create(ApiService::class.java) }
 }

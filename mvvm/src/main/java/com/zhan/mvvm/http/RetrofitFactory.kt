@@ -8,21 +8,16 @@ import java.lang.IllegalArgumentException
 /**
  * @author  hyzhan
  * @date    2019/5/28
- * @desc    TODO
+ * @desc    retrofit 工厂类
  */
 
-class RetrofitFactory private constructor() {
-
-    companion object {
-        val instance by lazy { RetrofitFactory() }
-    }
-
-    private val retrofit: Retrofit by lazy {
-        KtArmor.retrofitConfig.initRetrofit()
-    }
+object RetrofitFactory {
 
     fun <T> create(clz: Class<T>): T {
         prepareBaseUrl(clz)
+
+        val retrofit = KtArmor.retrofitConfig.initRetrofit()
+
         return retrofit.create(clz)
     }
 

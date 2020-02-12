@@ -16,6 +16,7 @@ import com.zhan.mvvm.widget.LoadingDialog
  * @date    2019/5/22
  * @desc    TODO
  */
+@Deprecated("直接实现 IMvmFragment 接口即可")
 abstract class MvmFragment<VM : BaseViewModel<*>> : BaseFragment(), IMvmFragment {
 
     val loadingView by lazy { LoadingDialog.create(childFragmentManager) }
