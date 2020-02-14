@@ -11,7 +11,7 @@ import java.lang.reflect.Field
 /**
  *  @author: HyJame
  *  @date:   2019-11-21
- *  @desc:   TODO
+ *  @desc:   IMvmActivity 代理类具体实现
  */
 class MvmActivityImpl(private val activity: Activity)
     : ActivityDelegateImpl(activity), IMvmActivity {
@@ -26,6 +26,10 @@ class MvmActivityImpl(private val activity: Activity)
         iMvmActivity.dataObserver()
     }
 
+    /**
+     *  根据 @BindViewModel 注解, 查找注解标示的变量（ViewModel）
+     *  并且 创建 ViewModel 实例, 注入到变量中
+     */
     private fun initViewModel() {
         activity.javaClass.fields
                 .filter { it.isAnnotationPresent(BindViewModel::class.java) }
@@ -37,6 +41,6 @@ class MvmActivityImpl(private val activity: Activity)
     }
 
     private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.getActivityViewModel(iMvmActivity, activity, field)
+        return ViewModelFactory.createViewModel(activity, field)
     }
 }

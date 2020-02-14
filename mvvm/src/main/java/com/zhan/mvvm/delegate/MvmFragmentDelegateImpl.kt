@@ -2,12 +2,9 @@ package com.zhan.mvvm.delegate
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.zhan.ktwing.ext.Toasts.toast
-import com.zhan.ktwing.ext.showLog
-import com.zhan.mvvm.R
+import androidx.lifecycle.ViewModel
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhan.mvvm.common.ViewModelFactory
@@ -16,7 +13,7 @@ import java.lang.reflect.Field
 /**
  *  author: HyJame
  *  date:   2019-12-03
- *  desc:   TODO
+ *  desc:   IMvmFragment 代理类具体实现
  */
 class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment)
     : FragmentDelegateImpl(fm, fragment), IMvmFragment {
@@ -31,6 +28,10 @@ class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragm
         iMvmFragment.dataObserver()
     }
 
+    /**
+     *  根据 @BindViewModel 注解, 查找注解标示的变量（ViewModel）
+     *  并且 创建 ViewModel 实例, 注入到变量中
+     */
     private fun initViewModel() {
         fragment.javaClass.fields
                 .filter { it.isAnnotationPresent(BindViewModel::class.java) }
@@ -41,7 +42,8 @@ class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragm
                 }
     }
 
-    private fun getViewModel(field: Field) {
-        ViewModelFactory.getFragmentViewModel(iMvmFragment, fragment, field)
+
+    private fun getViewModel(field: Field): ViewModel {
+        return ViewModelFactory.createViewModel(fragment, field)
     }
 }

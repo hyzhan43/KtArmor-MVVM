@@ -4,10 +4,13 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.mvvm.BaseViewModel
+import com.zhan.mvvm.mvvm.IMvmActivity
+import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhan.mvvm.mvvm.IMvmView
 import java.lang.reflect.Field
 
@@ -35,10 +38,13 @@ object ViewModelFactory {
         }
     }
 
-    fun getFragmentViewModel(view: IMvmView, fragment: Fragment, field: Field): BaseViewModel<*> {
-        val viewModel: BaseViewModel<*> = ViewModelProviders.of(fragment).get(getFiledClazz(field))
+    /**
+     * 创建 对应的 ViewModel, 并且 添加 通用 SharedData (LiveData) 到 ViewModel中
+     */
+    fun createViewModel(fragment: Fragment, field: Field): BaseViewModel<*> {
+        val viewModel: BaseViewModel<*> = ViewModelProvider(fragment).get(getFiledClazz(field))
 
-        initSharedData(view)
+        initSharedData(fragment as IMvmFragment)
 
         // 订阅通用 observer
         viewModel.sharedData.observe(fragment, observer)
@@ -46,13 +52,16 @@ object ViewModelFactory {
         return viewModel
     }
 
-    fun getActivityViewModel(view: IMvmView, activity: Activity, field: Field): BaseViewModel<*> {
+    /**
+     *  创建 对应的 ViewModel, 并且 添加 通用 SharedData (LiveData) 到 ViewModel中
+     */
+    fun createViewModel(activity: Activity, field: Field): BaseViewModel<*> {
 
         val fragmentActivity = activity as FragmentActivity
 
-        val viewModel: BaseViewModel<*> = ViewModelProviders.of(fragmentActivity).get(getFiledClazz(field))
+        val viewModel: BaseViewModel<*> = ViewModelProvider(fragmentActivity).get(getFiledClazz(field))
 
-        initSharedData(view)
+        initSharedData(activity as IMvmActivity)
 
         // 订阅通用 observer
         viewModel.sharedData.observe(fragmentActivity, observer)
