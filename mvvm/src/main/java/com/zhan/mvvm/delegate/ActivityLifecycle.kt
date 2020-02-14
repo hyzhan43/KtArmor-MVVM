@@ -80,7 +80,7 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
     private fun realNewDelegate(activity: Activity): ActivityDelegate {
         if (activity is IMvmActivity) {
-            return MvmActivityImpl(activity)
+            return MvmActivityDelegateImpl(activity)
         }
 
         return ActivityDelegateImpl(activity)

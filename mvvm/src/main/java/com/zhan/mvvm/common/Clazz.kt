@@ -1,5 +1,6 @@
 package com.zhan.mvvm.common
 
+import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -16,4 +17,7 @@ object Clazz {
                 .actualTypeArguments[0]
                 as Class<T>
     }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getFiledClazz(field: Field) = field.genericType as Class<T>
 }

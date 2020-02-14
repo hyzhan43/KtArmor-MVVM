@@ -2,6 +2,7 @@ package com.zhan.mvvm.delegate
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.common.ViewModelFactory
@@ -13,7 +14,7 @@ import java.lang.reflect.Field
  *  @date:   2019-11-21
  *  @desc:   IMvmActivity 代理类具体实现
  */
-class MvmActivityImpl(private val activity: Activity)
+class MvmActivityDelegateImpl(private val activity: Activity)
     : ActivityDelegateImpl(activity), IMvmActivity {
 
     override fun getLayoutId(): Int = 0
@@ -40,7 +41,8 @@ class MvmActivityImpl(private val activity: Activity)
                 }
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.createViewModel(activity, field)
+        return ViewModelFactory.createViewModel(iMvmActivity, field)
     }
 }
