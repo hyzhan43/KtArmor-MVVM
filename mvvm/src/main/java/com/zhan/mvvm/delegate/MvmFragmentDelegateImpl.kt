@@ -42,22 +42,6 @@ class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragm
     }
 
     private fun getViewModel(field: Field) {
-        ViewModelFactory.getFragmentViewModel(this, fragment, field)
-    }
-
-    override fun showError(msg: String) {
-        fragment.toast(R.string.unkown_error)
-        msg.showLog()
-        hideLoading()
-    }
-
-    override fun showToast(msg: String) {
-        fragment.toast(msg)
-        hideLoading()
-    }
-
-    override fun showToast(@StringRes strRes: Int) {
-        fragment.toast(strRes)
-        hideLoading()
+        ViewModelFactory.getFragmentViewModel(iMvmFragment, fragment, field)
     }
 }

@@ -11,6 +11,7 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.constant.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -71,12 +72,11 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
     }
 
-
     inner class Execute<R> {
 
         private var startBlock: (() -> Unit)? = null
         private var successBlock: ((R?) -> Unit)? = null
-        private var failBlock: ((String?) -> Unit)? = null
+        private var failBlock: ((String?) -> Unit) = { showToast(it ?: Setting.MESSAGE_EMPTY) }
         private var exceptionBlock: ((Throwable?) -> Unit)? = null
 
         fun onStart(block: () -> Unit) {

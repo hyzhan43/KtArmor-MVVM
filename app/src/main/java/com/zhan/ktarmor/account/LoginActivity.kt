@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_login.*
  */
 class LoginActivity : AppCompatActivity(), IMvmActivity {
 
+    val mIdlingResource by lazy { LoginIdlingResource() }
+
     @BindViewModel
     lateinit var viewModel: AccountViewModel
 
@@ -24,7 +26,8 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
     override fun initListener() {
 
         mBtnLogin.setOnClickListener {
-            viewModel.login(mEtAccount.str(), mEtPassword.str())
+            mIdlingResource.isNotIdleState()
+            viewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
         mBtnCollect.setOnClickListener {
@@ -32,11 +35,15 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
         }
     }
 
+    override fun showToast(msg: String) {
+        super.showToast(msg)
+        mIdlingResource.isIdleState()
+    }
 
     override fun dataObserver() {
         viewModel.loginData.observe(this, Observer {
+            mIdlingResource.isIdleState()
             toast("登录成功")
-            hideLoading()
         })
 
         viewModel.collectData.observe(this, Observer {

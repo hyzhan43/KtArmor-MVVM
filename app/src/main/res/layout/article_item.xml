@@ -9,6 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textColor="@color/blue_700"
+        android:textColor="@android:color/holo_blue_dark"
         android:padding="@dimen/len_20"/>
 </LinearLayout>

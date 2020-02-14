@@ -9,6 +9,7 @@ import com.zhan.mvvm.R
  * create：  2019/8/6
  * desc：    需要为 Toolbar 控件设置id 为 toolbar
  */
+@Deprecated("不推荐使用, 后续更新")
 abstract class ToolbarActivity : BaseActivity() {
 
     var toolbarTitle: String = ""
