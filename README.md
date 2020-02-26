@@ -198,12 +198,6 @@ class LoginRepository {
 
 如有不妥, 望各位大佬指出。
 
-# 未完待续
-
-至此，以上就是登录功能的全过程。这是 `KtArmor-MVVM` 开篇的第一篇，大概讲解了`KtArmor-MVVM` 基本用法。  后续会详细讲解框架的使用。后续也会陆续更新。敬请期待吧！
-
-着急的小伙伴可以直接查看下文`源码`~ 
-
 # 示例项目
 
 ## [Kotlin 版 玩Android](https://github.com/hyzhan43/PlayAndroid/tree/KtArmor-MVVM)
