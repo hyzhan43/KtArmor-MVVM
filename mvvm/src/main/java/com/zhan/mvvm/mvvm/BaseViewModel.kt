@@ -39,10 +39,6 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         }
     }
 
-    fun <R> quickLaunch(block: Execute<R>.() -> Unit) {
-        Execute<R>().apply(block)
-    }
-
     private fun showException(exception: String) {
         exception.showLog()
         showError(Setting.UNKNOWN_ERROR)
@@ -72,10 +68,17 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
     }
 
+    fun <R> quickLaunch(block: Execute<R>.() -> Unit) {
+        Execute<R>().apply(block)
+    }
+
     inner class Execute<R> {
 
         private var startBlock: (() -> Unit)? = null
+
         private var successBlock: ((R?) -> Unit)? = null
+        private var successRspBlock: ((KResponse<R>) -> Unit)? = null
+
         private var failBlock: ((String?) -> Unit) = { showToast(it ?: Setting.MESSAGE_EMPTY) }
         private var exceptionBlock: ((Throwable?) -> Unit)? = null
 
@@ -87,11 +90,21 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
 
             startBlock?.invoke()
 
-            launchUI({ block()?.execute(successBlock, failBlock) }, exceptionBlock)
+            launchUI({
+
+                successBlock?.let {
+                    block()?.execute(successBlock, failBlock)
+                } ?: block()?.executeRsp(successRspBlock, failBlock)
+
+            }, exceptionBlock)
         }
 
         fun onSuccess(block: (R?) -> Unit) {
             this.successBlock = block
+        }
+
+        fun onSuccessRsp(block: (KResponse<R>) -> Unit) {
+            this.successRspBlock = block
         }
 
         fun onFail(block: (String?) -> Unit) {

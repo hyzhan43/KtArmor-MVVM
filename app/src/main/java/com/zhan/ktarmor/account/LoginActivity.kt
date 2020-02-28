@@ -41,10 +41,13 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
     }
 
     override fun dataObserver() {
-        viewModel.loginData.observe(this, Observer {
-            mIdlingResource.isIdleState()
+
+        viewModel.loginData.observe(this, {
             toast("登录成功")
+        }, {
+            toast("错误")
         })
+
 
         viewModel.collectData.observe(this, Observer {
             toast("收藏成功")
