@@ -12,8 +12,10 @@ import com.zhan.mvvm.base.IFragment
  *  date:   2019-11-27
  *  desc:   TODO
  */
-open class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
-                                private val fragment: Fragment) : FragmentDelegate {
+open class FragmentDelegateImpl(
+    private val fragmentManager: FragmentManager,
+    private val fragment: Fragment
+) : FragmentDelegate {
 
     private val iFragment = fragment as IFragment
 
@@ -23,14 +25,11 @@ open class FragmentDelegateImpl(private val fragmentManager: FragmentManager,
     override fun onCreated(savedInstanceState: Bundle?) {
         val clazz = fragment.javaClass.superclass
 
-        try {
-            val field = clazz.getDeclaredField("mContentLayoutId")
+        clazz?.let {
+            val field = it.getDeclaredField("mContentLayoutId")
             field.isAccessible = true
             field.set(fragment, iFragment.getLayoutId())
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw RuntimeException("fragment initSharedData layout error")
-        }
+        } ?: throw ClassNotFoundException("fragment init layout error")
     }
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
