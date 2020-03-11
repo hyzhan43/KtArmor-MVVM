@@ -1,6 +1,5 @@
 package com.zhan.mvvm.mvvm.actuator
 
-import com.zhan.mvvm.bean.livedata.CommonLiveData
 import kotlinx.coroutines.CoroutineScope
 
 /**

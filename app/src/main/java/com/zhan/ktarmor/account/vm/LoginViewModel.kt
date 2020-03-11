@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
 import com.zhan.ktarmor.account.data.response.LoginRsp
-import com.zhan.mvvm.bean.livedata.CommonLiveData
+import com.zhan.mvvm.mvvm.actuator.CommonLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
 
 /**

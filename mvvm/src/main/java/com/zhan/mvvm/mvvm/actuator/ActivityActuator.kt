@@ -1,4 +1,4 @@
-package com.zhan.mvvm.bean.livedata
+package com.zhan.mvvm.mvvm.actuator
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer

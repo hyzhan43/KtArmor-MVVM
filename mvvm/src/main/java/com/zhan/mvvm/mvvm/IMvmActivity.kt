@@ -2,8 +2,8 @@ package com.zhan.mvvm.mvvm
 
 import androidx.lifecycle.LifecycleOwner
 import com.zhan.mvvm.base.IActivity
-import com.zhan.mvvm.bean.livedata.CommonLiveData
-import com.zhan.mvvm.bean.livedata.ActivityActuator
+import com.zhan.mvvm.mvvm.actuator.CommonLiveData
+import com.zhan.mvvm.mvvm.actuator.ActivityActuator
 
 /**
  * author：  HyZhan
