@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 /**
  *  author:  HyJame
  *  date:    2020/2/28
- *  desc:    TODO
+ *  desc:    测试中
  */
 open class ComplexLiveData<T, E> {
 

@@ -1,7 +1,9 @@
-package com.zhan.ktarmor.account
+package com.zhan.ktarmor.account.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import com.zhan.ktarmor.R
+import com.zhan.ktarmor.account.vm.RegisterViewModel
+import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -12,8 +14,8 @@ import kotlinx.android.synthetic.main.activity_register.*
  */
 class RegisterActivity : AppCompatActivity(), IMvmActivity {
 
-//    @BindViewModel
-//    lateinit var viewModel: RegisterViewModel
+    @BindViewModel
+    lateinit var loginViewModel: RegisterViewModel
 
     override fun getLayoutId(): Int = R.layout.activity_register
 
@@ -21,7 +23,6 @@ class RegisterActivity : AppCompatActivity(), IMvmActivity {
         super.initData()
 
         btnShowToast.setOnClickListener {
-//            viewModel.showToast("Hello World")
             showToast("hello")
         }
     }

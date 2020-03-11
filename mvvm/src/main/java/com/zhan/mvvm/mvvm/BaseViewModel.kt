@@ -11,7 +11,6 @@ import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.common.Clazz
-import com.zhan.mvvm.constant.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -79,7 +78,7 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         private var successBlock: ((R?) -> Unit)? = null
         private var successRspBlock: ((KResponse<R>) -> Unit)? = null
 
-        private var failBlock: ((String?) -> Unit) = { showToast(it ?: Setting.MESSAGE_EMPTY) }
+        private var failureBlock: ((String?) -> Unit) = { showToast(it ?: Setting.MESSAGE_EMPTY) }
         private var exceptionBlock: ((Throwable?) -> Unit)? = null
 
         fun onStart(block: () -> Unit) {
@@ -93,8 +92,8 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
             launchUI({
 
                 successBlock?.let {
-                    block()?.execute(successBlock, failBlock)
-                } ?: block()?.executeRsp(successRspBlock, failBlock)
+                    block()?.execute(successBlock, failureBlock)
+                } ?: block()?.executeRsp(successRspBlock, failureBlock)
 
             }, exceptionBlock)
         }
@@ -107,8 +106,8 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
             this.successRspBlock = block
         }
 
-        fun onFail(block: (String?) -> Unit) {
-            this.failBlock = block
+        fun onFailure(block: (String?) -> Unit) {
+            this.failureBlock = block
         }
 
         fun onException(block: (Throwable?) -> Unit) {

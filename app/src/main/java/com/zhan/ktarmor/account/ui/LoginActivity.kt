@@ -1,8 +1,11 @@
-package com.zhan.ktarmor.account
+package com.zhan.ktarmor.account.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.zhan.ktarmor.R
+import com.zhan.ktarmor.account.LoginIdlingResource
+import com.zhan.ktarmor.account.vm.LoginViewModel
+import com.zhan.ktarmor.account.vm.RegisterViewModel
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.str
 import com.zhan.mvvm.annotation.BindViewModel
@@ -19,7 +22,10 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
     val mIdlingResource by lazy { LoginIdlingResource() }
 
     @BindViewModel
-    lateinit var viewModel: AccountViewModel
+    lateinit var loginViewModel: LoginViewModel
+
+    @BindViewModel
+    lateinit var registerViewModel: RegisterViewModel
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
@@ -27,11 +33,11 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
 
         mBtnLogin.setOnClickListener {
             mIdlingResource.isNotIdleState()
-            viewModel.login(mTieAccount.str(), mTiePassword.str())
+            loginViewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
-        mBtnCollect.setOnClickListener {
-            viewModel.collect()
+        mBtnRegister.setOnClickListener {
+            registerViewModel.register(mTieAccount.str(), mTiePassword.str())
         }
     }
 
@@ -42,16 +48,15 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
 
     override fun dataObserver() {
 
-        viewModel.loginData.observe(this, {
+        loginViewModel.loginData.observe(this, {
             toast("登录成功")
         }, {
             toast("错误")
         })
 
 
-        viewModel.collectData.observe(this, Observer {
-            toast("收藏成功")
-            hideLoading()
+        registerViewModel.registerData.observe(this, Observer {
+            toast(it)
         })
     }
 }

@@ -15,8 +15,8 @@ import java.lang.reflect.Field
  *  date:   2019-12-03
  *  desc:   IMvmFragment 代理类具体实现
  */
-class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment)
-    : FragmentDelegateImpl(fm, fragment), IMvmFragment {
+class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment) :
+    FragmentDelegateImpl(fm, fragment), IMvmFragment {
 
     override fun getLayoutId(): Int = 0
 
@@ -34,12 +34,13 @@ class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragm
      */
     private fun initViewModel() {
         fragment.javaClass.fields
-                .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-                .getOrNull(0)
-                ?.apply {
+            .filter { it.isAnnotationPresent(BindViewModel::class.java) }
+            .forEach {
+                it?.apply {
                     isAccessible = true
                     set(fragment, getViewModel(this))
                 }
+            }
     }
 
 

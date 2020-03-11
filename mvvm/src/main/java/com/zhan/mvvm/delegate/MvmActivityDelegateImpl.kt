@@ -14,8 +14,8 @@ import java.lang.reflect.Field
  *  @date:   2019-11-21
  *  @desc:   IMvmActivity 代理类具体实现
  */
-class MvmActivityDelegateImpl(private val activity: Activity)
-    : ActivityDelegateImpl(activity), IMvmActivity {
+class MvmActivityDelegateImpl(private val activity: Activity) : ActivityDelegateImpl(activity),
+    IMvmActivity {
 
     override fun getLayoutId(): Int = 0
 
@@ -33,12 +33,13 @@ class MvmActivityDelegateImpl(private val activity: Activity)
      */
     private fun initViewModel() {
         activity.javaClass.fields
-                .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-                .getOrNull(0)
-                ?.apply {
+            .filter { it.isAnnotationPresent(BindViewModel::class.java) }
+            .forEach {
+                it?.apply {
                     isAccessible = true
                     set(activity, getViewModel(this))
                 }
+            }
     }
 
     @Suppress("UNCHECKED_CAST")

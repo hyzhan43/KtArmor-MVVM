@@ -1,4 +1,4 @@
-package com.zhan.ktarmor.account
+package com.zhan.ktarmor.account.vm
 
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
@@ -14,9 +14,7 @@ import com.zhan.mvvm.mvvm.BaseViewModel
  * @date    2019/5/23
  * @desc    TODO
  */
-class AccountViewModel : BaseViewModel<AccountRepository>() {
-
-    val collectData = MutableLiveData<EmptyRsp>()
+class LoginViewModel : BaseViewModel<AccountRepository>() {
 
 
     val loginSuccessData = MutableLiveData<LoginRsp>()
@@ -55,18 +53,10 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 //            onSuccessRsp {
 //            }
 
-            onFail { loginData.postErrorValue() }
+            onFailure { loginData.postErrorValue() }
         }
 
 
     }
 
-    fun collect() {
-        launchUI({
-            showLoading()
-            repository.collect(9014).execute({
-                collectData.value = it
-            })
-        })
-    }
 }

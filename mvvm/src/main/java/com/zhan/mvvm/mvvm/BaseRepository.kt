@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 /**
  * @author  hyzhan
  * @date    2019/5/22
- * @desc    TODO
+ * @desc    (暂时用不上)
  */
 abstract class BaseRepository {
 

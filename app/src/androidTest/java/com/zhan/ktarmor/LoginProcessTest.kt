@@ -4,10 +4,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.IdlingResource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.After
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,7 +12,7 @@ import org.junit.runner.RunWith
 import com.zhan.ktarmor.BaseTest.onClick
 import com.zhan.ktarmor.BaseTest.onEditView
 import com.zhan.ktarmor.BaseTest.onToast
-import com.zhan.ktarmor.account.LoginActivity
+import com.zhan.ktarmor.account.ui.LoginActivity
 
 /**
  *  author: HyJame
