@@ -9,8 +9,11 @@ import com.zhan.ktwing.ext.tryCatch
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
+import com.zhan.mvvm.bean.livedata2.CommonLiveData
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.mvvm.actuator.LiveDataActuator
+import com.zhan.mvvm.mvvm.actuator.RequestActuator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,7 +31,10 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
     // 通过反射注入 repository
     val repository: T by lazy { Clazz.getClass<T>(this).newInstance() }
 
-    fun launchUI(block: suspend CoroutineScope.() -> Unit, error: ((Throwable) -> Unit)? = null): Job {
+    fun launchUI(
+        block: suspend CoroutineScope.() -> Unit,
+        error: ((Throwable) -> Unit)? = null
+    ): Job {
         return viewModelScope.launch(Dispatchers.Main) {
             tryCatch({
                 block()
@@ -67,51 +73,11 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         sharedData.value = SharedData(type = SharedType.HIDE_LOADING)
     }
 
-    fun <R> quickLaunch(block: Execute<R>.() -> Unit) {
-        Execute<R>().apply(block)
+    fun <R> superLaunch(liveData: CommonLiveData<R>, block: LiveDataActuator<R>.() -> Unit) {
+        LiveDataActuator(viewModelScope, liveData).apply(block)
     }
 
-    inner class Execute<R> {
-
-        private var startBlock: (() -> Unit)? = null
-
-        private var successBlock: ((R?) -> Unit)? = null
-        private var successRspBlock: ((KResponse<R>) -> Unit)? = null
-
-        private var failureBlock: ((String?) -> Unit) = { showToast(it ?: Setting.MESSAGE_EMPTY) }
-        private var exceptionBlock: ((Throwable?) -> Unit)? = null
-
-        fun onStart(block: () -> Unit) {
-            this.startBlock = block
-        }
-
-        fun request(block: suspend CoroutineScope.() -> KResponse<R>?) {
-
-            startBlock?.invoke()
-
-            launchUI({
-
-                successBlock?.let {
-                    block()?.execute(successBlock, failureBlock)
-                } ?: block()?.executeRsp(successRspBlock, failureBlock)
-
-            }, exceptionBlock)
-        }
-
-        fun onSuccess(block: (R?) -> Unit) {
-            this.successBlock = block
-        }
-
-        fun onSuccessRsp(block: (KResponse<R>) -> Unit) {
-            this.successRspBlock = block
-        }
-
-        fun onFailure(block: (String?) -> Unit) {
-            this.failureBlock = block
-        }
-
-        fun onException(block: (Throwable?) -> Unit) {
-            this.exceptionBlock = block
-        }
+    fun <R> quickLaunch(block: RequestActuator<R>.() -> Unit) {
+        RequestActuator<R>(viewModelScope).apply(block)
     }
 }

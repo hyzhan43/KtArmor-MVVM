@@ -48,12 +48,15 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
 
     override fun dataObserver() {
 
-        loginViewModel.loginData.observe(this, {
-            toast("登录成功")
-        }, {
-            toast("错误")
-        })
+        quickObserve(loginViewModel.loginData) {
+            onSuccess {
+                toast("登录成功")
+            }
 
+            onFailure {
+                toast("错误 = $it")
+            }
+        }
 
         registerViewModel.registerData.observe(this, Observer {
             toast(it)

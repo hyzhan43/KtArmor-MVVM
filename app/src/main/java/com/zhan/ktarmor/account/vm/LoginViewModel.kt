@@ -1,12 +1,10 @@
 package com.zhan.ktarmor.account.vm
 
 import android.text.TextUtils
-import androidx.lifecycle.MutableLiveData
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
-import com.zhan.ktarmor.account.data.response.EmptyRsp
 import com.zhan.ktarmor.account.data.response.LoginRsp
-import com.zhan.mvvm.bean.livedata.EmptyMixLiveData
+import com.zhan.mvvm.bean.livedata2.CommonLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
 
 /**
@@ -16,11 +14,7 @@ import com.zhan.mvvm.mvvm.BaseViewModel
  */
 class LoginViewModel : BaseViewModel<AccountRepository>() {
 
-
-    val loginSuccessData = MutableLiveData<LoginRsp>()
-    val loginFailData = MutableLiveData<EmptyRsp>()
-
-    val loginData = EmptyMixLiveData<LoginRsp>()
+    val loginData = CommonLiveData<LoginRsp>()
 
     fun login(account: String, password: String) {
 
@@ -34,26 +28,32 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
          *
          *  若需要 code, message, 则调用 onSuccessRsp 方法
          *  若需要 loginRsp, 则调用 onSuccess 方法
-         *
-         *  两者选其一
-         *
          */
-        quickLaunch<LoginRsp> {
+//        quickLaunch<LoginRsp> {
+//
+//            onStart { showLoading() }
+//
+//            request { repository.login(account, password) }
+//
+//            onSuccess {
+//                loginData.value = it
+//            }
+//
+//            onFailure {
+//                loginData.errorValue = it
+//            }
+//
+//            onException {
+//                loginData.exception = it
+//            }
+//        }
+
+        // 等同上面 quickLaunch
+        superLaunch(loginData) {
 
             onStart { showLoading() }
 
             request { repository.login(account, password) }
-
-            onSuccess {
-                // 获取 loginRsp
-                loginData.postSuccessValue(it)
-            }
-
-
-//            onSuccessRsp {
-//            }
-
-            onFailure { loginData.postErrorValue() }
         }
 
 
