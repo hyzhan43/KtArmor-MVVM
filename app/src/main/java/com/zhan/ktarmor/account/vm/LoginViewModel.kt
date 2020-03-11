@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
 import com.zhan.ktarmor.account.data.response.LoginRsp
-import com.zhan.mvvm.bean.livedata2.CommonLiveData
+import com.zhan.mvvm.bean.livedata.CommonLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
 
 /**
@@ -31,32 +31,20 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
          */
 //        quickLaunch<LoginRsp> {
 //
-//            onStart { showLoading() }
-//
 //            request { repository.login(account, password) }
 //
-//            onSuccess {
-//                loginData.value = it
-//            }
+//            onSuccess { loginData.value = it }
 //
-//            onFailure {
-//                loginData.errorValue = it
-//            }
+//            onFailure { loginData.failureMessage = it }
 //
-//            onException {
-//                loginData.exception = it
-//            }
+//            onException { loginData.exception = it }
 //        }
 
-        // 等同上面 quickLaunch
+        /**
+         * 等同上面 quickLaunch
+         */
         superLaunch(loginData) {
-
-            onStart { showLoading() }
-
             request { repository.login(account, password) }
         }
-
-
     }
-
 }

@@ -8,4 +8,6 @@ package com.zhan.mvvm.constant
 object Const {
 
     const val KT_ARMOR = "KtArmor"
+
+    const val UNKNOWN_ERROR = "unknown error"
 }

@@ -56,6 +56,10 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
             onFailure {
                 toast("错误 = $it")
             }
+
+            onException {
+                toast("Exception = ${it?.message}")
+            }
         }
 
         registerViewModel.registerData.observe(this, Observer {

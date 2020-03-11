@@ -5,19 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhan.ktwing.ext.showLog
-import com.zhan.ktwing.ext.tryCatch
-import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
-import com.zhan.mvvm.bean.livedata2.CommonLiveData
-import com.zhan.mvvm.config.Setting
+import com.zhan.mvvm.bean.livedata.CommonLiveData
 import com.zhan.mvvm.common.Clazz
+import com.zhan.mvvm.config.Setting
+import com.zhan.mvvm.ext.launchUI
 import com.zhan.mvvm.mvvm.actuator.LiveDataActuator
 import com.zhan.mvvm.mvvm.actuator.RequestActuator
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 /**
  * @author  hyzhan
@@ -26,6 +23,9 @@ import kotlinx.coroutines.launch
  */
 abstract class BaseViewModel<T> : ViewModel(), IMvmView {
 
+    /**
+     *  Activity级别, 公共 LiveData
+     */
     val sharedData by lazy { MutableLiveData<SharedData>() }
 
     // 通过反射注入 repository
@@ -35,13 +35,11 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
         block: suspend CoroutineScope.() -> Unit,
         error: ((Throwable) -> Unit)? = null
     ): Job {
-        return viewModelScope.launch(Dispatchers.Main) {
-            tryCatch({
-                block()
-            }, {
-                error?.invoke(it) ?: showException(it.toString())
-            })
-        }
+        return viewModelScope.launchUI({
+            block()
+        }, {
+            error?.invoke(it) ?: showException(it.toString())
+        })
     }
 
     private fun showException(exception: String) {

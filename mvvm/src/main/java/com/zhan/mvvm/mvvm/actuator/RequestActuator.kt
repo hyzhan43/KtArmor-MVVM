@@ -1,25 +1,40 @@
 package com.zhan.mvvm.mvvm.actuator
 
-import com.zhan.ktwing.ext.tryCatch
 import com.zhan.mvvm.bean.KResponse
+import com.zhan.mvvm.ext.launchUI
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  *  author:  HyJame
  *  date:    2020/3/11
  *  desc:    TODO
  */
-class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
+open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
 
+    /**
+     *  最开始执行 block
+     */
     private var startBlock: (() -> Unit)? = null
 
-    private var successBlock: ((R?) -> Unit)? = null
-    private var successRspBlock: ((KResponse<R>) -> Unit)? = null
+    /**
+     *  成功 block, 返回值是 (R)
+     */
+    protected open var successBlock: ((R?) -> Unit)? = null
 
-    private var failureBlock: ((String?) -> Unit)? = null
-    private var exceptionBlock: ((Throwable?) -> Unit)? = null
+    /**
+     *  成功 block, 返回值是 KResponse<R>
+     */
+    protected open var successRspBlock: ((KResponse<R>) -> Unit)? = null
+
+    /**
+     *  失败 block
+     */
+    protected open var failureBlock: ((String?) -> Unit)? = null
+
+    /**
+     *  异常 block
+     */
+    protected open var exceptionBlock: ((Throwable?) -> Unit)? = null
 
     fun onStart(block: () -> Unit) {
         this.startBlock = block
@@ -29,14 +44,12 @@ class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
 
         startBlock?.invoke()
 
-        viewModelScope.launch(Dispatchers.Main) {
-            tryCatch({
-                block()?.execute(successBlock, failureBlock)
-                block()?.executeRsp(successRspBlock, failureBlock)
-            }, {
-                exceptionBlock?.invoke(it)
-            })
-        }
+        viewModelScope.launchUI({
+            block()?.execute(successBlock, failureBlock)
+            block()?.executeRsp(successRspBlock, failureBlock)
+        }, {
+            exceptionBlock?.invoke(it)
+        })
     }
 
     fun onSuccess(block: (R?) -> Unit) {
