@@ -48,18 +48,28 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
 
     override fun dataObserver() {
 
-        quickObserve(loginViewModel.loginData) {
-            onSuccess {
-                toast("登录成功")
-            }
+//        quickObserve(loginViewModel.loginData) {
+//            onSuccess {
+//                toast("登录成功")
+//            }
+//
+//            onFailure {
+//                toast("$it")
+//            }
+//
+//            onException {
+//                toast("${it?.message}")
+//            }
+//        }
 
-            onFailure {
-                toast("错误 = $it")
-            }
-
-            onException {
-                toast("Exception = ${it?.message}")
-            }
+        /**
+         * 等同上面
+         * onSuccess:  自定义实现
+         * onFailure:  默认 toast message (viewModel 传递过来的 message)
+         * onException: 默认 toast "未知异常"(固定), 打印 log
+         */
+        quickObserveSuccess(loginViewModel.loginData) {
+            toast("登录成功")
         }
 
         registerViewModel.registerData.observe(this, Observer {

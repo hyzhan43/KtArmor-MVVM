@@ -2,6 +2,8 @@ package com.zhan.mvvm.mvvm.actuator
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.zhan.mvvm.constant.Const
+import com.zhan.mvvm.mvvm.IMvmView
 
 /**
  *  author:  HyJame
@@ -13,23 +15,29 @@ class ActivityActuator<R>(
     private val liveData: CommonLiveData<R>
 ) {
 
+    private val mvmActivity = owner as IMvmView
+
     /**
      *  失败 block
      */
-    private var failureBlock: ((String?) -> Unit)? = null
+    private var failureBlock: ((String?) -> Unit) = {
+        mvmActivity.showToast(it ?: Const.UNKNOWN_ERROR)
+    }
 
     /**
-     *  异常 block
+     *  异常 block, 默认实现 调用 showError, 提示 未知异常, 打印 Log
      */
-    private var exceptionBlock: ((Throwable?) -> Unit)? = null
+    private var exceptionBlock: ((Throwable?) -> Unit) = {
+        mvmActivity.showError(it?.message ?: "")
+    }
 
     init {
         with(liveData) {
             errorLiveData.observe(owner, Observer {
                 if (isException()) {
-                    exceptionBlock?.invoke(Throwable(exception))
+                    exceptionBlock(Throwable(exception))
                 } else {
-                    failureBlock?.invoke(failureMessage)
+                    failureBlock(failureMessage)
                 }
             })
         }

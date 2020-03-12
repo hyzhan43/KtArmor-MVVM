@@ -8,7 +8,7 @@ import com.zhan.mvvm.constant.Const
  *  date:    2020/3/11
  *  desc:    通用 LiveData (R + String)
  */
-class CommonLiveData<R> : MutableLiveData<R>() {
+class CommonLiveData<T> : MutableLiveData<T>() {
 
     val errorLiveData = MutableLiveData<String>()
 

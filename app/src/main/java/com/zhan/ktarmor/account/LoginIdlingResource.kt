@@ -23,7 +23,7 @@ class LoginIdlingResource : IdlingResource {
         this.callback = callback
     }
 
-    fun setIdleState(isIdleNow: Boolean) {
+    private fun setIdleState(isIdleNow: Boolean) {
         mIsIdleNow.set(isIdleNow)
         if (isIdleNow) {
             callback?.onTransitionToIdle()

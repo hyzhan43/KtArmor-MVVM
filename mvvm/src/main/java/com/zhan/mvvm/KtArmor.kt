@@ -10,7 +10,7 @@ object KtArmor {
 
     var retrofitConfig: BaseRetrofitConfig = DefaultRetrofitConfig()
 
-    internal fun init(application: Application){
+    internal fun init(application: Application) {
         KtWing.init(application)
         application.registerActivityLifecycleCallbacks(ActivityLifecycle)
     }
