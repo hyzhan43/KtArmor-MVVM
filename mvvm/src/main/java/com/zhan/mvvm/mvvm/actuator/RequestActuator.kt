@@ -45,8 +45,11 @@ open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
         startBlock?.invoke()
 
         viewModelScope.launchUI({
-            block()?.execute(successBlock, failureBlock)
-            block()?.executeRsp(successRspBlock, failureBlock)
+
+            block()?.apply {
+                execute(successBlock, failureBlock)
+                executeRsp(successRspBlock, failureBlock)
+            }
         }, {
             exceptionBlock?.invoke(it)
         })

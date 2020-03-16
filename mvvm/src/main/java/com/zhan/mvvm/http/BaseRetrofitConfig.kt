@@ -11,9 +11,7 @@ import retrofit2.Retrofit
  */
 abstract class BaseRetrofitConfig : RetrofitConfig {
 
-    lateinit var baseUrl: String
-
-    override fun initRetrofit(): Retrofit = BaseRetrofit.create(baseUrl)
+    override fun initRetrofit(baseUrl: String): Retrofit = BaseRetrofit.create(baseUrl)
 
     override fun initOkHttpClient(vararg interceptors: Interceptor): OkHttpClient {
         return BaseOkHttpClient.create(*interceptors)

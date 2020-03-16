@@ -36,6 +36,10 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
             loginViewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
+        mBtnLoginTest.setOnClickListener {
+            loginViewModel.loginByTest(mTieAccount.str(), mTiePassword.str())
+        }
+
         mBtnRegister.setOnClickListener {
             registerViewModel.register(mTieAccount.str(), mTiePassword.str())
         }

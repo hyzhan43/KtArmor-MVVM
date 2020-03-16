@@ -11,7 +11,7 @@ import retrofit2.Retrofit
  */
 interface RetrofitConfig {
 
-    fun initRetrofit(): Retrofit
+    fun initRetrofit(baseUrl: String): Retrofit
 
     fun initOkHttpClient(vararg interceptors: Interceptor): OkHttpClient
 }

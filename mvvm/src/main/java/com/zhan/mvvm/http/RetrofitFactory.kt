@@ -2,8 +2,9 @@ package com.zhan.mvvm.http
 
 import com.zhan.mvvm.KtArmor
 import com.zhan.mvvm.annotation.BaseUrl
-import retrofit2.Retrofit
-import java.lang.IllegalArgumentException
+import com.zhan.mvvm.annotation.BindUrls
+import com.zhan.mvvm.http.intercept.UrlInterceptor
+import java.util.HashMap
 
 /**
  * @author  hyzhan
@@ -13,17 +14,27 @@ import java.lang.IllegalArgumentException
 
 object RetrofitFactory {
 
-    fun <T> create(clz: Class<T>): T {
-        prepareBaseUrl(clz)
+    val urlMap = hashMapOf<String, String>()
 
-        val retrofit = KtArmor.retrofitConfig.initRetrofit()
+    fun <T> create(clz: Class<T>): T {
+        val baseUrl = prepareBaseUrl(clz)
+        prepareOtherUrls(clz)
+
+        val retrofit = KtArmor.retrofitConfig.initRetrofit(baseUrl)
 
         return retrofit.create(clz)
     }
 
-    private fun <T> prepareBaseUrl(clz: Class<T>) {
+    private fun <T> prepareOtherUrls(clz: Class<T>) {
+        clz.getAnnotation(BindUrls::class.java)?.values
+                ?.filter { it.isNotEmpty() }
+                ?.forEach { url ->
+                    urlMap[url] = url
+                }
+    }
+
+    private fun <T> prepareBaseUrl(clz: Class<T>): String {
         val baseUrlAnnotation = clz.getAnnotation(BaseUrl::class.java)
-        val baseUrl = baseUrlAnnotation?.value ?: throw IllegalArgumentException("base url is null")
-        KtArmor.retrofitConfig.baseUrl = baseUrl
+        return baseUrlAnnotation?.value ?: throw IllegalArgumentException("base url is null")
     }
 }

@@ -1,7 +1,8 @@
 package com.zhan.mvvm.http
 
 import com.zhan.mvvm.config.Setting
-import com.zhan.mvvm.http.intercept.LoggingIntercept
+import com.zhan.mvvm.http.intercept.LoggingInterceptor
+import com.zhan.mvvm.http.intercept.UrlInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -22,7 +23,8 @@ object BaseOkHttpClient {
             builder.addInterceptor(it)
         }
 
-        builder.addInterceptor(LoggingIntercept.init())
+        builder.addInterceptor(LoggingInterceptor.init())
+                .addInterceptor(UrlInterceptor())
                 .readTimeout(Setting.READ_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(Setting.WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .connectTimeout(Setting.CONNECT_TIME_OUT, TimeUnit.SECONDS)

@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
  * @date    2019/5/28
  * @desc    TODO
  */
-object LoggingIntercept {
+object LoggingInterceptor {
 
     fun init(): Interceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
