@@ -18,16 +18,12 @@ import android.text.TextUtils
  */
 class UrlInterceptor : Interceptor {
 
-    private var urlBucket: HashMap<String, String>? = null
+    private val urlBucket by lazy { RetrofitFactory.urlMap }
 
     private val URL_KEY = "URL"
 
     companion object {
         const val URL_PREFIX = "URL: "
-    }
-
-    init {
-        urlBucket = RetrofitFactory.urlMap
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -41,27 +37,27 @@ class UrlInterceptor : Interceptor {
      *
      */
     private fun processRequest(request: Request): Request {
-
         val newBuilder = request.newBuilder()
 
         val urlKey = getUrlFromHeader(request) ?: return newBuilder.url(request.url()).build()
 
-        return urlBucket?.let { urlBucket ->
+        val httpUrl = urlBucket[urlKey]?.let { getNewHttpUrl(request, it) } ?: request.url()
 
+        return newBuilder.url(httpUrl).build()
+    }
 
-            urlBucket[urlKey]?.let { url ->
-                val httpUrl = request.url()
+    private fun getNewHttpUrl(request: Request, url: String): HttpUrl {
+        val httpUrl = request.url()
 
-                val oldUrl = "${httpUrl.scheme()}://${httpUrl.host()}"
+        val headerHttpUrl = HttpUrl.parse(url)
 
-                val newUrl = httpUrl
-                        .url()
-                        .toString()
-                        .replace(oldUrl, url)
-
-                newBuilder.url(newUrl).build()
-            } ?: newBuilder.url(request.url()).build()
-        } ?: newBuilder.url(request.url()).build()
+        return headerHttpUrl?.let {
+            httpUrl.newBuilder()
+                    .scheme(it.scheme())
+                    .host(it.host())
+                    .port(it.port())
+                    .build()
+        } ?: httpUrl
     }
 
     private fun getUrlFromHeader(request: Request): String? {

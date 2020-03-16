@@ -9,6 +9,7 @@ object API{
 
     const val AUTH_URL: String = "url"
     const val TEST_URL: String = "http://192.168.31.164:8080"
+//    const val TEST_URL: String = "http://www.baidu.com"
     const val BASE_URL = "https://www.wanandroid.com"
 
     const val LOGIN = "/user/login"
