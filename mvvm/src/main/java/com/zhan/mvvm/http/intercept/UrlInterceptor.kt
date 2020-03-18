@@ -1,20 +1,15 @@
 package com.zhan.mvvm.http.intercept
 
-import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.http.RetrofitFactory
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import android.R.attr.scheme
-import okhttp3.HttpUrl
-import android.R.attr.scheme
-import android.text.TextUtils
-
 
 /**
  *  author: HyJame
  *  date:   2020-03-16
- *  desc:   TODO
+ *  desc:   url 拦截器, 动态替换url
  */
 class UrlInterceptor : Interceptor {
 
@@ -31,35 +26,35 @@ class UrlInterceptor : Interceptor {
         return chain.proceed(processRequest(chain.request()))
     }
 
-    /**
-     *  判断 urlBucket 是否有值, 否则 直接请求
-     *  判断 urlKey 是否存在, 否则 直接请求
-     *
-     */
     private fun processRequest(request: Request): Request {
-        val newBuilder = request.newBuilder()
-
-        val urlKey = getUrlFromHeader(request) ?: return newBuilder.url(request.url()).build()
-
-        val httpUrl = urlBucket[urlKey]?.let { getNewHttpUrl(request, it) } ?: request.url()
-
-        return newBuilder.url(httpUrl).build()
+        return request.newBuilder()
+                .url(getHttpUrl(request))
+                .build()
     }
 
-    private fun getNewHttpUrl(request: Request, url: String): HttpUrl {
-        val httpUrl = request.url()
+    private fun getHttpUrl(request: Request): HttpUrl {
+        val urlKey = getUrlFromHeader(request)
 
-        val headerHttpUrl = HttpUrl.parse(url)
+        val oldHttpUrl = request.url()
 
-        return headerHttpUrl?.let {
-            httpUrl.newBuilder()
-                    .scheme(it.scheme())
-                    .host(it.host())
-                    .port(it.port())
-                    .build()
-        } ?: httpUrl
+        return urlBucket[urlKey]?.let { createNewHttpUrl(it, oldHttpUrl) } ?: oldHttpUrl
     }
 
+    /**
+     *  根据 header 标示的 url, 创建新的 httpUrl
+     */
+    private fun createNewHttpUrl(url: String, oldHttpUrl: HttpUrl): HttpUrl? = HttpUrl.parse(url)?.let { newHttpUrl ->
+
+        return oldHttpUrl.newBuilder()
+                .scheme(newHttpUrl.scheme())
+                .host(newHttpUrl.host())
+                .port(newHttpUrl.port())
+                .build()
+    }
+
+    /**
+     *  判断是否有 @Header 注解, 并且有 URL: www.xxx.com 标示
+     */
     private fun getUrlFromHeader(request: Request): String? {
         val headers = request.headers(URL_KEY)
 
@@ -72,3 +67,4 @@ class UrlInterceptor : Interceptor {
         return request.header(URL_KEY)
     }
 }
+

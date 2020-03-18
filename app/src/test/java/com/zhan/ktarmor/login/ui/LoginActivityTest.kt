@@ -1,30 +1,24 @@
 package com.zhan.ktarmor.login.ui
 
-import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.widget.Button
-import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import com.zhan.ktarmor.MainActivity
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.ui.LoginActivity
-import com.zhan.ktwing.ext.logd
-import kotlinx.android.synthetic.main.activity_login.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
 import org.robolectric.Robolectric
-import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
-import com.zhan.ktarmor.MainActivity
-import androidx.test.rule.ActivityTestRule
-import org.junit.Rule
 
 
 /**
@@ -72,5 +66,12 @@ class LoginActivityTest {
         scenario.onActivity {
             it.findViewById<Button>(R.id.mBtnRegister).performClick()
         }
+    }
+
+    @Test
+    fun test_hello_world(){
+        val mainActivity = Robolectric.setupActivity(MainActivity::class.java)
+        val hello = mainActivity.findViewById<Button>(R.id.btnCollect)
+        hello.performClick()
     }
 }
