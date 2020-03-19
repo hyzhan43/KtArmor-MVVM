@@ -1,11 +1,9 @@
 package com.zhan.mvvm.http.intercept
 
+import androidx.collection.LruCache
 import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.http.RetrofitFactory
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 
 /**
  *  author: HyJame
@@ -17,6 +15,10 @@ class UrlInterceptor : Interceptor {
     private val urlBucket by lazy { RetrofitFactory.urlMap }
 
     private val URL_KEY = "URL"
+
+    private var pathSize: Int = 0
+
+    private val urlCache by lazy { LruCache<String, String>(100) }
 
     companion object {
         const val URL_PREFIX = "URL: "
@@ -38,21 +40,8 @@ class UrlInterceptor : Interceptor {
 
         val oldHttpUrl = request.url()
 
-        return urlBucket[urlKey]?.let { createNewHttpUrl(it, oldHttpUrl) } ?: oldHttpUrl
-    }
-
-    /**
-     *  根据 header 标示的 url, 创建新的 httpUrl
-     */
-    private fun createNewHttpUrl(url: String, oldHttpUrl: HttpUrl): HttpUrl? = HttpUrl.parse(url)?.let { newHttpUrl ->
-
-        logd("new http url is $newHttpUrl, old http url is $oldHttpUrl")
-
-        return oldHttpUrl.newBuilder()
-                .scheme(newHttpUrl.scheme())
-                .host(newHttpUrl.host())
-                .port(newHttpUrl.port())
-                .build()
+        return urlBucket[urlKey]?.let { parseHeaderHttpUrl(it, oldHttpUrl) }
+                ?: oldHttpUrl
     }
 
     /**
@@ -68,6 +57,86 @@ class UrlInterceptor : Interceptor {
             throw IllegalArgumentException("Only one URL_PREFIX in the headers")
 
         return request.header(URL_KEY)
+    }
+
+
+    private fun parseHeaderHttpUrl(headerHttpUrl: HttpUrl?, oldHttpUrl: HttpUrl): HttpUrl? {
+        return headerHttpUrl?.let {
+            pathSize = it.pathSize()
+
+            if (it.pathSegments().last().isEmpty()) {
+                pathSize -= 1
+            }
+
+            val newHttpUrl = createHttpUrl(it, oldHttpUrl)
+
+            logd("pageSize = $pathSize, old http url is $oldHttpUrl, new http url is $newHttpUrl")
+
+            newHttpUrl
+        }
+    }
+
+
+    private fun createHttpUrl(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl): HttpUrl {
+        val builder = createHttpBuilder(headerHttpUrl, oldHttpUrl)
+
+        val newHttpUrl = builder
+                .scheme(headerHttpUrl.scheme())
+                .host(headerHttpUrl.host())
+                .port(headerHttpUrl.port())
+                .build()
+
+        updateUrlCache(headerHttpUrl, oldHttpUrl, newHttpUrl)
+
+        return newHttpUrl
+    }
+
+    private fun createHttpBuilder(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl): HttpUrl.Builder {
+        return getUrlFromCache(headerHttpUrl, oldHttpUrl)?.let { httpUrlCache ->
+            oldHttpUrl.newBuilder().apply { encodedPath(httpUrlCache) }
+        } ?: realCreateHttpBuilder(headerHttpUrl, oldHttpUrl)
+    }
+
+    private fun realCreateHttpBuilder(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl): HttpUrl.Builder {
+        val builder = oldHttpUrl.newBuilder()
+
+        for (i in 0 until oldHttpUrl.pathSize()) {
+            builder.removePathSegment(0)
+        }
+
+        val newPathSegments = arrayListOf<String>()
+        newPathSegments.addAll(headerHttpUrl.encodedPathSegments())
+
+        if (oldHttpUrl.pathSize() < pathSize) {
+            throw IllegalArgumentException("$headerHttpUrl pathSize more than $oldHttpUrl pathSize")
+        }
+
+        val encodedPathSegments = oldHttpUrl.encodedPathSegments()
+        for (i in pathSize until encodedPathSegments.size) {
+            newPathSegments.add(encodedPathSegments[i])
+        }
+
+        for (PathSegment in newPathSegments) {
+            builder.addEncodedPathSegment(PathSegment)
+        }
+
+        return builder
+    }
+
+    private fun updateUrlCache(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl, newHttpUrl: HttpUrl) {
+        val key = getKey(headerHttpUrl, oldHttpUrl)
+        if (urlCache.get(key) == null) {
+            urlCache.put(key, newHttpUrl.encodedPath())
+        }
+    }
+
+    private fun getUrlFromCache(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl): String? {
+        val key = getKey(headerHttpUrl, oldHttpUrl)
+        return urlCache.get(key)
+    }
+
+    private fun getKey(headerHttpUrl: HttpUrl, oldHttpUrl: HttpUrl): String {
+        return "$pathSize-${headerHttpUrl.encodedPath()}-${oldHttpUrl.encodedPath()}"
     }
 }
 

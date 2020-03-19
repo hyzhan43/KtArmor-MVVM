@@ -9,12 +9,12 @@ object API{
 
     const val AUTH_URL: String = "url"
     const val BASE_URL = "https://www.wanandroid.com"
-    const val TEST_URL: String = "http://192.168.31.164:8081"
+    const val TEST_URL: String = "http://192.168.31.164:8081/user"
 
 
-    const val LOGIN = "/user/login"
+    const val LOGIN = "user/login"
 
-    const val REGISTER = "/user/register"
+    const val REGISTER = "user/register"
 
     const val COLLECT = "lg/collect/{id}/json"
 }
