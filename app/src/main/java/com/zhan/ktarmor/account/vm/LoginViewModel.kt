@@ -53,4 +53,10 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
             request { repository.testLogin(account, password) }
         }
     }
+
+    fun loginByTestService(account: String, password: String) {
+        superLaunch(loginData) {
+            request { repository.serviceTestLogin(account, password) }
+        }
+    }
 }

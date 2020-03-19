@@ -1,6 +1,5 @@
 package com.zhan.mvvm.http
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -13,5 +12,5 @@ interface RetrofitConfig {
 
     fun initRetrofit(baseUrl: String): Retrofit
 
-    fun initOkHttpClient(vararg interceptors: Interceptor): OkHttpClient
+    fun initOkHttpClient(): OkHttpClient
 }

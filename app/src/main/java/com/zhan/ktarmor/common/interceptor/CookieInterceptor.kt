@@ -2,6 +2,7 @@ package com.zhan.ktarmor.common.interceptor
 
 import com.zhan.ktarmor.common.api.API
 import com.zhan.ktwing.common.Preference
+import com.zhan.ktwing.ext.logd
 import okhttp3.Interceptor
 
 /**
@@ -16,6 +17,7 @@ object CookieInterceptor {
 
     // cookie 拦截器 获取 cookie (自动登录时候需要用到)
     fun create(): Interceptor {
+        logd("cookie interceptor")
         return Interceptor { chain ->
             // 获取 请求
             val request = chain.request()

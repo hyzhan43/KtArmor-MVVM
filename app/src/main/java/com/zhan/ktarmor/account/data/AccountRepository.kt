@@ -23,4 +23,8 @@ class AccountRepository {
     suspend fun collect(id: Int):BaseResponse<EmptyRsp> {
         return ServiceFactory.apiService.collectAsync(id)
     }
+
+    suspend fun serviceTestLogin(account: String, password: String): BaseResponse<LoginRsp>  {
+        return ServiceFactory.testApiService.testLogin(account, password)
+    }
 }

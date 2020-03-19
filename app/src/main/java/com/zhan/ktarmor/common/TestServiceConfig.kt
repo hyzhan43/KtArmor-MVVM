@@ -1,19 +1,19 @@
 package com.zhan.ktarmor.common
 
-import com.zhan.ktarmor.common.interceptor.CookieInterceptor
+import com.zhan.ktarmor.common.interceptor.TestInterceptor
 import com.zhan.mvvm.http.BaseOkHttpClient
 import com.zhan.mvvm.http.BaseRetrofitConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 
 /**
- * author：  HyZhan
- * create：  2019/7/24
- * desc：    TODO
+ *  author: HyJame
+ *  date:   2020-03-19
+ *  desc:   TODO
  */
-class MyRetrofitConfig : BaseRetrofitConfig() {
+class TestServiceConfig : BaseRetrofitConfig() {
 
     override fun initOkHttpClient(): OkHttpClient {
-        return BaseOkHttpClient.create(CookieInterceptor.create())
+        return BaseOkHttpClient.create(TestInterceptor)
     }
 }

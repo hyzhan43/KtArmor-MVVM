@@ -16,11 +16,13 @@ object RetrofitFactory {
 
     val urlMap = hashMapOf<String, String>()
 
-    fun <T> create(clz: Class<T>): T {
+    fun <T> create(clz: Class<T>, retrofitConfig: BaseRetrofitConfig? = null): T {
         val baseUrl = prepareBaseUrl(clz)
         prepareOtherUrls(clz)
 
-        val retrofit = KtArmor.retrofitConfig.initRetrofit(baseUrl)
+        // 判断是否, 单独设置了 retrofitConfig, 否则默认按照全局 RetrofitConfig 配置
+        val retrofit = retrofitConfig?.initRetrofit(baseUrl)
+                ?: KtArmor.retrofitConfig.initRetrofit(baseUrl)
 
         return retrofit.create(clz)
     }
@@ -28,9 +30,7 @@ object RetrofitFactory {
     private fun <T> prepareOtherUrls(clz: Class<T>) {
         clz.getAnnotation(BindUrls::class.java)?.values
                 ?.filter { it.isNotEmpty() }
-                ?.forEach { url ->
-                    urlMap[url] = url
-                }
+                ?.forEach { url -> urlMap[url] = url }
     }
 
     private fun <T> prepareBaseUrl(clz: Class<T>): String {

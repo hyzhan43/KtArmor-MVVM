@@ -17,4 +17,5 @@
     <string name="register">注册</string>
     <string name="fragment">测试 Fragment</string>
     <string name="login_test">测试登录</string>
+    <string name="login_service_test">测试不同API-Service登录</string>
 </resources>

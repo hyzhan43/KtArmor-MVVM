@@ -1,5 +1,7 @@
 package com.zhan.ktarmor.common.api
 
+import com.zhan.ktarmor.common.TestServiceConfig
+import com.zhan.ktarmor.common.interceptor.TestInterceptor
 import com.zhan.mvvm.http.RetrofitFactory
 import com.zhan.mvvm.mvvm.BaseRepository
 
@@ -11,4 +13,6 @@ import com.zhan.mvvm.mvvm.BaseRepository
 object ServiceFactory {
 
     val apiService by lazy { RetrofitFactory.create(ApiService::class.java) }
+
+    val testApiService by lazy { RetrofitFactory.create(TestApiService::class.java, TestServiceConfig()) }
 }

@@ -1,6 +1,5 @@
 package com.zhan.mvvm.http
 
-import com.zhan.mvvm.KtArmor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,12 +10,12 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object BaseRetrofit {
 
-    fun create(baseUrl: String): Retrofit {
+    fun create(baseUrl: String, retrofitConfig: BaseRetrofitConfig): Retrofit {
 
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(KtArmor.retrofitConfig.initOkHttpClient())
+                .client(retrofitConfig.initOkHttpClient())
                 .build()
     }
 }

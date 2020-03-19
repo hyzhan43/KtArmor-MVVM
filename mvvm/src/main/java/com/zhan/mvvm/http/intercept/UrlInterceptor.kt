@@ -1,5 +1,6 @@
 package com.zhan.mvvm.http.intercept
 
+import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.http.RetrofitFactory
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -44,6 +45,8 @@ class UrlInterceptor : Interceptor {
      *  根据 header 标示的 url, 创建新的 httpUrl
      */
     private fun createNewHttpUrl(url: String, oldHttpUrl: HttpUrl): HttpUrl? = HttpUrl.parse(url)?.let { newHttpUrl ->
+
+        logd("new http url is $newHttpUrl, old http url is $oldHttpUrl")
 
         return oldHttpUrl.newBuilder()
                 .scheme(newHttpUrl.scheme())
