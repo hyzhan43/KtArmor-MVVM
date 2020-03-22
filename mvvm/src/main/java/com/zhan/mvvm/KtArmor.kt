@@ -9,6 +9,7 @@ import com.zhan.mvvm.http.DefaultRetrofitConfig
 object KtArmor {
 
     var retrofitConfig: BaseRetrofitConfig = DefaultRetrofitConfig()
+//    var activityActuator: BaseActivityActuator = ActivityActuator<*>()
 
     internal fun init(application: Application) {
         KtWing.init(application)
@@ -18,4 +19,8 @@ object KtArmor {
     fun initRetrofitConfig(retrofitConfig: BaseRetrofitConfig) {
         this.retrofitConfig = retrofitConfig
     }
+
+//    fun configActivityActuator(activityActuator: BaseActivityActuator) {
+//        this.activityActuator = activityActuator
+//    }
 }

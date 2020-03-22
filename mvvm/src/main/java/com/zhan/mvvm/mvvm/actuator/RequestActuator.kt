@@ -3,6 +3,7 @@ package com.zhan.mvvm.mvvm.actuator
 import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.ext.launchUI
 import kotlinx.coroutines.CoroutineScope
+import java.net.CacheResponse
 
 /**
  *  author:  HyJame
@@ -40,19 +41,16 @@ open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
         this.startBlock = block
     }
 
-    fun request(block: suspend CoroutineScope.() -> KResponse<R>?) {
+    fun request(requestBlock: suspend CoroutineScope.() -> KResponse<R>?) {
 
         startBlock?.invoke()
 
-        viewModelScope.launchUI({
+        viewModelScope.launchUI({ requestSuccess(requestBlock()) }, { exceptionBlock?.invoke(it) })
+    }
 
-            block()?.apply {
-                execute(successBlock, failureBlock)
-                executeRsp(successRspBlock, failureBlock)
-            }
-        }, {
-            exceptionBlock?.invoke(it)
-        })
+    private fun requestSuccess(response: KResponse<R>?) = response?.apply {
+        successBlock?.let { execute(successBlock, failureBlock) }
+                ?: executeRsp(successRspBlock, failureBlock)
     }
 
     fun onSuccess(block: (R?) -> Unit) {
