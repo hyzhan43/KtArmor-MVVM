@@ -16,18 +16,4 @@ class ActivityActuator<R>(private val owner: LifecycleOwner,
 ) : BaseActivityActuator<R>(owner, liveData) {
 
 
-    override fun success(data: R?) {
-        super.success(data)
-        logd("success")
-    }
-
-    override fun failure(message: String?) {
-        super.failure(message)
-        logd("failure333")
-    }
-
-    override fun exception(throwable: Throwable?) {
-        super.exception(throwable)
-        logd("exception")
-    }
 }
