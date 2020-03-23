@@ -2,8 +2,8 @@ package com.zhan.mvvm.mvvm
 
 import androidx.appcompat.app.AppCompatActivity
 import com.zhan.mvvm.base.IActivity
-import com.zhan.mvvm.mvvm.actuator.CommonLiveData
 import com.zhan.mvvm.mvvm.actuator.ActivityActuator
+import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 
 /**
  * author：  HyZhan

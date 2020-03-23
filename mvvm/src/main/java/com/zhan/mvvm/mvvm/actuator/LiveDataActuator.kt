@@ -1,5 +1,8 @@
 package com.zhan.mvvm.mvvm.actuator
 
+import com.zhan.mvvm.KtArmor
+import com.zhan.mvvm.mvvm.actuator.impl.DefaultLiveDataActuator
+import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -7,20 +10,22 @@ import kotlinx.coroutines.CoroutineScope
  *  date:    2020/3/11
  *  desc:    TODO
  */
-class LiveDataActuator<R>(
-    viewModelScope: CoroutineScope,
-    private val liveData: CommonLiveData<R>
+open class LiveDataActuator<R>(
+        viewModelScope: CoroutineScope,
+        private val liveData: CommonLiveData<R>
 ) : RequestActuator<R>(viewModelScope) {
 
-    override var successBlock: ((R?) -> Unit)?
-        get() = { liveData.value = it }
-        set(value) {}
+    private val liveDataActuator by lazy { KtArmor.liveDataActuator ?: DefaultLiveDataActuator() }
 
-    override var failureBlock: ((String?) -> Unit)?
-        get() = { liveData.failureMessage = it }
-        set(value) {}
+    override fun success(data: R?) {
+        liveDataActuator.success(liveData, data)
+    }
 
-    override var exceptionBlock: ((Throwable?) -> Unit)?
-        get() = { liveData.exception = it }
-        set(value) {}
+    override fun failure(message: String?) {
+        liveDataActuator.failure(liveData, message)
+    }
+
+    override fun exception(throwable: Throwable?) {
+        liveDataActuator.exception(liveData, throwable)
+    }
 }

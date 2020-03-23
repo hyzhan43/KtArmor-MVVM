@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.zhan.ktwing.ext.showLog
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
-import com.zhan.mvvm.mvvm.actuator.CommonLiveData
+import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 import com.zhan.mvvm.common.Clazz
 import com.zhan.mvvm.config.Setting
 import com.zhan.mvvm.ext.launchUI

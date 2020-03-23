@@ -2,7 +2,8 @@ package com.zhan.ktarmor
 
 import android.app.Application
 import com.zhan.ktarmor.common.MyRetrofitConfig
-import com.zhan.ktwing.ext.logd
+import com.zhan.ktarmor.common.actuator.MyActivityActuator
+import com.zhan.ktarmor.common.actuator.MyLiveDataActuator
 import com.zhan.mvvm.KtArmor
 
 
@@ -16,7 +17,13 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // 初始化KtArmor
-        KtArmor.initRetrofitConfig(MyRetrofitConfig())
+        with(KtArmor){
+            // 初始化KtArmor
+            initRetrofitConfig(MyRetrofitConfig())
+
+            //configActivityActuator(MyActivityActuator())
+            //configLiveDataActuator(MyLiveDataActuator())
+        }
     }
+
 }

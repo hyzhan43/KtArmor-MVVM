@@ -1,4 +1,4 @@
-package com.zhan.mvvm.mvvm.actuator
+package com.zhan.mvvm.mvvm.livedata
 
 import androidx.lifecycle.MutableLiveData
 import com.zhan.mvvm.constant.Const
