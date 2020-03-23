@@ -7,20 +7,20 @@ import kotlinx.coroutines.CoroutineScope
  *  date:    2020/3/11
  *  desc:    TODO
  */
-class LiveDataActuator<R>(
+open class LiveDataActuator<R>(
     viewModelScope: CoroutineScope,
     private val liveData: CommonLiveData<R>
 ) : RequestActuator<R>(viewModelScope) {
 
-    override var successBlock: ((R?) -> Unit)?
-        get() = { liveData.value = it }
-        set(value) {}
+    override fun success(data: R?) {
+        liveData.value = data
+    }
 
-    override var failureBlock: ((String?) -> Unit)?
-        get() = { liveData.failureMessage = it }
-        set(value) {}
+    override fun failure(message: String?) {
+        liveData.failureMessage = message
+    }
 
-    override var exceptionBlock: ((Throwable?) -> Unit)?
-        get() = { liveData.exception = it }
-        set(value) {}
+    override fun exception(throwable: Throwable?) {
+        liveData.exception = throwable
+    }
 }

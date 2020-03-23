@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 /**
  *  author:  HyJame
  *  date:    2020/3/11
- *  desc:    TODO
+ *  desc:    普通 DSL 请求处理器
  */
 open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
 
@@ -17,24 +17,25 @@ open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
     private var startBlock: (() -> Unit)? = null
 
     /**
-     *  成功 block, 返回值是 (R)
-     */
-    protected open var successBlock: ((R?) -> Unit)? = null
-
-    /**
      *  成功 block, 返回值是 KResponse<R>
      */
-    protected open var successRspBlock: ((KResponse<R>) -> Unit)? = null
+    var successRspBlock: ((KResponse<R>) -> Unit)? = null
+
+    /**
+     *  成功 block, 返回值是 (R)
+     */
+    var successBlock: ((R?) -> Unit) = { success(it) }
 
     /**
      *  失败 block
      */
-    protected open var failureBlock: ((String?) -> Unit)? = null
+    var failureBlock: ((String?) -> Unit) = { failure(it) }
 
     /**
      *  异常 block
      */
-    protected open var exceptionBlock: ((Throwable?) -> Unit)? = null
+    var exceptionBlock: ((Throwable?) -> Unit) = { exception(it) }
+
 
     fun onStart(block: () -> Unit) {
         this.startBlock = block
@@ -51,16 +52,16 @@ open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
                 executeRsp(successRspBlock, failureBlock)
             }
         }, {
-            exceptionBlock?.invoke(it)
+            exceptionBlock.invoke(it)
         })
-    }
-
-    fun onSuccess(block: (R?) -> Unit) {
-        this.successBlock = block
     }
 
     fun onSuccessRsp(block: (KResponse<R>) -> Unit) {
         this.successRspBlock = block
+    }
+
+    fun onSuccess(block: (R?) -> Unit) {
+        this.successBlock = block
     }
 
     fun onFailure(block: (String?) -> Unit) {
@@ -69,5 +70,17 @@ open class RequestActuator<R>(private val viewModelScope: CoroutineScope) {
 
     fun onException(block: (Throwable?) -> Unit) {
         this.exceptionBlock = block
+    }
+
+    open fun success(data: R?) {
+
+    }
+
+    open fun failure(message: String?) {
+
+    }
+
+    open fun exception(throwable: Throwable?) {
+
     }
 }
