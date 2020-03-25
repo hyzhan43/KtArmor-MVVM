@@ -40,12 +40,17 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
 //            onException { loginData.exception = it }
 //        }
 
+//        /**
+//         * 等同上面 quickLaunch
+//         */
+//        superLaunch(loginData) {
+//            request { repository.login(account, password) }
+//        }
+
         /**
-         * 等同上面 quickLaunch
+         * 等同上面 superLaunch
          */
-        superLaunch(loginData) {
-            request { repository.login(account, password) }
-        }
+        superLaunchRequest(loginData) { repository.login(account, password) }
     }
 
     fun loginByTest(account: String, password: String) {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhan.ktwing.ext.showLog
+import com.zhan.mvvm.bean.KResponse
 import com.zhan.mvvm.bean.SharedData
 import com.zhan.mvvm.bean.SharedType
 import com.zhan.mvvm.mvvm.livedata.CommonLiveData
@@ -32,8 +33,8 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
     val repository: T by lazy { Clazz.getClass<T>(this).newInstance() }
 
     fun launchUI(
-        block: suspend CoroutineScope.() -> Unit,
-        error: ((Throwable) -> Unit)? = null
+            block: suspend CoroutineScope.() -> Unit,
+            error: ((Throwable) -> Unit)? = null
     ): Job {
         return viewModelScope.launchUI({
             block()
@@ -73,6 +74,10 @@ abstract class BaseViewModel<T> : ViewModel(), IMvmView {
 
     fun <R> superLaunch(liveData: CommonLiveData<R>, block: LiveDataActuator<R>.() -> Unit) {
         LiveDataActuator(viewModelScope, liveData).apply(block)
+    }
+
+    fun <R> superLaunchRequest(liveData: CommonLiveData<R>, block: suspend CoroutineScope.() -> KResponse<R>) {
+        LiveDataActuator(viewModelScope, liveData).request { block() }
     }
 
     fun <R> quickLaunch(block: RequestActuator<R>.() -> Unit) {
