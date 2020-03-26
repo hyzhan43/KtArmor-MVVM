@@ -26,7 +26,7 @@ open class FragmentDelegateImpl(
         val clazz = fragment.javaClass.superclass
 
         clazz?.let {
-            val field = it.getDeclaredField("mContentLayoutId")
+            val field = it.getField("mContentLayoutId")
             field.isAccessible = true
             field.set(fragment, iFragment.getLayoutId())
         } ?: throw ClassNotFoundException("fragment init layout error")
