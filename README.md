@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/hyzhan43/KtArmor-MVVM.svg)](https://jitpack.io/#hyzhan43/KtArmor-MVVM)
+
+
 # 前言
 
 学习了Kotlin有一段时间了, 每次写项目/Demo的时候, 总是用到`网络请求`、`MVP`、`MVVM`、`常用工具类`、`通用自定义View`, 索性把这些整合到一起, 搭成一个Android的脚手架——KtArmor. 框架是我个人经验的积累, 总结. 如有不妥, 望各位大佬指出.
