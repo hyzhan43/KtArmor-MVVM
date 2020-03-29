@@ -43,10 +43,10 @@
         android:text="@string/showItemView"/>
 
     <Button
-        android:id="@+id/btnArticle"
+        android:id="@+id/btnHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/article"/>
+        android:text="@string/home"/>
 
     <Button
         android:id="@+id/btnCollect"

@@ -23,13 +23,16 @@ open class FragmentDelegateImpl(
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        val clazz = fragment.javaClass.superclass
+        var clazz = fragment.javaClass.superclass
 
-        clazz?.let {
-            val field = it.getField("mContentLayoutId")
-            field.isAccessible = true
-            field.set(fragment, iFragment.getLayoutId())
-        } ?: throw ClassNotFoundException("fragment init layout error")
+        while (clazz?.name != Fragment::class.java.name) {
+            clazz = clazz?.superclass
+        }
+
+        val field = clazz.getDeclaredField("mContentLayoutId")
+
+        field.isAccessible = true
+        field.set(fragment, iFragment.getLayoutId())
     }
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {

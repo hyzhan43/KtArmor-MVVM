@@ -3,15 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
+apply from: "https://raw.githubusercontent.com/xuexiangjys/XUtil/master/localRepositoryUpload.gradle"
 
-group='com.github.hyzhan43'
+group = 'com.github.hyzhan43'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion = '29.0.2'
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -30,6 +32,8 @@ android {
             includeAndroidResources = true
         }
     }
+
+
 }
 
 dependencies {
@@ -60,3 +64,5 @@ dependencies {
     // KtWing
     api 'com.github.hyzhan43:KtWing:1.0.2'
 }
+
+

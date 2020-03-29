@@ -5,6 +5,7 @@ import com.zhan.ktarmor.account.ui.LoginActivity
 import com.zhan.ktarmor.account.ui.RegisterActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.fragment.TestActivity
+import com.zhan.ktarmor.home.HomeActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.startActivity
@@ -33,20 +34,20 @@ class MainActivity : AppCompatActivity(), IActivity {
         }
 
         val mLoading = LoadingDialog.create(supportFragmentManager)
-        btnLoading.setOnClickListener {
-            mLoading.show()
-        }
+//        btnLoading.setOnClickListener {
+//            mLoading.show()
+//        }
 
-        btnHide.setOnClickListener {
-            mLoading.hide()
-        }
+//        btnHide.setOnClickListener {
+//            mLoading.hide()
+//        }
 
         btnItemView.setOnClickListener {
             startActivity<SuperBarActivity>()
         }
 
-        btnArticle.setOnClickListener {
-            //startActivity<ArticleActivity>()
+        btnHome.setOnClickListener {
+            startActivity<HomeActivity>()
         }
 
         btnCollect.setOnClickListener {

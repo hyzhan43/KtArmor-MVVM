@@ -28,6 +28,7 @@
 <!--        <activity android:name=".list.ArticleActivity"/>-->
         <activity android:name=".account.ui.RegisterActivity"/>
         <activity android:name=".fragment.TestActivity"/>
+        <activity android:name=".home.HomeActivity"/>
     </application>
 
 </manifest>

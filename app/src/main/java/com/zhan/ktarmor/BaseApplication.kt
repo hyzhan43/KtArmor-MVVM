@@ -18,11 +18,11 @@ class BaseApplication : Application() {
         super.onCreate()
 
         with(KtArmor){
-            // 初始化KtArmor
+//            // 初始化KtArmor
             initRetrofitConfig(MyRetrofitConfig())
-
-            //configActivityActuator(MyActivityActuator())
-            //configLiveDataActuator(MyLiveDataActuator())
+//
+//            //configActivityActuator(MyActivityActuator())
+//            //configLiveDataActuator(MyLiveDataActuator())
         }
     }
 
