@@ -3,10 +3,15 @@ package com.zhan.mvvm.delegate
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.util.LruCache
 import androidx.fragment.app.FragmentActivity
-import com.zhan.mvvm.base.IActivity
 import com.zhan.mvvm.common.ActivityManager
 import com.zhan.mvvm.mvvm.IMvmActivity
+import com.zhan.mvvm.base.IActivity
+
+
+
+
 
 /**
  *  @author: HyJame
@@ -15,16 +20,30 @@ import com.zhan.mvvm.mvvm.IMvmActivity
  */
 object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
-    private val cacheActivityDelegate by lazy { HashMap<String, ActivityDelegate>() }
-
-    private lateinit var activityDelegate: ActivityDelegate
+    private val cacheActivityDelegate by lazy { LruCache<String, ActivityDelegate>(100) }
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         activity?.let { ActivityManager.add(it) }
 
-        forwardDelegateFunction(activity) { activityDelegate.onCreate(savedInstanceState) }
+        //配置ActivityDelegate
+        if (activity is IActivity) {
+            var activityDelegate = fetchActivityDelegate(activity)
+            if (activityDelegate == null) {
+                activityDelegate = realNewDelegate(activity)
+                cacheActivityDelegate.put(activity.javaClass.name, activityDelegate)
+            }
+            activityDelegate.onCreate(savedInstanceState)
+        }
 
         registerFragmentCallback(activity)
+    }
+
+    private fun fetchActivityDelegate(activity: Activity?): ActivityDelegate? {
+        var activityDelegate: ActivityDelegate? = null
+        if (activity is IActivity) {
+            activityDelegate = cacheActivityDelegate.get(activity.javaClass.name)
+        }
+        return activityDelegate
     }
 
     private fun registerFragmentCallback(activity: Activity?) {
@@ -35,47 +54,29 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityStarted(activity: Activity?) {
-        forwardDelegateFunction(activity) { activityDelegate.onStart() }
+        fetchActivityDelegate(activity)?.onStart()
     }
 
     override fun onActivityResumed(activity: Activity?) {
-        forwardDelegateFunction(activity) { activityDelegate.onResume() }
+        fetchActivityDelegate(activity)?.onResume()
     }
 
     override fun onActivityPaused(activity: Activity?) {
-        forwardDelegateFunction(activity) { activityDelegate.onPause() }
+        fetchActivityDelegate(activity)?.onPause()
     }
 
     override fun onActivityStopped(activity: Activity?) {
-        forwardDelegateFunction(activity) { activityDelegate.onStop() }
+        fetchActivityDelegate(activity)?.onStop()
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
         activity?.let { ActivityManager.remove(it) }
 
-        forwardDelegateFunction(activity) {
-            activityDelegate.onDestroy()
-            cacheActivityDelegate.clear()
-        }
+        fetchActivityDelegate(activity)?.onDestroy()
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-        forwardDelegateFunction(activity) { activityDelegate.onSaveInstanceState(activity, outState) }
-    }
-
-    private fun forwardDelegateFunction(activity: Activity?, block: () -> Unit) {
-
-        if (activity !is IActivity) return
-
-        val key = activity.javaClass.name
-
-        activityDelegate = cacheActivityDelegate[key] ?: newDelegate(activity, key)
-
-        block()
-    }
-
-    private fun newDelegate(activity: Activity, key: String) : ActivityDelegate{
-        return realNewDelegate(activity).also { cacheActivityDelegate[key] = it }
+        fetchActivityDelegate(activity)?.onSaveInstanceState(activity, outState)
     }
 
     private fun realNewDelegate(activity: Activity): ActivityDelegate {

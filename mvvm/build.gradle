@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
 group = 'com.github.hyzhan43'
 
@@ -31,8 +32,6 @@ android {
             includeAndroidResources = true
         }
     }
-
-
 }
 
 dependencies {
@@ -64,4 +63,16 @@ dependencies {
     api 'com.github.hyzhan43:KtWing:1.0.2'
 }
 
-
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            def localMavenUrl = mavenLocal().getUrl()
+            mavenDeployer {
+                repository(url: localMavenUrl)
+                pom.groupId = "com.github.hyzhan43"
+                pom.artifactId = "KtArmor-MVVM"
+                pom.version = "1.0.9"
+            }
+        }
+    }
+}

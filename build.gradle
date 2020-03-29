@@ -22,6 +22,11 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
     }
+
+    //解决 JavaDoc 中文注释生成失败的问题
+    tasks.withType(Javadoc) {
+        options { enabled = false }
+    }
 }
 
 task clean(type: Delete) {

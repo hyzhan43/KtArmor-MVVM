@@ -12,6 +12,4 @@ import com.zhan.mvvm.base.IFragment
 class OneFragment: Fragment(), IFragment {
 
     override fun getLayoutId(): Int = R.layout.fragment_one
-
-
 }
