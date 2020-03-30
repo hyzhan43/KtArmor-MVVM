@@ -9,7 +9,7 @@ import com.zhan.mvvm.base.IFragment
  *  date:   2020-03-26
  *  desc:   TODO
  */
-class OneFragment: Fragment(), IFragment {
+class OneFragment : Fragment(), IFragment {
 
     override fun getLayoutId(): Int = R.layout.fragment_one
 }

@@ -1,6 +1,8 @@
 package com.zhan.mvvm.base
 
 import android.os.Bundle
+import android.util.LruCache
+import com.zhan.mvvm.delegate.ActivityDelegate
 
 /**
  *  @author: HyJame
@@ -12,4 +14,6 @@ interface IActivity: IView{
     fun initWidows() {}
 
     fun initArgs(extras: Bundle?): Boolean = true
+
+    fun provideCache(): LruCache<String, ActivityDelegate> = LruCache(100)
 }

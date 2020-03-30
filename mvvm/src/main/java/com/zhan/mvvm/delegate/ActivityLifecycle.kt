@@ -3,15 +3,12 @@ package com.zhan.mvvm.delegate
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.util.LruCache
+import androidx.collection.LruCache
 import androidx.fragment.app.FragmentActivity
 import com.zhan.mvvm.common.ActivityManager
 import com.zhan.mvvm.mvvm.IMvmActivity
 import com.zhan.mvvm.base.IActivity
-
-
-
-
+import com.zhan.mvvm.config.Setting
 
 /**
  *  @author: HyJame
@@ -20,31 +17,23 @@ import com.zhan.mvvm.base.IActivity
  */
 object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
-    private val cacheActivityDelegate by lazy { LruCache<String, ActivityDelegate>(100) }
+    private val cache by lazy { LruCache<String, ActivityDelegate>(Setting.ACTIVITY_CACHE_SIZE) }
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         activity?.let { ActivityManager.add(it) }
 
-        //配置ActivityDelegate
-        if (activity is IActivity) {
-            var activityDelegate = fetchActivityDelegate(activity)
-            if (activityDelegate == null) {
-                activityDelegate = realNewDelegate(activity)
-                cacheActivityDelegate.put(activity.javaClass.name, activityDelegate)
-            }
-            activityDelegate.onCreate(savedInstanceState)
+        if (activity !is IActivity) {
+            return
         }
+
+        val activityDelegate = fetchActivityDelegate(activity)
+                ?: newDelegate(activity).apply { cache.put(getKey(activity), this) }
+
+        activityDelegate.onCreate(savedInstanceState)
 
         registerFragmentCallback(activity)
     }
 
-    private fun fetchActivityDelegate(activity: Activity?): ActivityDelegate? {
-        var activityDelegate: ActivityDelegate? = null
-        if (activity is IActivity) {
-            activityDelegate = cacheActivityDelegate.get(activity.javaClass.name)
-        }
-        return activityDelegate
-    }
 
     private fun registerFragmentCallback(activity: Activity?) {
 
@@ -79,11 +68,22 @@ object ActivityLifecycle : Application.ActivityLifecycleCallbacks {
         fetchActivityDelegate(activity)?.onSaveInstanceState(activity, outState)
     }
 
-    private fun realNewDelegate(activity: Activity): ActivityDelegate {
+    private fun fetchActivityDelegate(activity: Activity?): ActivityDelegate? {
+
+        if (activity !is IActivity) {
+            return null
+        }
+
+        return cache.get(getKey(activity))
+    }
+
+    private fun newDelegate(activity: Activity): ActivityDelegate {
         if (activity is IMvmActivity) {
             return MvmActivityDelegateImpl(activity)
         }
 
         return ActivityDelegateImpl(activity)
     }
+
+    private fun getKey(activity: Activity): String = activity.javaClass.name + activity.hashCode()
 }

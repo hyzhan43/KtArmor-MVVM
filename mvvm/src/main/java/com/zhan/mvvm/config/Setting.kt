@@ -22,4 +22,8 @@ object Setting {
     const val MESSAGE_EMPTY = "message is null"
 
     const val DATA_EMPTY = "data is null"
+
+    const val FRAGMENT_CACHE_SIZE = 100
+
+    const val ACTIVITY_CACHE_SIZE = 100
 }

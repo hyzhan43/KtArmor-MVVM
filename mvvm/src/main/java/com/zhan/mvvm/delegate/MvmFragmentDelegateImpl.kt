@@ -2,6 +2,7 @@ package com.zhan.mvvm.delegate
 
 import android.os.Bundle
 import android.view.View
+import androidx.collection.LruCache
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel

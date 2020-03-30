@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhan.mvvm.base.IFragment
+import com.zhan.mvvm.config.Setting
 
 
 /**
@@ -17,73 +18,77 @@ import com.zhan.mvvm.base.IFragment
  */
 object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
 
-    private val cacheDelegate by lazy { LruCache<String, FragmentDelegate>(100) }
+    private val cache by lazy { LruCache<String, FragmentDelegate>(Setting.FRAGMENT_CACHE_SIZE) }
 
     override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
 
-        if (f is IFragment) {
-            var fragmentDelegate = fetchFragmentDelegate(f)
-            if (fragmentDelegate == null || !fragmentDelegate.isAdd()) {
-                fragmentDelegate = realNewDelegate(fm, f)
-                cacheDelegate.put(f.javaClass.name, fragmentDelegate)
-            }
-            fragmentDelegate.onAttached(context)
+        if (f !is IFragment) {
+            return
         }
-    }
 
+        val fragmentDelegate = fetchFragmentDelegate(f, fm)
 
-    private fun fetchFragmentDelegate(fragment: Fragment): FragmentDelegate? {
-        if (fragment is IFragment) {
-            return cacheDelegate[fragment.javaClass.name]
-        }
-        return null
+        fragmentDelegate.onAttached(context)
     }
 
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        fetchFragmentDelegate(f)?.onCreated(savedInstanceState)
+        fetchFragmentDelegateFromCache(f)?.onCreated(savedInstanceState)
     }
 
     override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
-        fetchFragmentDelegate(f)?.onViewCreated(v, savedInstanceState)
+        fetchFragmentDelegateFromCache(f)?.onViewCreated(v, savedInstanceState)
     }
 
     override fun onFragmentActivityCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        fetchFragmentDelegate(f)?.onActivityCreate(savedInstanceState)
+        fetchFragmentDelegateFromCache(f)?.onActivityCreate(savedInstanceState)
     }
 
     override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onStarted()
+        fetchFragmentDelegateFromCache(f)?.onStarted()
     }
 
     override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onResumed()
+        fetchFragmentDelegateFromCache(f)?.onResumed()
     }
 
     override fun onFragmentPaused(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onPaused()
+        fetchFragmentDelegateFromCache(f)?.onPaused()
     }
 
     override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onStopped()
+        fetchFragmentDelegateFromCache(f)?.onStopped()
     }
 
     override fun onFragmentSaveInstanceState(fm: FragmentManager, f: Fragment, outState: Bundle) {
-        fetchFragmentDelegate(f)?.onSaveInstanceState(outState)
+        fetchFragmentDelegateFromCache(f)?.onSaveInstanceState(outState)
     }
 
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onViewDestroyed()
+        fetchFragmentDelegateFromCache(f)?.onViewDestroyed()
     }
 
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onDestroyed()
+        fetchFragmentDelegateFromCache(f)?.onDestroyed()
     }
 
     override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-        fetchFragmentDelegate(f)?.onDetached()
+        fetchFragmentDelegateFromCache(f)?.onDetached()
     }
 
-    private fun realNewDelegate(fm: FragmentManager, f: Fragment): FragmentDelegate {
+    private fun fetchFragmentDelegate(f: Fragment, fm: FragmentManager): FragmentDelegate {
+        return fetchFragmentDelegateFromCache(f)
+                ?: newDelegate(fm, f).apply { cache.put(getKey(f), this) }
+    }
+
+    private fun fetchFragmentDelegateFromCache(fragment: Fragment): FragmentDelegate? {
+        if (fragment !is IFragment) {
+            return null
+        }
+
+        return cache[getKey(fragment)]
+    }
+
+    private fun newDelegate(fm: FragmentManager, f: Fragment): FragmentDelegate {
 
         if (f is IMvmFragment) {
             return MvmFragmentDelegateImpl(fm, f)
@@ -92,5 +97,5 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
         return FragmentDelegateImpl(fm, f)
     }
 
-
+    private fun getKey(f: Fragment) = f.javaClass.name + f.hashCode()
 }
