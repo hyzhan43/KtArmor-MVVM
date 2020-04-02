@@ -20,7 +20,7 @@ class BaseApplication : Application() {
         with(KtArmor){
 //            // 初始化KtArmor
             initRetrofitConfig(MyRetrofitConfig())
-//
+            printLog = true
 //            //configActivityActuator(MyActivityActuator())
 //            //configLiveDataActuator(MyLiveDataActuator())
         }

@@ -6,6 +6,7 @@ import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.KtArmor
 import com.zhan.mvvm.http.BaseRetrofitConfig
 import com.zhan.mvvm.http.DefaultRetrofitConfig
+import com.zhan.mvvm.log.PrintLog
 
 /**
  *  author: HyJame
@@ -22,6 +23,6 @@ object ContextProvider {
         // init KtArmor
         KtArmor.init(application)
 
-        logd("KtArmor init success !")
+        PrintLog.log("KtArmor init success !")
     }
 }
