@@ -14,8 +14,8 @@ open class ActivityDelegateImpl(private var activity: Activity?) : ActivityDeleg
     private var iActivity: IActivity? = activity as IActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 在界面未初始化之前调用的初始化窗口
         iActivity?.apply {
+            // 在界面未初始化之前调用的初始化窗口
             initWidows()
 
             if (initArgs(activity?.intent?.extras)) {

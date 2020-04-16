@@ -89,8 +89,9 @@ allprojects {
 ```
 然后在 build.gradle(Module:app) 的 dependencies 添加:
 
+[![](https://jitpack.io/v/hyzhan43/KtArmor-MVVM.svg)](https://jitpack.io/#hyzhan43/KtArmor-MVVM)
 ```
-implementation 'com.hyzhan:KtArmor:1.0.7' //最新版本
+implementation 'com.hyzhan:KtArmor:1.0.8' //查看最新版本
 ```
 
 # 快速上手

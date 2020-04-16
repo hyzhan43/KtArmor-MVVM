@@ -2,10 +2,7 @@ package com.zhan.mvvm.provider
 
 import android.app.Application
 import android.content.Context
-import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.KtArmor
-import com.zhan.mvvm.http.BaseRetrofitConfig
-import com.zhan.mvvm.http.DefaultRetrofitConfig
 import com.zhan.mvvm.log.PrintLog
 
 /**
@@ -18,7 +15,7 @@ object ContextProvider {
     lateinit var application: Application
 
     fun attachContext(context: Context?) {
-        this.application = context as? Application ?: throw RuntimeException("init KtArmor error !")
+        this.application = context as? Application ?: throw Throwable("init KtArmor error !")
 
         // init KtArmor
         KtArmor.init(application)

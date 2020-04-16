@@ -18,8 +18,9 @@ class BaseApplication : Application() {
         super.onCreate()
 
         with(KtArmor){
-//            // 初始化KtArmor
+            // 初始化KtArmor
             initRetrofitConfig(MyRetrofitConfig())
+            // 打印 KtArmor 内部 log
             printLog = true
 //            //configActivityActuator(MyActivityActuator())
 //            //configLiveDataActuator(MyLiveDataActuator())
