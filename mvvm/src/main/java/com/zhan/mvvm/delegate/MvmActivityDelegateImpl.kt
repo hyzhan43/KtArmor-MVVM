@@ -14,17 +14,17 @@ import java.lang.reflect.Field
  *  @date:   2019-11-21
  *  @desc:   IMvmActivity 代理类具体实现
  */
-class MvmActivityDelegateImpl(private val activity: Activity) : ActivityDelegateImpl(activity),
-    IMvmActivity {
+class MvmActivityDelegateImpl(private var activity: Activity?)
+    : ActivityDelegateImpl(activity), IMvmActivity {
 
     override fun getLayoutId(): Int = 0
 
-    private val iMvmActivity = activity as IMvmActivity
+    private var iMvmActivity: IMvmActivity? = activity as IMvmActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initViewModel()
         super.onCreate(savedInstanceState)
-        iMvmActivity.dataObserver()
+        iMvmActivity?.dataObserver()
     }
 
     /**
@@ -32,18 +32,27 @@ class MvmActivityDelegateImpl(private val activity: Activity) : ActivityDelegate
      *  并且 创建 ViewModel 实例, 注入到变量中
      */
     private fun initViewModel() {
-        activity.javaClass.fields
-            .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-            .forEach {
-                it?.apply {
-                    isAccessible = true
-                    set(activity, getViewModel(this))
-                }
-            }
+        activity?.apply {
+            javaClass.fields
+                    .filter { field -> field.isAnnotationPresent(BindViewModel::class.java) }
+                    .forEach { field -> injectViewModel(field, this) }
+        }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.createViewModel(iMvmActivity, field)
+    private fun injectViewModel(field: Field?, activity: Activity) {
+        field?.apply {
+            isAccessible = true
+            val viewModel = ViewModelFactory.createViewModel(field, activity)
+            set(activity, viewModel)
+        }
+    }
+
+    /**
+     *  防止内存泄漏
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        this.activity = null
+        this.iMvmActivity = null
     }
 }

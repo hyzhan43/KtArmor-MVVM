@@ -1,5 +1,6 @@
 package com.zhan.mvvm.common
 
+import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
@@ -14,14 +15,14 @@ import java.lang.reflect.Field
 /**
  *  author: HyJame
  *  date:   2019-12-03
- *  desc:   TODO
+ *  desc:   viewModel 创建工厂
  */
 object ViewModelFactory {
 
     /**
      *  创建 对应的 ViewModel, 并且 添加 通用 SharedData (LiveData) 到 ViewModel中
      */
-    fun createViewModel(fragment: Fragment, field: Field): BaseViewModel<*> {
+    fun createViewModel(field: Field, fragment: Fragment): BaseViewModel<*> {
         val viewModel = realCreateViewModel(field, fragment)
         initSharedData(fragment as IMvmFragment, viewModel)
         return viewModel
@@ -30,9 +31,9 @@ object ViewModelFactory {
     /**
      *  创建 对应的 ViewModel, 并且 添加 通用 SharedData (LiveData) 到 ViewModel中
      */
-    fun createViewModel(activity: IMvmActivity, field: Field): BaseViewModel<*> {
+    fun createViewModel(field: Field, activity: Activity): BaseViewModel<*> {
         val viewModel = realCreateViewModel(field, activity as FragmentActivity)
-        initSharedData(activity, viewModel)
+        initSharedData(activity as IMvmActivity, viewModel)
         return viewModel
     }
 

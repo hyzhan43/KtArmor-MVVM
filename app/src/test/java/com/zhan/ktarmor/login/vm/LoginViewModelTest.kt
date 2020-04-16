@@ -2,11 +2,24 @@ package com.zhan.ktarmor.login.vm
 
 import android.text.TextUtils
 import com.zhan.ktarmor.R
+import com.zhan.ktarmor.account.data.AccountRepository
+import com.zhan.ktarmor.account.data.response.LoginRsp
 import com.zhan.ktarmor.account.vm.LoginViewModel
+import com.zhan.ktarmor.common.data.BaseResponse
+import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 import io.mockk.*
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runners.Parameterized
 
 /**
  *  author: HyJame
@@ -18,9 +31,12 @@ class LoginViewModelTest {
     @SpyK
     private var loginViewModel = LoginViewModel()
 
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+        Dispatchers.setMain(mainThreadSurrogate)
     }
 
     @Test
@@ -51,4 +67,23 @@ class LoginViewModelTest {
         verify { loginViewModel.showToast(R.string.account_or_password_empty) }
     }
 
+    @Test
+    fun test_login_view_model() = runBlocking {
+        val account = "123"
+        val password = "123"
+
+        mockkStatic(TextUtils::class)
+        every { TextUtils.isEmpty(any()) } returns false
+//        every { loginViewModel.superLaunchRequest(any()) { any<BaseResponse<LoginRsp>>() } } just Runs
+
+        loginViewModel.login(account, password)
+
+//        verify { loginViewModel.superLaunchRequest(any()) { any<BaseResponse<LoginRsp>>() } }
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+        mainThreadSurrogate.close()
+    }
 }

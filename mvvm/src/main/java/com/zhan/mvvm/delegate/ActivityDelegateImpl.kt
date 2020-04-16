@@ -9,23 +9,25 @@ import com.zhan.mvvm.base.IActivity
  *  @date:   2019-11-20
  *  @desc:   activity 代理实现类
  */
-open class ActivityDelegateImpl(private val activity: Activity) : ActivityDelegate {
+open class ActivityDelegateImpl(private var activity: Activity?) : ActivityDelegate {
 
-    private val iActivity = activity as IActivity
+    private var iActivity: IActivity? = activity as IActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 在界面未初始化之前调用的初始化窗口
-        iActivity.initWidows()
+        iActivity?.apply {
+            initWidows()
 
-        if (iActivity.initArgs(activity.intent.extras)) {
-            activity.setContentView(iActivity.getLayoutId())
+            if (initArgs(activity?.intent?.extras)) {
+                activity?.setContentView(getLayoutId())
 
-            iActivity.initBefore()
-            iActivity.initView()
-            iActivity.initListener()
-            iActivity.initData()
-        } else {
-            activity.finish()
+                initBefore()
+                initView()
+                initListener()
+                initData()
+            } else {
+                activity?.finish()
+            }
         }
     }
 
@@ -42,6 +44,8 @@ open class ActivityDelegateImpl(private val activity: Activity) : ActivityDelega
     }
 
     override fun onDestroy() {
+        this.activity = null
+        this.iActivity = null
     }
 
     override fun onSaveInstanceState(activity: Activity?, outState: Bundle?) {

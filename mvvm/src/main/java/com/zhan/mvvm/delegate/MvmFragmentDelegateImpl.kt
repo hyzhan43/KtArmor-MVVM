@@ -2,7 +2,6 @@ package com.zhan.mvvm.delegate
 
 import android.os.Bundle
 import android.view.View
-import androidx.collection.LruCache
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
@@ -16,17 +15,18 @@ import java.lang.reflect.Field
  *  date:   2019-12-03
  *  desc:   IMvmFragment 代理类具体实现
  */
-class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragment: Fragment) :
-    FragmentDelegateImpl(fm, fragment), IMvmFragment {
+class MvmFragmentDelegateImpl(private var fm: FragmentManager?,
+                              private var fragment: Fragment?)
+    : FragmentDelegateImpl(fm, fragment), IMvmFragment {
 
     override fun getLayoutId(): Int = 0
 
-    private val iMvmFragment = fragment as IMvmFragment
+    private var iMvmFragment: IMvmFragment? = fragment as IMvmFragment
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         initViewModel()
         super.onViewCreated(v, savedInstanceState)
-        iMvmFragment.dataObserver()
+        iMvmFragment?.dataObserver()
     }
 
     /**
@@ -34,18 +34,26 @@ class MvmFragmentDelegateImpl(private val fm: FragmentManager, private val fragm
      *  并且 创建 ViewModel 实例, 注入到变量中
      */
     private fun initViewModel() {
-        fragment.javaClass.fields
-            .filter { it.isAnnotationPresent(BindViewModel::class.java) }
-            .forEach {
-                it?.apply {
-                    isAccessible = true
-                    set(fragment, getViewModel(this))
-                }
-            }
+        fragment?.apply {
+            javaClass.fields
+                    .filter { field -> field.isAnnotationPresent(BindViewModel::class.java) }
+                    .forEach { field -> injectViewModel(field, this) }
+        }
     }
 
+    private fun injectViewModel(field: Field?, fragment: Fragment) = field?.apply {
+        isAccessible = true
+        val viewModel = ViewModelFactory.createViewModel(field, fragment)
+        set(fragment, viewModel)
+    }
 
-    private fun getViewModel(field: Field): ViewModel {
-        return ViewModelFactory.createViewModel(fragment, field)
+    /**
+     *  防止内存泄漏
+     */
+    override fun onDestroyed() {
+        super.onDestroyed()
+        this.fm = null
+        this.fragment = null
+        this.iMvmFragment = null
     }
 }

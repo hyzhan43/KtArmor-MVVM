@@ -13,37 +13,41 @@ import com.zhan.mvvm.base.IFragment
  *  desc:   TODO
  */
 open class FragmentDelegateImpl(
-    private val fragmentManager: FragmentManager,
-    private val fragment: Fragment
+        private var fragmentManager: FragmentManager?,
+        private var fragment: Fragment?
 ) : FragmentDelegate {
 
-    private val iFragment = fragment as IFragment
+    private var iFragment: IFragment? = fragment as IFragment
 
     override fun onAttached(context: Context) {
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        var clazz = fragment.javaClass.superclass
 
-        while (clazz?.name != Fragment::class.java.name) {
-            clazz = clazz?.superclass
+        fragment?.let { fragment ->
+            var clazz = fragment.javaClass.superclass
+
+            while (clazz?.name != Fragment::class.java.name) {
+                clazz = clazz?.superclass
+            }
+
+            val field = clazz.getDeclaredField("mContentLayoutId")
+
+            field.isAccessible = true
+            field.set(fragment, iFragment?.getLayoutId())
         }
-
-        val field = clazz.getDeclaredField("mContentLayoutId")
-
-        field.isAccessible = true
-        field.set(fragment, iFragment.getLayoutId())
     }
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
-
-        iFragment.initBefore()
-        iFragment.initView()
-        iFragment.initListener()
-        iFragment.initData()
+        iFragment?.apply {
+            initBefore()
+            initView()
+            initListener()
+            initData()
+        }
     }
 
-    override fun isAdd(): Boolean = fragment.isAdded
+    override fun isAdd(): Boolean = fragment?.isAdded ?: false
 
     override fun onActivityCreate(savedInstanceState: Bundle?) {
     }
@@ -57,18 +61,20 @@ open class FragmentDelegateImpl(
     override fun onPaused() {
     }
 
-    override fun onStopped() {
-    }
+    override fun onStopped() {}
 
-    override fun onSaveInstanceState(outState: Bundle) {
-    }
+    override fun onSaveInstanceState(outState: Bundle) {}
 
-    override fun onViewDestroyed() {
-    }
+    override fun onViewDestroyed() {}
 
+    /**
+     *  防止内存泄漏
+     */
     override fun onDestroyed() {
+        this.fragmentManager = null
+        this.fragment = null
+        this.iFragment = null
     }
 
-    override fun onDetached() {
-    }
+    override fun onDetached() {}
 }
