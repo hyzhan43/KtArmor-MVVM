@@ -91,7 +91,7 @@ allprojects {
 
 [![](https://jitpack.io/v/hyzhan43/KtArmor-MVVM.svg)](https://jitpack.io/#hyzhan43/KtArmor-MVVM)
 ```
-implementation 'com.hyzhan:KtArmor:1.0.8' //查看最新版本
+implementation 'com.github.hyzhan43:KtArmor-MVVM:1.0.8' //查看最新版本
 ```
 
 # 快速上手
