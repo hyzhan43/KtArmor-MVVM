@@ -60,7 +60,7 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     // KtWing
-    api 'com.github.hyzhan43:KtWing:1.0.2'
+    api 'com.github.hyzhan43:KtWing:1.0.3'
 }
 
 afterEvaluate { project ->

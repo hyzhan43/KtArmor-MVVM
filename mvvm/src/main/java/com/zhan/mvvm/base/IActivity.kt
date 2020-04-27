@@ -7,13 +7,11 @@ import com.zhan.mvvm.delegate.ActivityDelegate
 /**
  *  @author: HyJame
  *  @date:   2019-11-20
- *  @desc:   TODO
+ *  @desc:   对应  ActivityDelegateImpl 代理实现类
  */
-interface IActivity: IView{
+interface IActivity : IView {
 
     fun initWidows() {}
 
     fun initArgs(extras: Bundle?): Boolean = true
-
-    fun provideCache(): LruCache<String, ActivityDelegate> = LruCache(100)
 }

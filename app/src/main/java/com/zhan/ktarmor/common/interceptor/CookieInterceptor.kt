@@ -1,7 +1,7 @@
 package com.zhan.ktarmor.common.interceptor
 
 import com.zhan.ktarmor.common.api.API
-import com.zhan.ktwing.common.Preference
+import com.zhan.ktwing.delegate.Preference
 import com.zhan.ktwing.ext.logd
 import okhttp3.Interceptor
 

@@ -20,7 +20,6 @@ object KtArmor {
     var printLog = false
 
     internal fun init(application: Application) {
-        KtWing.init(application)
         application.registerActivityLifecycleCallbacks(ActivityLifecycle)
     }
 
