@@ -16,8 +16,8 @@ class FragmentTest {
     fun test_get_home_fragment_layout_id() {
         var clz = TestFragment::class.java.superclass
 
-        while (clz.name != Fragment::class.java.name) {
-            clz = clz.superclass
+        while (clz?.name != Fragment::class.java.name) {
+            clz = clz?.superclass
         }
 
         val field = clz.getDeclaredField("mContentLayoutId")

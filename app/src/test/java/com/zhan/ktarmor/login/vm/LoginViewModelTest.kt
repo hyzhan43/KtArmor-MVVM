@@ -69,16 +69,16 @@ class LoginViewModelTest {
 
     @Test
     fun test_login_view_model() = runBlocking {
+        // prepare
         val account = "123"
         val password = "123"
 
         mockkStatic(TextUtils::class)
         every { TextUtils.isEmpty(any()) } returns false
-//        every { loginViewModel.superLaunchRequest(any()) { any<BaseResponse<LoginRsp>>() } } just Runs
-
+        // test
         loginViewModel.login(account, password)
-
-//        verify { loginViewModel.superLaunchRequest(any()) { any<BaseResponse<LoginRsp>>() } }
+        //assert
+        verify { loginViewModel.superLaunchRequest(any<CommonLiveData<LoginRsp>>(), any()) }
     }
 
     @After

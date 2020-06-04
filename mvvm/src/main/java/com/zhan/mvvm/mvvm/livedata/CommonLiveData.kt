@@ -6,7 +6,7 @@ import com.zhan.mvvm.constant.Const
 /**
  *  author:  HyJame
  *  date:    2020/3/11
- *  desc:    通用 LiveData (R + String)
+ *  desc:    通用 LiveData (T + String)
  */
 class CommonLiveData<T> : MutableLiveData<T>() {
 
@@ -35,6 +35,6 @@ class CommonLiveData<T> : MutableLiveData<T>() {
     }
 
     fun isException(): Boolean {
-        return exception != null
+        return exception?.message == errorLiveData.value || errorLiveData.value == Const.UNKNOWN_ERROR
     }
 }
