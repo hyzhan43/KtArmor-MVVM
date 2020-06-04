@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/len_20"
-    android:layout_marginEnd="@dimen/len_20"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mTilAccount"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_52">
+        android:layout_marginStart="@dimen/len_20"
+        android:layout_marginEnd="@dimen/len_20"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mTieAccount"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mTilAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/account"
-            android:inputType="phone" />
+            android:layout_marginTop="@dimen/len_52">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mTieAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/account"
+                android:inputType="phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mTilPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_52">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mTiePassword"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mTilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="@dimen/len_52">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mTiePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/mBtnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_20"
-        android:text="@string/login" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/mBtnLoginTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_20"
-        android:text="@string/login_test" />
+        <Button
+            android:id="@+id/mBtnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/len_20"
+            android:text="@string/login" />
 
-    <Button
-        android:id="@+id/mBtnTestService"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_20"
-        android:text="@string/login_service_test" />
+        <Button
+            android:id="@+id/mBtnLoginTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/len_20"
+            android:text="@string/login_test" />
 
-    <Button
-        android:id="@+id/mBtnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/len_20"
-        android:text="@string/register" />
-</LinearLayout>
+        <Button
+            android:id="@+id/mBtnTestService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/len_20"
+            android:text="@string/login_service_test" />
+
+        <Button
+            android:id="@+id/mBtnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/len_20"
+            android:text="@string/register" />
+
+        <Button
+            android:id="@+id/mBtnConcurrentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/len_20"
+            android:text="@string/concurrent_login" />
+
+        <TextView
+            android:id="@+id/mTvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/app_name"></TextView>
+    </LinearLayout>
+</ScrollView>

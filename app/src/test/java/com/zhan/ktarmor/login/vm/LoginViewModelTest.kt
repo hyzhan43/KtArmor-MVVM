@@ -11,6 +11,7 @@ import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
+import junit.framework.Assert.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
@@ -30,6 +31,7 @@ class LoginViewModelTest {
 
     @SpyK
     private var loginViewModel = LoginViewModel()
+
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
@@ -80,6 +82,7 @@ class LoginViewModelTest {
         //assert
         verify { loginViewModel.superLaunchRequest(any<CommonLiveData<LoginRsp>>(), any()) }
     }
+
 
     @After
     fun tearDown() {

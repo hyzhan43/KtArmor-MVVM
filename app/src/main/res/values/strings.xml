@@ -24,4 +24,5 @@
     <string name="three">Three</string>
     <string name="two_one">TwoOne</string>
     <string name="two_two">TwoTwo</string>
+    <string name="concurrent_login">测试并发登录</string>
 </resources>

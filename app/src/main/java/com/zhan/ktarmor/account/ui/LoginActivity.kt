@@ -36,6 +36,10 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
             loginViewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
+        mBtnConcurrentLogin.setOnClickListener {
+            loginViewModel.loginByConcurrent()
+        }
+
         mBtnLoginTest.setOnClickListener {
             loginViewModel.loginByTest(mTieAccount.str(), mTiePassword.str())
         }
@@ -78,6 +82,12 @@ class LoginActivity : AppCompatActivity(), IMvmActivity {
          */
         quickObserveSuccess(loginViewModel.loginData) {
             toast("登录成功")
+        }
+
+        quickObserve(loginViewModel.concurrentData){
+            onFailure {
+                mTvResult.append("\n $it")
+            }
         }
 
         registerViewModel.registerData.observe(this, Observer {

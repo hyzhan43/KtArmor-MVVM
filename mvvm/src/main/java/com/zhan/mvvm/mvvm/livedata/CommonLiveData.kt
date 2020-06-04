@@ -13,22 +13,26 @@ class CommonLiveData<T> : MutableLiveData<T>() {
     val errorLiveData = MutableLiveData<String>()
 
     var exception: Throwable? = null
-        set(value) {
-            field = value
-            errorLiveData.value = value?.message ?: Const.UNKNOWN_ERROR
-        }
 
     var failureMessage: String? = ""
-        set(value) {
-            field = value
-            errorLiveData.value = value
-        }
+
+    fun failureMessage(value: String?){
+        this.failureMessage = value
+        errorLiveData.value = value
+    }
 
     fun postFailureMessage(value: String?) {
+        this.failureMessage = value
         errorLiveData.postValue(value)
     }
 
+    fun exception(throwable: Throwable) {
+        this.exception = throwable
+        errorLiveData.value = throwable.message
+    }
+
     fun postException(throwable: Throwable) {
+        this.exception = throwable
         errorLiveData.postValue(throwable.message)
     }
 

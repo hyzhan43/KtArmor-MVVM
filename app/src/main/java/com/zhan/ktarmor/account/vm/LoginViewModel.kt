@@ -4,8 +4,12 @@ import android.text.TextUtils
 import com.zhan.ktarmor.R
 import com.zhan.ktarmor.account.data.AccountRepository
 import com.zhan.ktarmor.account.data.response.LoginRsp
+import com.zhan.ktarmor.common.data.BaseResponse
+import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
 /**
  * @author  hyzhan
@@ -15,6 +19,8 @@ import com.zhan.mvvm.mvvm.BaseViewModel
 class LoginViewModel : BaseViewModel<AccountRepository>() {
 
     val loginData = CommonLiveData<LoginRsp>()
+
+    val concurrentData = CommonLiveData<LoginRsp>()
 
     fun login(account: String, password: String) {
 
@@ -53,6 +59,42 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
         superLaunchRequest(loginData) { repository.login(account, password) }
     }
 
+    fun loginByConcurrent() {
+        launchUI({
+
+            val now = System.currentTimeMillis()
+            val result = async { repository.login("", "") }
+            val result2 = async { repository.login("", "") }
+
+            result.await().execute({
+
+            }, {
+                concurrentData.postFailureMessage("result $it, nowTime = ${System.currentTimeMillis() - now}")
+            })
+
+            result2.await().execute({
+
+            }, {
+                concurrentData.postFailureMessage("result222 $it, nowTime = ${System.currentTimeMillis() - now}")
+            })
+        })
+
+    }
+
+    private fun asyncLaunchUI(function: () -> Unit) {
+
+    }
+
+    private suspend fun oneTask(): Int {
+        delay(2000)
+        return 1
+    }
+
+    private suspend fun twoTask(): Int {
+        delay(3000)
+        return 2
+    }
+
     fun loginByTest(account: String, password: String) {
         superLaunch(loginData) {
             request { repository.testLogin(account, password) }
@@ -64,4 +106,6 @@ class LoginViewModel : BaseViewModel<AccountRepository>() {
             request { repository.serviceTestLogin(account, password) }
         }
     }
+
+
 }
