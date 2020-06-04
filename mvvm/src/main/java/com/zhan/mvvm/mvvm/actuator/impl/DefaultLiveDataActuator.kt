@@ -14,20 +14,20 @@ open class DefaultLiveDataActuator : ILiveDataActuator {
      * superLaunch -> onSuccess默认实现:  直接传递给 Activity的 quickObserve-> onSuccess
      */
     override fun <R> success(liveData: CommonLiveData<R>, data: R?) {
-        liveData.value = data
+        liveData.postValue(data)
     }
 
     /**
      * superLaunch -> onFailure默认实现:  直接传递给 Activity的 quickObserve-> onFailure
      */
     override fun <R> failure(liveData: CommonLiveData<R>, message: String?) {
-        liveData.failureMessage = message
+        liveData.postFailureMessage(message)
     }
 
     /**
      * superLaunch -> onException默认实现:  直接传递给 Activity的 quickObserve-> onException
      */
     override fun <R> exception(liveData: CommonLiveData<R>, throwable: Throwable?) {
-        liveData.exception = throwable
+        liveData.postException(throwable)
     }
 }

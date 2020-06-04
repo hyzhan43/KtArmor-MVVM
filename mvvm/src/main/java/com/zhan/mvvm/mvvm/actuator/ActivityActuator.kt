@@ -32,17 +32,8 @@ class ActivityActuator<R>(private val owner: LifecycleOwner,
     private var exceptionBlock: ((Throwable?) -> Unit) = { exception(it) }
 
     init {
-        with(liveData) {
-            errorLiveData.observe(owner, Observer {
-                if (isException()) {
-                    exceptionBlock(Throwable(exception))
-                } else {
-                    failureBlock(failureMessage)
-                }
-            })
-
-            this.observe(owner, Observer { successBlock(it) })
-        }
+        liveData.observerError(owner, exceptionBlock, failureBlock)
+        liveData.observe(owner, Observer { successBlock(it) })
     }
 
     fun onSuccess(block: (R?) -> Unit) {
