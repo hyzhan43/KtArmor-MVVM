@@ -25,12 +25,10 @@ class CommonLiveData<T> : MutableLiveData<T>() {
         }
 
     fun postFailureMessage(value: String?) {
-        failureMessage = value
         errorLiveData.postValue(value)
     }
 
     fun postException(throwable: Throwable) {
-        this.exception = throwable
         errorLiveData.postValue(throwable.message)
     }
 
