@@ -25,4 +25,8 @@
     <string name="two_one">TwoOne</string>
     <string name="two_two">TwoTwo</string>
     <string name="concurrent_login">测试并发登录</string>
+    <string name="view_page_fragment">ViewPage + Fragment</string>
+    <string name="hello">Hello</string>
+    <string name="one_welcome">OneWelcome</string>
+    <string name="three_welcome">ThreeWelcome</string>
 </resources>

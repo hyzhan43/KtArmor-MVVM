@@ -29,6 +29,7 @@
         <activity android:name=".account.ui.RegisterActivity"/>
         <activity android:name=".fragment.TestActivity"/>
         <activity android:name=".home.HomeActivity"/>
+        <activity android:name=".welcome.WelcomeActivity"/>
     </application>
 
 </manifest>

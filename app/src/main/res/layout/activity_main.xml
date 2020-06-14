@@ -59,4 +59,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment"/>
+
+    <Button
+        android:id="@+id/btnViewPageFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_page_fragment"/>
 </LinearLayout>

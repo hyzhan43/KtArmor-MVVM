@@ -7,6 +7,7 @@ import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.fragment.TestActivity
 import com.zhan.ktarmor.home.HomeActivity
 import com.zhan.ktarmor.superbar.SuperBarActivity
+import com.zhan.ktarmor.welcome.WelcomeActivity
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.IActivity
@@ -56,6 +57,10 @@ class MainActivity : AppCompatActivity(), IActivity {
 
         btnFragment.setOnClickListener {
             startActivity<TestActivity>()
+        }
+
+        btnViewPageFragment.setOnClickListener {
+            startActivity<WelcomeActivity>()
         }
     }
 }
