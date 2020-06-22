@@ -2,8 +2,6 @@ package com.zhan.mvvm.delegate
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.common.ViewModelFactory
 import com.zhan.mvvm.mvvm.IMvmActivity

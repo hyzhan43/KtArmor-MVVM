@@ -65,4 +65,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/view_page_fragment"/>
+
+    <Button
+        android:id="@+id/mBtnBinding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/binding"/>
+
 </LinearLayout>

@@ -25,11 +25,11 @@
         <activity android:name=".empty.EmptyActivity" />
         <activity android:name=".account.ui.LoginActivity" />
         <activity android:name=".superbar.SuperBarActivity"/>
-<!--        <activity android:name=".list.ArticleActivity"/>-->
         <activity android:name=".account.ui.RegisterActivity"/>
         <activity android:name=".fragment.TestActivity"/>
         <activity android:name=".home.HomeActivity"/>
         <activity android:name=".welcome.WelcomeActivity"/>
+        <activity android:name=".databinding.BindingActivity"/>
     </application>
 
 </manifest>

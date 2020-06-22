@@ -30,4 +30,6 @@
     <string name="one_welcome">OneWelcome</string>
     <string name="three_welcome">ThreeWelcome</string>
     <string name="tab_layout_view_page_fragment">Tab + ViewPage</string>
+    <string name="binding">Databinding</string>
+    <string name="get_user_info">获取User 信息</string>
 </resources>

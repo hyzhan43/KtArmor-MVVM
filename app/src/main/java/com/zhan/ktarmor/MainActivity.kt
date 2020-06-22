@@ -3,6 +3,7 @@ package com.zhan.ktarmor
 import androidx.appcompat.app.AppCompatActivity
 import com.zhan.ktarmor.account.ui.LoginActivity
 import com.zhan.ktarmor.account.ui.RegisterActivity
+import com.zhan.ktarmor.databinding.BindingActivity
 import com.zhan.ktarmor.empty.EmptyActivity
 import com.zhan.ktarmor.fragment.TestActivity
 import com.zhan.ktarmor.home.HomeActivity
@@ -61,6 +62,10 @@ class MainActivity : AppCompatActivity(), IActivity {
 
         btnViewPageFragment.setOnClickListener {
             startActivity<WelcomeActivity>()
+        }
+
+        mBtnBinding.setOnClickListener {
+            startActivity<BindingActivity>()
         }
     }
 }

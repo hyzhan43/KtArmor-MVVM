@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="userViewModel"
+            type="com.zhan.ktarmor.databinding.UserViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mTvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{userViewModel.userLiveData.name}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{userViewModel.userLiveData.nickname}"/>
+
+        <Button
+            android:id="@+id/mBtnChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_user_info"/>
+    </LinearLayout>
+</layout>
