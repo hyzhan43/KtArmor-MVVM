@@ -29,4 +29,5 @@
     <string name="hello">Hello</string>
     <string name="one_welcome">OneWelcome</string>
     <string name="three_welcome">ThreeWelcome</string>
+    <string name="tab_layout_view_page_fragment">Tab + ViewPage</string>
 </resources>

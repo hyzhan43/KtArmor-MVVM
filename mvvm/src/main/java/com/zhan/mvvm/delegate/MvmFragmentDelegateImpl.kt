@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
+import com.zhan.ktwing.ext.logd
 import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhan.mvvm.common.ViewModelFactory
@@ -23,9 +24,10 @@ class MvmFragmentDelegateImpl(private var fm: FragmentManager?,
 
     private var iMvmFragment: IMvmFragment? = fragment as IMvmFragment
 
-    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
+    override fun onCreated(savedInstanceState: Bundle?) {
+        super.onCreated(savedInstanceState)
+
         initViewModel()
-        super.onViewCreated(v, savedInstanceState)
         iMvmFragment?.dataObserver()
     }
 
